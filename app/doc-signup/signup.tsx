@@ -1,19 +1,72 @@
 "use client";
 import Link from "next/link";
 import { useState } from 'react';
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import DefaultImg from "@/public/images/about/DF.png"
 
 
 
 const SignupPage = () => {
-  const [page, setPage] = useState("1");
+  const [page, setPage] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [age, setAge] = useState("");
+  const [experience, setExperience] = useState("");
+  const [specialization, setSpecialization] = useState("");
+  const [description, setDescription] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [profileImg, setProfileImg] = useState(null);
+  const [appointmentFee, setAppointmentFee] = useState("")
+  const [qualification, setQualification] = useState("");
+  const [image, setImage]=useState({});
+  const [uploading,setUploading]=useState(false);
+
+
+  const router = useRouter();
 
   const nextPage = () => {
-    setPage("2")
+    setPage(!page)
+  }
+  const handle = async (event) => {
+    const selectedFile = event.target.files[0];
+    await setProfileImg(selectedFile);
+
+    let formData = new FormData();
+    formData.append("profileImg", profileImg);
+    try {
+      const {data} = await axios.post("http://localhost:8080/v1/doctor/upload",formData);
+      console.log("IMG DATA",data)
+      setImage({
+        url:data.url,
+        public_id:data.public_id
+      })
+    }
+    catch(err){
+      console.log(err.response.data.message);
+    }
+    
+  };
+
+
+  const SubmitForm = async (ev) => {
+    ev.preventDefault();
+   
+    // setUploading(true)
+    try {
+     
+      const result = await axios.post("http://localhost:8080/v1/doctor/signup",{name,email,age, experience, specialization, description,appointmentFee, qualification,password,confirmPassword,image });
+      console.log(result.data.status);
+    }
+    catch (err) {
+      console.log(err.response.data.message);
+      // setUploading(false)
+
+    }
   }
 
-  const backPage = () => {
-    setPage("1")
-  }
+
   return (
     <>
       <section className="relative z-10 overflow-hidden pt-36 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28">
@@ -28,7 +81,7 @@ const SignupPage = () => {
                   It’s totally free and super easy
                 </p>
 
-                {page === "1" &&
+                {!page &&
                   <form>
                     <div className="mb-8">
                       <label
@@ -39,6 +92,8 @@ const SignupPage = () => {
                         Full Name{" "}
                       </label>
                       <input
+                        value={name}
+                        onChange={(event) => { setName(event.target.value) }}
                         type="text"
                         name="name"
                         placeholder="Enter your full name"
@@ -54,6 +109,8 @@ const SignupPage = () => {
                         Age{" "}
                       </label>
                       <input
+                        value={age}
+                        onChange={(event) => { setAge(event.target.value) }}
                         type="number"
                         name="age"
                         min="18"
@@ -70,6 +127,8 @@ const SignupPage = () => {
                         Qualification{" "}
                       </label>
                       <input
+                        value={qualification}
+                        onChange={(event) => { setQualification(event.target.value) }}
                         type="text"
                         name="qualification"
                         placeholder="Enter your qualification"
@@ -85,6 +144,8 @@ const SignupPage = () => {
                         Specailization{" "}
                       </label>
                       <input
+                        value={specialization}
+                        onChange={(event) => { setSpecialization(event.target.value) }}
                         type="text"
                         name="Specailization"
                         required
@@ -102,6 +163,8 @@ const SignupPage = () => {
                         Experience{" "}
                       </label>
                       <input
+                        value={experience}
+                        onChange={(event) => { setExperience(event.target.value) }}
                         type="number"
                         name="experience"
                         min={0}
@@ -119,23 +182,25 @@ const SignupPage = () => {
                         Description{" "}
                       </label>
                       <input
-                        type="number"
+                        value={description}
+                        onChange={(event) => { setDescription(event.target.value) }}
+                        type="text"
                         name="description"
                         required
                         placeholder="Add you description"
                         className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                       />
                     </div>
-                    
+
                     <div className="mb-6 flex">
-                      <button value={page} onClick={nextPage} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
+                      <button onClick={nextPage} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
                         Next
                       </button>
                     </div>
                   </form>
                 }
 
-                {page === "2" &&
+                {page &&
                   <form>
                     <div className="mb-8">
                       <label
@@ -146,6 +211,8 @@ const SignupPage = () => {
                         Email{" "}
                       </label>
                       <input
+                        value={email}
+                        onChange={(event) => { setEmail(event.target.value) }}
                         type="email"
                         name="email"
                         placeholder="Enter your email"
@@ -161,6 +228,8 @@ const SignupPage = () => {
                         Password{" "}
                       </label>
                       <input
+                        value={password}
+                        onChange={(event) => { setPassword(event.target.value) }}
                         type="password"
                         name="password"
                         placeholder="Enter your Password"
@@ -176,6 +245,8 @@ const SignupPage = () => {
                         Confirm Password{" "}
                       </label>
                       <input
+                        value={confirmPassword}
+                        onChange={(event) => { setConfirmPassword(event.target.value) }}
                         type="password"
                         name="confirmPassword"
                         placeholder="Enter your Confirm Password"
@@ -192,6 +263,8 @@ const SignupPage = () => {
                         Appointment Fee{" "}
                       </label>
                       <input
+                        value={appointmentFee}
+                        onChange={(event) => { setAppointmentFee(event.target.value) }}
                         type="number"
                         name="fee"
                         required
@@ -200,18 +273,19 @@ const SignupPage = () => {
                         className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                       />
                     </div>
-                    
+
                     <div className="mb-8">
                       <label
-                        htmlFor="experience"
+                        htmlFor="profileImg"
                         className="mb-3 block text-sm font-medium text-dark dark:text-white"
                       >
                         {" "}
                         Select Your profile Img{" "}
                       </label>
                       <input
+                        onChange={handle}
                         type="file"
-                        name="experience"
+                        name="profileImg"
                         accept="image/*"
                         placeholder="Profile Image"
                         className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
@@ -263,12 +337,12 @@ const SignupPage = () => {
                     </div>
                     <div className="flex justify-between">
                       <div className="mb-6  inline-block  ">
-                        <button value={page} onClick={backPage} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
+                        <button onClick={nextPage} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
                           Back
                         </button>
                       </div>
                       <div className="mb-6  inline-block">
-                        <button value={page} onClick={nextPage} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
+                        <button onClick={SubmitForm} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
                           Submit
                         </button>
                       </div>

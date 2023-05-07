@@ -7,10 +7,10 @@ const checkIcon = (
   </svg>
 );
 
-const AboutSectionOne = () => {
+const AboutSectionThree = () => {
   const List = ({ text }) => (
     <p className="mb-5 flex items-center text-lg font-medium text-fs">
-      <span className="mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-primary">
+      <span className="mr-4 flex h-[30px] w-[30px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-fs">
         {checkIcon}
       </span>
       {text}
@@ -24,14 +24,8 @@ const AboutSectionOne = () => {
           <div className="-mx-4 flex flex-wrap items-center">
             <div className="w-full px-4 lg:w-1/2">
               <SectionTitle
-                title="Revolutionizing Healthcare: The Rise of Digital Hospitals"
-                paragraph="A digital hospital is a healthcare facility that has fully embraced technology and digitalization in its operations. Digital hospitals use technology to streamline processes, improve efficiency, and enhance patient care.
-
-                One of the key features of a digital hospital is the use of electronic health records (EHRs) to store and manage patient data. EHRs allow healthcare providers to access patient information quickly and easily, which can help to improve the accuracy and efficiency of diagnosis and treatment. Digital hospitals also use other types of digital tools and devices, such as telemedicine and remote patient monitoring, to improve access to care for patients and increase the efficiency of healthcare delivery.
-                
-                
-                
-                "
+                title="Improved access to healthcare information"
+                paragraph=" HealthEase websites provide easy access to healthcare information for patients, healthcare providers, and healthcare organizations. Patients can find information about healthcare services, conditions, treatments, and medications, while healthcare providers can access research articles, clinical guidelines, and other resources to support their practice."
                 mb="44px"
               />
 
@@ -41,16 +35,12 @@ const AboutSectionOne = () => {
               >
                 <div className="mx-[-12px] flex flex-wrap">
                   <div className="w-full px-3 sm:w-1/2 lg:w-full xl:w-1/2">
-                    <List text="Electronic health records" />
-                    <List text="Clinical workflow integration" />
-                    <List text="Patient engagement" />
+                    <List text="Improved data management" />
+                    <List text="Increased patient engagemen" />
+                    <List text="Better collaboration" />
                   </div>
 
-                  <div className="w-full px-3 sm:w-1/2 lg:w-full xl:w-1/2">
-                    <List text="Telemedicine and remote patient monitoring" />
-                    <List text="AI algorithms and analytics" />
-                    <List text="Enhanced patient safety" />
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -61,9 +51,9 @@ const AboutSectionOne = () => {
                 data-wow-delay=".2s"
               >
                 <Image
-                  src="/images/about/ab3.jpg"
+                  src="/images/about/ab1.jpg"
                   alt="about-image"
-                 fill
+                  fill
                   className="mx-auto max-w-full lg:mr-0"
                 />
               </div>
@@ -75,4 +65,4 @@ const AboutSectionOne = () => {
   );
 };
 
-export default AboutSectionOne;
+export default AboutSectionThree;

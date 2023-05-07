@@ -1,8 +1,28 @@
 "use client";
 import Link from "next/link";
-import {useState} from "react";
+import axios from "axios"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Signin = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
+
+  const SubmitForm = async (ev) => {
+    try {
+      ev.preventDefault();
+      console.log(email, password)
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_PAT_API}/signIn`, { email, password  });
+      console.log(res.data)
+      router.push('/after-login')
+    }
+
+    catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <>
       <section className="relative z-10 overflow-hidden pt-36 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28">
@@ -14,8 +34,8 @@ const Signin = () => {
                   Sign in to your account
                 </h3>
                 <p className="mb-11 text-center text-base font-medium text-body-color">
-               Login to your account for a faster checkout.</p>
-               
+                  Login to your account for a faster checkout.</p>
+
                 <form>
                   <div className="mb-8">
                     <label
@@ -25,6 +45,8 @@ const Signin = () => {
                       Your Email
                     </label>
                     <input
+                      value={email}
+                      onChange={(event) => { setEmail(event.target.value) }}
                       type="email"
                       name="email"
                       placeholder="Enter your Email"
@@ -39,6 +61,8 @@ const Signin = () => {
                       Your Password
                     </label>
                     <input
+                      value={password}
+                      onChange={(event) => { setPassword(event.target.value) }}
                       type="password"
                       name="password"
                       placeholder="Enter your Password"
@@ -89,7 +113,7 @@ const Signin = () => {
                     </div>
                   </div>
                   <div className="mb-6">
-                    <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
+                    <button onClick={SubmitForm} className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
                       Sign in
                     </button>
                   </div>

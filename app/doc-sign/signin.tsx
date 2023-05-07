@@ -1,8 +1,27 @@
 "use client";
-import Link from "next/link";
-import {useState} from "react";
+import { useState } from "react";
+import axios from "axios"
+import { useRouter } from "next/navigation";
 
 const Signin = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
+
+  const SubmitForm = async (e) => {
+    try {
+      e.preventDefault();
+      console.log(email,password)
+      const res = await axios.post("http://localhost:8080/v1/doctor/logIn", { email, password });
+      router.push('/after-login');
+      console.log(res.data)
+
+    }
+
+    catch (err) {
+      console.log("Error: ",err.response.data.message)
+    }
+  }
   return (
     <>
       <section className="relative z-10 overflow-hidden pt-36 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28">
@@ -14,8 +33,8 @@ const Signin = () => {
                   Sign in to your account
                 </h3>
                 <p className="mb-11 text-center text-base font-medium text-body-color">
-              Welcome back Doctor.</p>
-               
+                  Welcome back Doctor.</p>
+
                 <form>
                   <div className="mb-8">
                     <label
@@ -25,9 +44,11 @@ const Signin = () => {
                       Your Email
                     </label>
                     <input
+                      value={email}
                       type="email"
                       name="email"
                       placeholder="Enter your Email"
+                      onChange={(event) => { setEmail(event.target.value) }}
                       className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
                   </div>
@@ -39,6 +60,8 @@ const Signin = () => {
                       Your Password
                     </label>
                     <input
+                      value={password}
+                      onChange={(event) => { setPassword(event.target.value) }}
                       type="password"
                       name="password"
                       placeholder="Enter your Password"
@@ -82,19 +105,19 @@ const Signin = () => {
                     <div>
                       <a
                         href="/forgetpass"
-                        className="text-sm font-medium text-primary hover:underline"
+                        className="text-sm font-medium text-white hover:underline hover:text-green"
                       >
                         Forgot Password?
                       </a>
                     </div>
                   </div>
                   <div className="mb-6">
-                    <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
+                    <button onClick={SubmitForm} className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
                       Sign in
                     </button>
                   </div>
                 </form>
-               
+
               </div>
             </div>
           </div>

@@ -14,7 +14,7 @@ const BlogDetailsPage = () => {
                         <input
                             type="text"
                             placeholder="Search Doctor Here.........."
-                            className="palceholder-body-color mr-5 w-full rounded-md border border-transparent py-3 px-5 text-base font-medium dark:text-body-color outline-none focus:border-primary bg-grey dark:bg-white text-black dark:bg-opacity-10"
+                            className="palceholder-body-color mr-5 w-full rounded-md border border-transparent py-3 px-5 text-base font-medium dark:text-body-color outline-none focus:border-primary bg-fs dark:bg-fs text-black dark:bg-opacity-10"
                         />
                         <button className="flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-md bg-primary text-white">
                             <svg
@@ -44,9 +44,9 @@ const BlogDetailsPage = () => {
                     </div>
 
                     <div>
-                        <p className="mb-10 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
-                            "<strong className="text-primary dark:text-white"> Our Healthcare</strong> providers specialize in a wide range of medical fields, offering comprehensive care to meet the unique needs of our patients.
-                            We understand that seeking<strong className="text-primary dark:text-white"> medical care </strong> can be a stressful experience, which is why our doctors are not only skilled in their craft but also <strong className="text-primary dark:text-white"> compassionate and empathetic </strong> towards our patients. They take the time to listen to their concerns, answer any questions they may have, and work collaboratively with them to provide the best possible care".
+                        <p className="mb-10 text-base font-medium leading-relaxed text-fs sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
+                            "<strong className="text-primary dark:text-green"> Our Healthcare</strong> providers specialize in a wide range of medical fields, offering comprehensive care to meet the unique needs of our patients.
+                            We understand that seeking<strong className="text-primary dark:text-green"> medical care </strong> can be a stressful experience, which is why our doctors are not only skilled in their craft but also <strong className="text-primary dark:text-green"> compassionate and empathetic </strong> towards our patients. They take the time to listen to their concerns, answer any questions they may have, and work collaboratively with them to provide the best possible care".
                         </p>
                     </div>
 

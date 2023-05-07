@@ -3,7 +3,7 @@ import Link from "next/link";
 const ErrorPage = () => {
   return (
     <>
-      <section className="relative z-10 pt-36 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28">
+      <section className="relative z-10 pt-36 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28 bg-fs">
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">

@@ -1,5 +1,5 @@
 import SignupPage from './signup';
-import Header from "./../../components/Header/header2"
+import Header from "../../components/Header/header2"
 
 
 

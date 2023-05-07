@@ -16,12 +16,13 @@ module.exports = {
       transparent: "transparent",
       white: "#FFFFFF",
       grey:"#D3D3D0",
-      black: "#090E34",
+      black: "#DBDFFD ",
       dark: "#1D2144",
-      primary: "#32CD32",
+      primary: "#4E31AA",
       yellow: "#FBB040",
       green:'#32CD32',
-      "body-color": "#959CB1",
+      fs:"#3A1078",
+      "body-color": "#DBDFFD",
 
     },
     screens: {

@@ -4,9 +4,9 @@ import Header from "@/components/Header";
 const AboutPage = () => {
   return (
     <><Header/>
-      <section className="py-16 md:py-20 lg:py-28">
+      <section className="py-16 md:py-20 lg:py-28 ml-16 mr-16">
 
-        <div className="container  bg-green  bg-opacity-20 dark:bg-opacity-5  ">
+        <div className="container  bg-dark  bg-opacity-20 dark:bg-opacity-100 pb-8  ">
 
           <div className="-mx-4 flex flex-wrap  ">
             <div className="w-full px-4 lg:w-1/3">
@@ -17,7 +17,7 @@ const AboutPage = () => {
 
               </div>
               <div className="mt-12  rounded-md bg-opacity-5 p-6 dark:bg-opacity-5 lg:mt-0 flex justify-center font-sans font-bold">
-                <h1>Dr. Ramesh Parkash</h1>
+                <h1>Karanpreet Singh</h1>
               </div>
 
 
@@ -26,15 +26,14 @@ const AboutPage = () => {
                 <Link
                   href="/signup"
                   className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full ">
-                  Update Profile Image
+                  Update Your Profile
                 </Link>
               </div>
               
 
               <div className="flex items-start my-8 flex-col ml-8">
-                <h2 className="font-bold  w-full text-green ">Description</h2>
-               <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos nam harum perspiciatis, neque aliquid assumenda! Impedit maxime adipisci voluptatum, maiores sunt, odit tempore omnis accusantium officia et distinctio. Corrupti consequatur laboriosam at veritatis ut sint, amet nobis quos cupiditate, officia omnis ipsam temporibus minima sapiente quis mollitia debitis iure non! Pariatur, odio dolor libero corrupti consectetur nemo ut cumque eaque.</p>
-                  {/* <a
+               
+                  <a
                     href="/"
                     aria-label="social-link"
                     className="mr-6 text-[#CED3F6] hover:text-primary mb-4"
@@ -100,7 +99,7 @@ const AboutPage = () => {
                     Linkedin
                     
                   </a>
-              */}
+             
                 </div> 
 
             </div>
@@ -117,28 +116,36 @@ const AboutPage = () => {
 
                   <div className="grid grid-cols-3 gap-6 my-4">
                     <p className="mt-4 font-bold  text-black dark:text-white ">Full Name  </p>
-                    <p className="mt-4 font-bold  text-black dark:text-white ">Ramesh Verma </p>
+                    <p className="mt-4 font-bold  text-black dark:text-white ">Karanpreet Singh </p>
                   </div>
 
                   <hr />
 
                   <div className="grid grid-cols-3 gap-5 my-4">
                     <p className="mt-4 font-bold  text-black dark:text-white ">Email </p>
-                    <p className="mt-4 col-span-2 font-bold  text-black dark:text-white "> rameshverma7877@gmail.com </p>
+                    <p className="mt-4 col-span-2 font-bold  text-black dark:text-white "> karanpreetsingh817@@gmail.com </p>
+                  </div>
+                  <hr />
+                  <div className="grid grid-cols-3 gap-5 my-4">
+                    <p className="mt-4 font-bold  text-black dark:text-white ">Age</p>
+                    <p className="mt-4 font-bold  text-black dark:text-white "> 23  </p>
                   </div>
                   <hr />
 
                   <div className="grid grid-cols-3 gap-5 my-4">
-                    <p className="mt-4 font-bold  text-black dark:text-white ">Specialization</p>
-                    <p className="mt-4 font-bold  text-black dark:text-white "> Brain Expert </p>
+                    <p className="mt-4 font-bold  text-black dark:text-white ">Blood Group</p>
+                    <p className="mt-4 font-bold  text-black dark:text-white "> A+ </p>
                   </div>
                   <hr />
 
+
                   <div className="grid grid-cols-3 gap-5 my-4">
-                    <p className="mt-4 font-bold  text-black dark:text-white ">Experience</p>
-                    <p className="mt-4 font-bold  text-black dark:text-white "> 3 Years  </p>
+                    <p className="mt-4 font-bold  text-black dark:text-white ">Address</p>
+                    <p className="mt-4 font-bold  text-black dark:text-white "> Guru nanak nagar Bhogpur </p>
                   </div>
                   <hr />
+
+                 
 
                   
                   <div className="grid grid-cols-3 gap-5 my-4">
@@ -153,18 +160,15 @@ const AboutPage = () => {
                   </div>
                   <hr />
 
-                  <div className="grid grid-cols-3 gap-5 my-4">
-                    <p className="mt-4 font-bold  text-black dark:text-white ">Appointment Fee</p>
-                    <p className="mt-4 font-bold  text-black dark:text-white "> RS. 200  </p>
-                  </div>
-                  <hr />
+                 
                 
-                <div className="mt-8">
+                <div className="mt-8 ">
                   <Link
                   href="/docupdate"
-                  className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center">
-                  Update Profile
+                  className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center">
+                  Show Reports
                 </Link>
+               
                 </div>
 
 
@@ -179,22 +183,28 @@ const AboutPage = () => {
             
 
           </div>
-          <div className="grid grid-cols-3 gap-6 my-4">
+          <div className="grid grid-cols-4 gap-6 my-4">
           <Link
                   href="/mypatient"
-                  className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center ">
-                  All My Patients
+                  className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center ">
+                  All Reports
                 </Link>
                 <Link
                   href="/todayapp"
-                  className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center ">
-                  Get Todays Appointment
+                  className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center ">
+                  Todays Appointment
                 </Link>
                 <Link
                   href="/apphoistory"
-                  className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center">
+                  className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center">
                   Appointment History
                 </Link>
+                <Link
+                  href="/apphoistory"
+                  className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center">
+                  My Doctors
+                </Link>
+
                   </div>
 
           

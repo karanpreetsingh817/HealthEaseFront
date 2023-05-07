@@ -11,7 +11,7 @@ const AboutSectionTwo = () => {
               data-wow-delay=".15s"
             >
               <Image
-                src="/images/about/ab2.jpg"
+                src="/images/about/ab4.jpg"
                 alt="about image"
                 fill
               />
@@ -21,21 +21,28 @@ const AboutSectionTwo = () => {
             <div className="wow fadeInUp max-w-[470px]" data-wow-delay=".2s">
               <div className="mb-9">
                 <h3 className="mb-4 text-xl font-bold text-fs dark:text-fs sm:text-2xl lg:text-xl xl:text-2xl">
-                Improved accuracy
+                Digital eyechecups
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-fs sm:text-lg sm:leading-relaxed">
-                   Digital laboratory systems are designed to reduce errors and improve the accuracy of test results. They can flag abnormal results, reduce the risk of transcription errors, and minimize the risk of mislabeling samples.
+                Digital eyechecups are advanced diagnostic tools that use digital technology to improve the accuracy and efficiency of eye examinations. Here are some of the key points of digital eyechecups:
                 </p>
               </div>
               <div className="mb-9">
-                <h3 className="mb-4 text-xl font-bold text-fs dark:text-fs sm:text-2xl lg:text-xl xl:text-2xl">
-                Increased data accessibility
+                <h3 className="mb-4 text-xl font-bold text-black dark:text-fs sm:text-2xl lg:text-xl xl:text-2xl">
+                Non-invasive
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-fs sm:text-lg sm:leading-relaxed">
-                Digital laboratory systems make it easier for healthcare providers to access patient data and test results. This can help to improve the speed and accuracy of diagnosis and treatment, and allow for better tracking of patient health over time.
+                Digital eyechecups are non-invasive and do not require any contact with the eye. This makes them more comfortable for patients and reduces the risk of infection or injury.
                 </p>
               </div>
-             
+              <div className="mb-1">
+                <h3 className="mb-4 text-xl font-bold text-black dark:text-fs sm:text-2xl lg:text-xl xl:text-2xl">
+                Portable
+                </h3>
+                <p className="text-base font-medium leading-relaxed text-fs sm:text-lg sm:leading-relaxed">
+                Many digital eyechecups are portable and can be used in a variety of settings, including hospitals, clinics, and remote locations. This makes them a useful tool for providing eye care in underserved areas or during emergencies.
+                </p>
+              </div>
             </div>
           </div>
         </div>

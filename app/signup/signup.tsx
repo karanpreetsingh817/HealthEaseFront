@@ -1,11 +1,24 @@
 "use client";
 import Link from "next/link";
 import { useState } from 'react';
+import axios from "axios"
+import { useRouter } from "next/navigation";
+
 
 
 
 const SignupPage = () => {
   const [page, setPage] = useState("1");
+  const [fullName, setFullName] = useState('')
+  const [age, setAge] = useState('')
+  const [address, setAddress] = useState('')
+  const [bloodGroup, setBloodGroup] = useState('')
+  const [mobile, setMobile] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [profileImg, setProfileImg] = useState('')
+  const router = useRouter();
 
   const nextPage = () => {
     setPage("2")
@@ -14,6 +27,21 @@ const SignupPage = () => {
   const backPage = () => {
     setPage("1")
   }
+
+  const SubmitForm = async (e) => {
+    try {
+      e.preventDefault();
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_PAT_API}/signUp`, { name: fullName, email, password, confirmPassword, age, address, bloodGroup, phoneNumber: mobile });
+      router.push('/after-login');
+      console.log(res.data)
+     
+    }
+
+    catch (err) {
+    console.log(err.response.result)
+    }
+  }
+
   return (
     <>
       <section className="relative z-10 overflow-hidden pt-36 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28">
@@ -28,98 +56,111 @@ const SignupPage = () => {
                   It’s totally free and super easy
                 </p>
 
-                {page === "1" &&
-                  <form>
-                    <div className="mb-8">
-                      <label
-                        htmlFor="name"
-                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                      >
-                        {" "}
-                        Full Name{" "}
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        placeholder="Enter your full name"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
-                      />
-                    </div>
-                    <div className="mb-8">
-                      <label
-                        htmlFor="age"
-                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                      >
-                        {" "}
-                        Age{" "}
-                      </label>
-                      <input
-                        type="number"
-                        name="age"
-                        min="0"
-                        placeholder="Enter your Age"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
-                      />
-                    </div>
-                    <div className="mb-8">
-                      <label
-                        htmlFor="address"
-                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                      >
-                        {" "}
-                        Address{" "}
-                      </label>
-                      <input
-                        type="text"
-                        name="address"
-                        placeholder="Enter your Address"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
-                      />
-                    </div>
-                    <div className="mb-8">
-                      <label
-                        htmlFor="experience"
-                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                      >
-                        {" "}
-                        Enter Your BloodGroup{" "}
-                      </label>
-                      <input
-                        type="text"
-                        name="experience"
-                        required
-                        placeholder="Enter your years of experience"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
-                      />
-                    </div>
+                <form>
+                  {page === "1" &&
+                    <>
 
-                    <div className="mb-8">
-                      <label
-                        htmlFor="mobile"
-                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                      >
-                        {" "}
-                        Enter Your Mobile Number{" "}
-                      </label>
-                      <input
-                        type="number"
-                        name="mobile"
-                        required
-                        placeholder="Enter your mobile number"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
-                      />
-                    </div>
-                    
-                    <div className="mb-6 flex">
-                      <button value={page} onClick={nextPage} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
-                        Next
-                      </button>
-                    </div>
-                  </form>
-                }
+                      <div className="mb-8">
+                        <label
+                          htmlFor="name"
+                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                        >
+                          {" "}
+                          Full Name{" "}
+                        </label>
+                        <input
+                          value={fullName}
+                          onChange={(data) => { setFullName(data.target.value) }}
+                          type="text"
+                          name="name"
+                          placeholder="Enter your full name"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                        />
+                      </div>
+                      <div className="mb-8">
+                        <label
+                          htmlFor="age"
+                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                        >
+                          {" "}
+                          Age{" "}
+                        </label>
+                        <input
+                          value={age}
+                          onChange={(data) => { setAge(data.target.value) }}
+                          type="number"
+                          name="age"
+                          min="0"
+                          placeholder="Enter your Age"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                        />
+                      </div>
+                      <div className="mb-8">
+                        <label
+                          htmlFor="address"
+                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                        >
+                          {" "}
+                          Address{" "}
+                        </label>
+                        <input
+                          value={address}
+                          onChange={(data) => { setAddress(data.target.value) }}
+                          type="text"
+                          name="address"
+                          placeholder="Enter your Address"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                        />
+                      </div>
+                      <div className="mb-8">
+                        <label
+                          htmlFor="experience"
+                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                        >
+                          {" "}
+                          Enter Your BloodGroup{" "}
+                        </label>
+                        <input
+                          value={bloodGroup}
+                          onChange={(data) => { setBloodGroup(data.target.value) }}
+                          type="text"
+                          name="experience"
+                          required
+                          placeholder="Enter your years of experience"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                        />
+                      </div>
 
-                {page === "2" &&
-                  <form>
+                      <div className="mb-8">
+                        <label
+                          htmlFor="mobile"
+                          className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                        >
+                          {" "}
+                          Enter Your Mobile Number{" "}
+                        </label>
+                        <input
+                          value={mobile}
+                          onChange={(data) => { setMobile(data.target.value) }}
+                          type="number"
+                          name="mobile"
+                          required
+                          placeholder="Enter your mobile number"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                        />
+                      </div>
+
+                      <div className="mb-6 flex">
+                        <button value={page} onClick={nextPage} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
+                          Next
+                        </button>
+                      </div>
+                    </>
+
+                  }
+
+                  {page === "2" && <>
+
                     <div className="mb-8">
                       <label
                         htmlFor="email"
@@ -129,6 +170,8 @@ const SignupPage = () => {
                         Email{" "}
                       </label>
                       <input
+                        value={email}
+                        onChange={(data) => { setEmail(data.target.value) }}
                         type="email"
                         name="email"
                         placeholder="Enter your email"
@@ -144,6 +187,8 @@ const SignupPage = () => {
                         Password{" "}
                       </label>
                       <input
+                        value={password}
+                        onChange={(data) => { setPassword(data.target.value) }}
                         type="password"
                         name="password"
                         placeholder="Enter your Password"
@@ -159,28 +204,15 @@ const SignupPage = () => {
                         Confirm Password{" "}
                       </label>
                       <input
+                        value={confirmPassword}
+                        onChange={(data) => { setConfirmPassword(data.target.value) }}
                         type="password"
                         name="confirmPassword"
                         placeholder="Enter your Confirm Password"
                         className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                       />
                     </div>
-                    <div className="mb-8">
-                      <label
-                        htmlFor="experience"
-                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
-                      >
-                        {" "}
-                        Select Your profile Img{" "}
-                      </label>
-                      <input
-                        type="file"
-                        name="experience"
-                        accept="image/*"
-                        placeholder="Profile Image"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
-                      />
-                    </div>
+
                     <div className="mb-8 flex">
                       <label
                         htmlFor="checkboxLabel"
@@ -232,13 +264,16 @@ const SignupPage = () => {
                         </button>
                       </div>
                       <div className="mb-6  inline-block">
-                        <button value={page} onClick={nextPage} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
+                        <button value={page} onClick={SubmitForm} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
                           Submit
                         </button>
                       </div>
                     </div>
-                  </form>
-                }
+                  </>
+                  }
+                </form>
+
+
                 <p className="text-center text-base font-medium text-body-color">
                   Already using HealthEase?
                   <Link href="/signin" className="text-primary hover:underline">
