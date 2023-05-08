@@ -32,15 +32,17 @@ const testimonialData: Testimonial[] = [
   },
 ];
 
-const Testimonials = () => {
+const Testimonials = (props) => {
   return (
+   
     <section className="relative z-10 bg-primary/[.03] py-16 md:py-20 lg:py-28">
       <div className="container">
+      {props.title && 
         <SectionTitle
-          title="What Our Users Says"
+          title="Whats Patient Think About Our Dr. Ramesh Verma"
           paragraph="We're thrilled to hear that our customers are enjoying our healthcare website! It's always our goal to provide the best possible experience for our users."
           center
-        />
+        />}
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
           {testimonialData.map((testimonial) => (

@@ -5,16 +5,16 @@ const Footer = () => {
   return (
     <>
       <footer
-        className="wow fadeInUp relative z-10 bg-primary bg-opacity-5 pt-16 md:pt-20 lg:pt-24"
+        className="wow fadeInUp relative z-10  bg-white bg-opacity-90 pt-16 md:pt-20 lg:pt-24"
         data-wow-delay=".1s"
       >
-        <div className="container">
+        <div className="container  bg-opacity-80">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-5/12">
               <div className="mb-12 max-w-[360px] lg:mb-16">
                 <Link href="/" className="mb-8 inline-block">
                   <Image
-                    src="images/logo/logo-2.svg"
+                    src="images/logo/logo.svg"
                     alt="logo"
                     className="w-full dark:hidden"
                     width={140}
@@ -28,7 +28,7 @@ const Footer = () => {
                     height={30}
                   />
                 </Link>
-                <p className="mb-9 text-base font-medium leading-relaxed text-body-color">
+                <p className="mb-9 text-base font-medium leading-relaxed text-dark">
                   You can connect with us on social media
                 </p>
                 <div className="flex items-center">
@@ -94,7 +94,7 @@ const Footer = () => {
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
+                <h2 className="mb-10 text-xl font-bold text-black dark:text-DARK">
                   Useful Links
                 </h2>
                 <ul>
@@ -131,7 +131,7 @@ const Footer = () => {
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
+                <h2 className="mb-10 text-xl font-bold text-black dark:text-DARK">
                   Terms
                 </h2>
                 <ul>
@@ -168,7 +168,7 @@ const Footer = () => {
 
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-3/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
+                <h2 className="mb-10 text-xl font-bold text-black dark:text-DARK">
                   Support & Help
                 </h2>
                 <ul>

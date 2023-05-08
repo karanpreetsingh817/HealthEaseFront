@@ -20,7 +20,7 @@ const AboutSectionTwo = () => {
           <div className="w-full px-4 lg:w-1/2">
             <div className="wow fadeInUp max-w-[470px]" data-wow-delay=".2s">
               <div className="mb-9">
-                <h3 className="mb-4 text-xl font-bold text-fs dark:text-fs sm:text-2xl lg:text-xl xl:text-2xl">
+                <h3 className="mb-4 text-xl font-bold text-white dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
                 Digital eyechecups
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-fs sm:text-lg sm:leading-relaxed">
@@ -28,7 +28,7 @@ const AboutSectionTwo = () => {
                 </p>
               </div>
               <div className="mb-9">
-                <h3 className="mb-4 text-xl font-bold text-black dark:text-fs sm:text-2xl lg:text-xl xl:text-2xl">
+                <h3 className="mb-4 text-xl font-bold text-white dark:text-fs sm:text-2xl lg:text-xl xl:text-2xl">
                 Non-invasive
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-fs sm:text-lg sm:leading-relaxed">
@@ -36,7 +36,7 @@ const AboutSectionTwo = () => {
                 </p>
               </div>
               <div className="mb-1">
-                <h3 className="mb-4 text-xl font-bold text-black dark:text-fs sm:text-2xl lg:text-xl xl:text-2xl">
+                <h3 className="mb-4 text-xl font-bold text-white dark:text-fs sm:text-2xl lg:text-xl xl:text-2xl">
                 Portable
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-fs sm:text-lg sm:leading-relaxed">

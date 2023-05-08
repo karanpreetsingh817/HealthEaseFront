@@ -12,7 +12,7 @@ const   Forgetpass = () => {
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="mx-auto max-w-[500px] rounded-md bg-primary bg-opacity-5 py-10 px-6 dark:bg-dark sm:p-[60px]">
+              <div className="mx-auto max-w-[500px] rounded-md bg-white bg-opacity-80 py-10 px-6 dark:bg-dark sm:p-[60px]">
                 <h3 className=" pb-4 mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl border-b border-green">
                   Forget Your Password
                 </h3>
@@ -22,7 +22,7 @@ const   Forgetpass = () => {
                   <div className="mb-8">
                     <label
                       htmlFor="email"
-                      className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                      className="mb-3 block text-sm font-medium text-dark"
                     >
                       Your Email
                     </label>
@@ -30,7 +30,7 @@ const   Forgetpass = () => {
                       type="email"
                       name="email"
                       placeholder="Enter Your Register Email"
-                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
                   </div>
                  

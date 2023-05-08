@@ -5,10 +5,9 @@ import Header from "../../components/Header/header2"
 
 const Page = () => {
   return(
-    <>
-    <Header/>
+
     <SigninPage/>
-    </>
+ 
   )
   
 

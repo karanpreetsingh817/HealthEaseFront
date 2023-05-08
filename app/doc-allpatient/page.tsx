@@ -1,14 +1,13 @@
-import PatientCard from "@/components/Patientcard";
-import Header from "@/components/Header";
+import PatientCard from "@/components/Blog";
+
 
 const AllPatient = () => {
-    return (<>
+    return (
     
-        <Header />
+     
         
         <PatientCard />
-        
-    </>
+ 
     )
 }
 

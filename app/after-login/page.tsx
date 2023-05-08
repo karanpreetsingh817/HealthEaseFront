@@ -1,12 +1,11 @@
 import blogData from "@/components/Blog/blogData";
 import DoctorCard from "@/components/Blog/SingleBlog";
 import Image from "next/image";
-import Header from "@/components/Header";
+
 
 const BlogDetailsPage = () => {
     return (
         <>
-        <Header/>
             <section className="pt-[150px] pb-[120px]">
                 <div className="container">
 
@@ -14,7 +13,7 @@ const BlogDetailsPage = () => {
                         <input
                             type="text"
                             placeholder="Search Doctor Here.........."
-                            className="palceholder-body-color mr-5 w-full rounded-md border border-transparent py-3 px-5 text-base font-medium dark:text-body-color outline-none focus:border-primary bg-fs dark:bg-fs text-black dark:bg-opacity-10"
+                            className="palceholder-body-color mr-5 w-full rounded-md border border-transparent py-3 px-5 text-base font-medium dark:text-body-color outline-none focus:border-primary bg-white backdrop-blur-md bg-opacity-90 dark:bg-fs text-black dark:bg-opacity-10"
                         />
                         <button className="flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-md bg-primary text-white">
                             <svg

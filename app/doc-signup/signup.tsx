@@ -30,7 +30,9 @@ const SignupPage = () => {
     setPage(!page)
   }
   const handle = async (event) => {
-    const selectedFile = event.target.files[0];
+    const selectedFile = event.target.files[0]?event.target.files[0]:DefaultImg;
+    
+
     await setProfileImg(selectedFile);
 
     let formData = new FormData();

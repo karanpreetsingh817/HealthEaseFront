@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 
 
 const SignupPage = () => {
+
+  const router = useRouter();
+
   const [page, setPage] = useState("1");
   const [fullName, setFullName] = useState('')
   const [age, setAge] = useState('')
@@ -18,7 +21,8 @@ const SignupPage = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [profileImg, setProfileImg] = useState('')
-  const router = useRouter();
+  const [image, setImage]=useState({});
+ 
 
   const nextPage = () => {
     setPage("2")
@@ -28,17 +32,40 @@ const SignupPage = () => {
     setPage("1")
   }
 
-  const SubmitForm = async (e) => {
-    try {
-      e.preventDefault();
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_PAT_API}/signUp`, { name: fullName, email, password, confirmPassword, age, address, bloodGroup, phoneNumber: mobile });
-      router.push('/after-login');
-      console.log(res.data)
-     
-    }
+  const handle = async (event) => {
+    const selectedFile = event.target.files[0];
+    await setProfileImg(selectedFile);
 
+    let formData = new FormData();
+    formData.append("profileImg", profileImg);
+    try {
+      const {data} = await axios.post("http://localhost:8080/v1/patient/upload",formData);
+      console.log("IMG DATA",data)
+      setImage({
+        url:data.url,
+        public_id:data.public_id
+      })
+    }
+    catch(err){
+      console.log(err.response.data.message);
+    }
+    
+  };
+
+
+  const SubmitForm = async (ev) => {
+    ev.preventDefault();
+   
+    // setUploading(true)
+    try {
+     
+      const result = await axios.post("http://localhost:8080/v1/patient/signup",{name:fullName,email,age, address, bloodGroup, mobile,password,confirmPassword,image });
+      console.log(result.data.status);
+    }
     catch (err) {
-    console.log(err.response.result)
+      console.log(err.response.data.message);
+      // setUploading(false)
+
     }
   }
 
@@ -48,11 +75,11 @@ const SignupPage = () => {
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="mx-auto max-w-[500px] rounded-md bg-primary bg-opacity-5 py-10 px-6 dark:bg-dark sm:p-[60px]">
+              <div className="mx-auto max-w-[500px] rounded-md bg-white bg-opacity-80 backdrop-blur-md py-10 px-6 dark:bg-dark sm:p-[60px]">
                 <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl border-b-2 border-green">
                   Create your account
                 </h3>
-                <p className="mb-11 text-center text-base font-medium text-body-color ">
+                <p className="mb-11 text-center text-base font-medium text-dark ">
                   It’s totally free and super easy
                 </p>
 
@@ -74,7 +101,7 @@ const SignupPage = () => {
                           type="text"
                           name="name"
                           placeholder="Enter your full name"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                         />
                       </div>
                       <div className="mb-8">
@@ -92,7 +119,7 @@ const SignupPage = () => {
                           name="age"
                           min="0"
                           placeholder="Enter your Age"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                         />
                       </div>
                       <div className="mb-8">
@@ -109,7 +136,7 @@ const SignupPage = () => {
                           type="text"
                           name="address"
                           placeholder="Enter your Address"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                         />
                       </div>
                       <div className="mb-8">
@@ -127,7 +154,7 @@ const SignupPage = () => {
                           name="experience"
                           required
                           placeholder="Enter your years of experience"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                         />
                       </div>
 
@@ -146,12 +173,12 @@ const SignupPage = () => {
                           name="mobile"
                           required
                           placeholder="Enter your mobile number"
-                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                          className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                         />
                       </div>
 
                       <div className="mb-6 flex">
-                        <button value={page} onClick={nextPage} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
+                        <button value={page} onClick={nextPage} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
                           Next
                         </button>
                       </div>
@@ -175,7 +202,7 @@ const SignupPage = () => {
                         type="email"
                         name="email"
                         placeholder="Enter your email"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                       />
                     </div>
                     <div className="mb-8">
@@ -192,7 +219,7 @@ const SignupPage = () => {
                         type="password"
                         name="password"
                         placeholder="Enter your Password"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                       />
                     </div>
                     <div className="mb-8">
@@ -209,14 +236,33 @@ const SignupPage = () => {
                         type="password"
                         name="confirmPassword"
                         placeholder="Enter your Confirm Password"
-                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                        className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                      />
+                    </div>
+
+                    <div className="mb-8">
+                      <label
+                        htmlFor="confirmPassword"
+                        className="mb-3 block text-sm font-medium text-dark dark:text-white"
+                      >
+                        {" "}
+                        Profile Image{" "}
+                      </label>
+                      <input
+                        
+                        onChange={handle}
+                        type="file"
+                        name="profileImg"
+                        placeholder="Select Your Profile Image"
+                        accept="image/*"
+                        className="w-full rounded-md border border-transparent py-3 px-6 text-base bg-dark text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                       />
                     </div>
 
                     <div className="mb-8 flex">
                       <label
                         htmlFor="checkboxLabel"
-                        className="flex cursor-pointer select-none text-sm font-medium text-body-color"
+                        className="flex cursor-pointer select-none text-sm font-medium text-white"
                       >
                         <div className="relative">
                           <input
@@ -224,7 +270,7 @@ const SignupPage = () => {
                             id="checkboxLabel"
                             className="sr-only"
                           />
-                          <div className="box mr-4 mt-1 flex h-5 w-5 items-center justify-center rounded border border-body-color border-opacity-20 dark:border-white dark:border-opacity-10">
+                          <div className="box mr-4 mt-1 flex h-5 w-5 items-center justify-center rounded border border-white border-opacity-20 dark:border-white dark:border-opacity-10">
                             <span className="opacity-0">
                               <svg
                                 width="11"
@@ -243,7 +289,7 @@ const SignupPage = () => {
                             </span>
                           </div>
                         </div>
-                        <span>
+                        <span className="text-dark">
                           By creating account means you agree to the
                           <a href="#0" className="text-primary hover:underline">
                             {" "}
@@ -259,12 +305,12 @@ const SignupPage = () => {
                     </div>
                     <div className="flex justify-between">
                       <div className="mb-6  inline-block  ">
-                        <button value={page} onClick={backPage} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
+                        <button value={page} onClick={backPage} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark  transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
                           Back
                         </button>
                       </div>
                       <div className="mb-6  inline-block">
-                        <button value={page} onClick={SubmitForm} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
+                        <button value={page} onClick={SubmitForm} className="flex w-full items-end justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp  ">
                           Submit
                         </button>
                       </div>
@@ -274,7 +320,7 @@ const SignupPage = () => {
                 </form>
 
 
-                <p className="text-center text-base font-medium text-body-color">
+                <p className="text-center text-base font-medium text-dark">
                   Already using HealthEase?
                   <Link href="/signin" className="text-primary hover:underline">
                     Sign in

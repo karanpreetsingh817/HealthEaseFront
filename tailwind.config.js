@@ -14,15 +14,16 @@ module.exports = {
     colors: {
       current: "currentColor",
       transparent: "transparent",
-      white: "#FFFFFF",
+      white: "#000000",
       grey:"#D3D3D0",
       black: "#DBDFFD ",
-      dark: "#1D2144",
-      primary: "#4E31AA",
+      dark: " #FFFFFF",
+      primary: "#4CAF50",
       yellow: "#FBB040",
       green:'#32CD32',
-      fs:"#3A1078",
-      "body-color": "#DBDFFD",
+      fs:"#000000",
+      tcolor:"#000000",
+      "body-color": "#FFFFFF",
 
     },
     screens: {

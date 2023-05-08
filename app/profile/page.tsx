@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import Header from "@/components/Header";
 const AboutPage = () => {
   return (
-    <><Header/>
+
       <section className="py-16 md:py-20 lg:py-28 ml-16 mr-16">
 
         <div className="container  bg-dark  bg-opacity-20 dark:bg-opacity-100 pb-8  ">
@@ -216,7 +215,7 @@ const AboutPage = () => {
 
         </div>
       </section >
-    </>
+
   );
 };
 
