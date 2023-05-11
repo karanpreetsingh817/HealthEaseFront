@@ -1,6 +1,50 @@
 "use client";
+import {useState} from "react";
+import axios from "axios";
+import Cookie from "js-cookie";
+import {useRouter} from "next/navigation"
 
 const   Forgetpass = () => {
+  const router=useRouter()
+  const [newPass,setNewPass]=useState('');
+  const [currentPass,setcurrentPass]=useState('');
+  const [newConfirmPass,setNewConfirmPass]=useState('');
+
+  const handleSubmit=async(e)=>{
+    try {
+      e.preventDefault();
+      const res = await axios.patch("http://localhost:8080/v1/patient/updatePassword", { currentPassword:currentPass,password:newPass, confirmPassword:newConfirmPass 
+      
+    },
+    {headers: {
+      "authorization": `Bearer ${Cookie.get("Jwt")}`,
+      "Content-Type": "application/json"
+    }
+  });
+      const user=res.data.result;
+      const token=Cookie.remove("Jwt");
+      
+      router.push("/")
+     
+
+     
+     
+    }
+
+    catch (err) {
+      alert(err.response.data.message);
+
+      // send custom Error according to Status code or something like that
+      // if(err.response.status===400 ){
+      //   alert("invalid Credentials")
+      // }
+    }
+    
+  
+
+
+  }
+
   return (
     <>
     
@@ -24,6 +68,8 @@ const   Forgetpass = () => {
                       Current Password
                     </label>
                     <input
+                    value={currentPass}
+                    onChange={(el)=>{setcurrentPass(el.target.value)}}
                       type="password"
                       name="oldpass"
                       placeholder="Enter Your Current Password"
@@ -39,6 +85,8 @@ const   Forgetpass = () => {
                       New Password
                     </label>
                     <input
+                     value={newPass}
+                     onChange={(el)=>{setNewPass(el.target.value)}}
                       type="password"
                       name="newpass"
                       placeholder="Enter Your New Password"
@@ -54,6 +102,8 @@ const   Forgetpass = () => {
                       Confirm Password
                     </label>
                     <input
+                     value={newConfirmPass}
+                     onChange={(el)=>{setNewConfirmPass(el.target.value)}}
                       type="password"
                       name="confirmpass"
                       placeholder="Enter  Confirm Password"
@@ -63,7 +113,8 @@ const   Forgetpass = () => {
                  
               
                   <div className="mb-6">
-                    <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
+                    <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                    onClick={handleSubmit}>
                      Update Password
                     </button>
                   </div>

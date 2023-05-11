@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ['www.timeoutdubai.com'],
+  },
   experimental: {
     appDir: true,
   },
@@ -7,3 +10,7 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+
+// next.config.js
+

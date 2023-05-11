@@ -1,9 +1,54 @@
+'use client'
 import blogData from "@/components/Blog/blogData";
 import DoctorCard from "@/components/Blog/SingleBlog";
 import Image from "next/image";
+import {useEffect,useState} from "react"
+import axios from "axios";
+import {useRouter} from "next/navigation";
+import Cookie from "js-cookie";
 
 
-const BlogDetailsPage = () => {
+const AfterLogIn = () => {
+    const router=useRouter();
+
+    const [user,setUser]=useState();
+
+    const callAboutpage=async()=>{
+       
+        try{
+            
+            const res = await axios.get("http://localhost:8080/v1/patient/availbleDoctors",{
+                headers: {
+                    "authorization": `Bearer ${Cookie.get("Jwt")}`,
+                    "Content-Type": "application/json"
+                  },
+            
+                
+            } );
+                console.log(res.data.result)
+            // if(!(res.status===200)){
+            //     const error=new Error(res.error);
+            //     throw error
+
+            // }
+        }
+        catch(err)
+
+        {
+            alert(err.response.data.message);
+            // router.push("/")
+        }
+    }
+
+useEffect(() => {
+    callAboutpage();
+    
+   
+ 
+}, [])
+
+
+
     return (
         <>
             <section className="pt-[150px] pb-[120px]">
@@ -50,14 +95,7 @@ const BlogDetailsPage = () => {
                     </div>
 
                     <div className="-mx-4 flex flex-wrap justify-center">
-                        {blogData.map((blog) => (
-                            <div
-                                key={blog.id}
-                                className="w-full px-4 md:w-2/3 lg:w-1/2 xl:w-1/3"
-                            >
-                                <DoctorCard blog={blog} />
-                            </div>
-                        ))}
+                       
                         {blogData.map((blog) => (
                             <div
                                 key={blog.id}
@@ -74,4 +112,4 @@ const BlogDetailsPage = () => {
     );
 };
 
-export default BlogDetailsPage;
+export default AfterLogIn;

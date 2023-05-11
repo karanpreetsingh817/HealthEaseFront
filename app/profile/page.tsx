@@ -1,22 +1,62 @@
+'use client'
+import{useEffect,useState } from "react"
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
+import {useRouter} from "next/navigation";
+import Cookie from "js-cookie";
 const AboutPage = () => {
+  let Token
+  const [user, setUser]=useState({});
+  const router=useRouter();
+  const getInfo=async()=>{
+       Token=Cookie.get("Jwt")
+      try{
+         const res = await axios.get("http://localhost:8080/v1/patient/doc",{
+              headers: {
+                  "authorization": `Bearer ${Token}`,
+                  "Content-Type": "application/json"
+                }
+          
+               
+          } );
+          // if(!(res.status===200)){
+          //     const error=new Error(res.error);
+          //     throw error
+
+          // }
+          setUser(res.data.result);
+          console.log(user)
+
+      }
+      catch(err)
+      {
+          console.log(err.response.message)
+      }
+  }
+
+useEffect(() => {
+  getInfo();
+
+},[])
+
+  
   return (
 
       <section className="py-16 md:py-20 lg:py-28 ml-16 mr-16">
 
-        <div className="container  bg-dark  bg-opacity-20 dark:bg-opacity-100 pb-8  ">
+        <div className="container  bg-white  bg-opacity-80 backdrop-blur-md  pb-8  ">
 
           <div className="-mx-4 flex flex-wrap  ">
             <div className="w-full px-4 lg:w-1/3">
 
               <div className="wow fadeInUp relative mx-auto mb-12  max-w-[500px] text-center lg:m-0 flex justify-center">
 
-                <Image src="/images/doctor/Docpro.jpg" alt="Doctor-profile-IMG" width={150} height={150} className="rounded-full mb-8 items-top mt-4" />
+                <Image src="/images/about/DF.png" alt="Doctor-profile-IMG" width={150} height={150} className="rounded-full mb-8 items-top mt-4" />
 
               </div>
-              <div className="mt-12  rounded-md bg-opacity-5 p-6 dark:bg-opacity-5 lg:mt-0 flex justify-center font-sans font-bold">
-                <h1>Karanpreet Singh</h1>
+              <div className="mt-12  text-dark rounded-md bg-opacity-5 p-6 dark:bg-opacity-5 lg:mt-0 flex justify-center font-sans font-bold">
+                <h1>{user.name}</h1>
               </div>
 
 
@@ -24,7 +64,7 @@ const AboutPage = () => {
               <div className="wow fadeInUp relative mx-auto mb-12 max-w-[500px] text-center lg:m-0  ">
                 <Link
                   href="/signup"
-                  className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full ">
+                  className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full ">
                   Update Your Profile
                 </Link>
               </div>
@@ -115,32 +155,32 @@ const AboutPage = () => {
 
                   <div className="grid grid-cols-3 gap-6 my-4">
                     <p className="mt-4 font-bold  text-black dark:text-white ">Full Name  </p>
-                    <p className="mt-4 font-bold  text-black dark:text-white ">Karanpreet Singh </p>
+                    <p className="mt-4 font-bold  text-black dark:text-white ">{user.name}</p>
                   </div>
 
                   <hr />
 
                   <div className="grid grid-cols-3 gap-5 my-4">
                     <p className="mt-4 font-bold  text-black dark:text-white ">Email </p>
-                    <p className="mt-4 col-span-2 font-bold  text-black dark:text-white "> karanpreetsingh817@@gmail.com </p>
+                    <p className="mt-4 col-span-2 font-bold  text-black dark:text-white "> {user.email} </p>
                   </div>
                   <hr />
                   <div className="grid grid-cols-3 gap-5 my-4">
                     <p className="mt-4 font-bold  text-black dark:text-white ">Age</p>
-                    <p className="mt-4 font-bold  text-black dark:text-white "> 23  </p>
+                    <p className="mt-4 font-bold  text-black dark:text-white "> {user.age}  </p>
                   </div>
                   <hr />
 
                   <div className="grid grid-cols-3 gap-5 my-4">
                     <p className="mt-4 font-bold  text-black dark:text-white ">Blood Group</p>
-                    <p className="mt-4 font-bold  text-black dark:text-white "> A+ </p>
+                    <p className="mt-4 font-bold  text-black dark:text-white "> {user.bloodGroup} </p>
                   </div>
                   <hr />
 
 
                   <div className="grid grid-cols-3 gap-5 my-4">
                     <p className="mt-4 font-bold  text-black dark:text-white ">Address</p>
-                    <p className="mt-4 font-bold  text-black dark:text-white "> Guru nanak nagar Bhogpur </p>
+                    <p className="mt-4 font-bold  text-black dark:text-white "> {user.address} </p>
                   </div>
                   <hr />
 
@@ -149,13 +189,13 @@ const AboutPage = () => {
                   
                   <div className="grid grid-cols-3 gap-5 my-4">
                     <p className="mt-4 font-bold  text-black dark:text-white ">Mobile Number</p>
-                    <p className="mt-4 font-bold  text-black dark:text-white "> 9914342566 </p>
+                    <p className="mt-4 font-bold  text-black dark:text-white "> {user.phoneNumber} </p>
                   </div>
                   <hr />
 
                   <div className="grid grid-cols-3 gap-5 my-4">
                     <p className="mt-4 font-bold  text-black dark:text-white ">Date Of Joining</p>
-                    <p className="mt-4 font-bold  text-black dark:text-white "> 30-Dec-2022 </p>
+                    <p className="mt-4 font-bold  text-black dark:text-white "> {user.dateOfCreation} </p>
                   </div>
                   <hr />
 
@@ -164,7 +204,7 @@ const AboutPage = () => {
                 <div className="mt-8 ">
                   <Link
                   href="/docupdate"
-                  className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center">
+                  className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center">
                   Show Reports
                 </Link>
                
@@ -185,22 +225,22 @@ const AboutPage = () => {
           <div className="grid grid-cols-4 gap-6 my-4">
           <Link
                   href="/mypatient"
-                  className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center ">
+                  className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center ">
                   All Reports
                 </Link>
                 <Link
                   href="/todayapp"
-                  className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center ">
+                  className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center ">
                   Todays Appointment
                 </Link>
                 <Link
                   href="/apphoistory"
-                  className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center">
+                  className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center">
                   Appointment History
                 </Link>
                 <Link
                   href="/apphoistory"
-                  className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center">
+                  className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center">
                   My Doctors
                 </Link>
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import axios from "axios"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Cookie from "js-cookie"
 
 const Signin = () => {
   const [email, setEmail] = useState('');
@@ -10,22 +11,28 @@ const Signin = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const SubmitForm = async (ev) => {
+  const SubmitForm = async (e) => {
     try {
-      ev.preventDefault();
-      setLoading(true); // Set loading to true
-      console.log(email, password)
-      const result = await axios.post("http://localhost:8080/v1/patient/login", { email, password });
-      console.log(result.data.message);
-      router.push('/after-login')
+      e.preventDefault();
+      const res = await axios.post("http://localhost:8080/v1/patient/logIn", { email, password },{withCredentials:true});
+      const user=res.data.result;
+      Cookie.set("user",JSON.stringify(user));
+      const u=Cookie.get("user")
+      router.push('/after-login');
+
+      confirm("You Are Login Successfully")
+     
     }
 
     catch (err) {
-      console.log(err)
+      alert(err.response.data.message);
+
+      // send custom Error according to Status code or something like that
+      // if(err.response.status===400 ){
+      //   alert("invalid Credentials")
+      // }
     }
-    finally {
-      setLoading(false); // Set loading to false after data has been fetched
-    }
+    
   }
 
   return (

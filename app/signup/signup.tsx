@@ -20,9 +20,10 @@ const SignupPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [profileImg, setProfileImg] = useState('')
-  const [image, setImage]=useState({});
- 
+  const [profileImg, setProfileImg] = useState(null)
+
+  const [image, setImage] = useState({});
+
 
   const nextPage = () => {
     setPage("2")
@@ -35,31 +36,29 @@ const SignupPage = () => {
   const handle = async (event) => {
     const selectedFile = event.target.files[0];
     await setProfileImg(selectedFile);
-
-    let formData = new FormData();
-    formData.append("profileImg", profileImg);
+  
     try {
-      const {data} = await axios.post("http://localhost:8080/v1/patient/upload",formData);
-      console.log("IMG DATA",data)
+      const formData = new FormData();
+      formData.append("profileImg", profileImg);
+      const { data } = await axios.post("http://localhost:8080/v1/patient/upload", formData);
+      console.log("IMG DATA", data);
       setImage({
-        url:data.url,
-        public_id:data.public_id
-      })
-    }
-    catch(err){
+        url: data.url,
+        public_id: data.public_id,
+      });
+    } catch (err) {
       console.log(err.response.data.message);
     }
-    
   };
 
 
   const SubmitForm = async (ev) => {
     ev.preventDefault();
-   
+
     // setUploading(true)
     try {
-     
-      const result = await axios.post("http://localhost:8080/v1/patient/signup",{name:fullName,email,age, address, bloodGroup, mobile,password,confirmPassword,image });
+
+      const result = await axios.post("http://localhost:8080/v1/patient/signup", { name: fullName, email, age, address, bloodGroup, mobile, password, confirmPassword, image });
       console.log(result.data.status);
     }
     catch (err) {
@@ -141,7 +140,7 @@ const SignupPage = () => {
                       </div>
                       <div className="mb-8">
                         <label
-                          htmlFor="experience"
+                          htmlFor="bloodGroup"
                           className="mb-3 block text-sm font-medium text-dark dark:text-white"
                         >
                           {" "}
@@ -151,9 +150,9 @@ const SignupPage = () => {
                           value={bloodGroup}
                           onChange={(data) => { setBloodGroup(data.target.value) }}
                           type="text"
-                          name="experience"
+                          name="bloodGroup"
                           required
-                          placeholder="Enter your years of experience"
+                          placeholder="Enter your BloodGroup"
                           className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                         />
                       </div>
@@ -249,7 +248,7 @@ const SignupPage = () => {
                         Profile Image{" "}
                       </label>
                       <input
-                        
+
                         onChange={handle}
                         type="file"
                         name="profileImg"

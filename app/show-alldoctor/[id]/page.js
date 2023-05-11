@@ -1,13 +1,39 @@
 "use client"
 import Image from "next/image";
-import Link from "next/link";
 import Review from "@/components/Testimonials"
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Cookie from "js-cookie"
+import {useRouter} from "next/navigation";
 
-import {useRouter} from "next/navigation"
 const AboutPage = () => {
-    const router=useRouter();
+    const router = useRouter();
+    const [doctors, setDoctors] = useState([]);
+  
+    useEffect(() => {
+        
+        console.log(router.query)
+      const fetchData = async () => {
+        if(!router.isReady)return
+
+          const { data } = await axios.get(`http://localhost:8080/v1/patient/doctor/${router.query.id}`, {
+            headers: {
+              "authorization": `Bearer ${Cookie.get("Jwt")}`,
+              "Content-Type": "application/json"
+            }
+          });
+          setDoctors(data.result);
+      
+    }
+      fetchData();
+    }, [router.isReady,router.query.id]);
+   
     const handleAllR=()=>{
         router.push("/doc-allreview")
+    }
+
+    const handleAddReview=()=>{
+        router.push("/doc-addreview")
     }
     return (
     
@@ -24,7 +50,7 @@ const AboutPage = () => {
 
                             </div>
                             <div className="mt-12  rounded-md bg-opacity-5 p-6 dark:bg-opacity-5 lg:mt-0 flex justify-center font-sans font-bold">
-                                <h1>Dr. Ramesh Parkash</h1>
+                                <h1>{doctors.name}</h1>
                             </div>
 
 
@@ -35,7 +61,7 @@ const AboutPage = () => {
 
 
                             <div className="flex items-start my-8 flex-col ml-8">
-                                <h2 className="font-bold  w-full text-green tracking-wide">Description</h2>
+                                <h2 className="font-bold  w-full text-green tracking-wide">{doctors.description}</h2>
                                 <p className="text-white font-sans">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos nam harum perspiciatis, neque aliquid assumenda! Impedit maxime adipisci voluptatum, maiores sunt, odit tempore omnis accusantium officia et distinctio. Corrupti consequatur laboriosam at veritatis ut sint, amet nobis quos cupiditate, officia omnis ipsam temporibus minima sapiente quis mollitia debitis iure non! Pariatur, odio dolor libero corrupti consectetur nemo ut cumque eaque.</p>
 
                             </div>
@@ -54,33 +80,33 @@ const AboutPage = () => {
 
                                     <div className="grid grid-cols-3 gap-6 my-4">
                                         <p className="mt-4 font-bold  text-white dark:text-white ">Full Name  </p>
-                                        <p className="mt-4 font-bold  text-white dark:text-white ">Ramesh Verma </p>
+                                        <p className="mt-4 font-bold  text-white dark:text-white ">{doctors.name }</p>
                                     </div>
 
                                     <hr />
 
                                     <div className="grid grid-cols-3 gap-5 my-4">
                                         <p className="mt-4 font-bold  text-white dark:text-white ">Email </p>
-                                        <p className="mt-4 col-span-2 font-bold  text-white dark:text-white "> rameshverma7877@gmail.com </p>
+                                        <p className="mt-4 col-span-2 font-bold  text-white dark:text-white "> {doctors.email} </p>
                                     </div>
                                     <hr />
 
                                     <div className="grid grid-cols-3 gap-5 my-4">
                                         <p className="mt-4 font-bold  text-white dark:text-white ">Specialization</p>
-                                        <p className="mt-4 font-bold  text-white dark:text-white "> Brain Expert </p>
+                                        <p className="mt-4 font-bold  text-white dark:text-white "> {doctors.specailization }</p>
                                     </div>
                                     <hr />
 
                                     <div className="grid grid-cols-3 gap-5 my-4">
                                         <p className="mt-4 font-bold  text-white dark:text-white ">Experience</p>
-                                        <p className="mt-4 font-bold  text-white dark:text-white "> 3 Years  </p>
+                                        <p className="mt-4 font-bold  text-white dark:text-white "> {doctors.experience}  </p>
                                     </div>
                                     <hr />
 
 
                                     <div className="grid grid-cols-3 gap-5 my-4">
                                         <p className="mt-4 font-bold  text-white dark:text-white ">Mobile Number</p>
-                                        <p className="mt-4 font-bold  text-white dark:text-white "> 9914342566 </p>
+                                        <p className="mt-4 font-bold  text-white dark:text-white "> {doctors.phoneNumber} </p>
                                     </div>
                                     <hr />
 
@@ -92,7 +118,7 @@ const AboutPage = () => {
 
                                     <div className="grid grid-cols-3 gap-5 my-4">
                                         <p className="mt-4 font-bold  text-white dark:text-white ">Appointment Fee</p>
-                                        <p className="mt-4 font-bold  text-white dark:text-white "> RS. 200  </p>
+                                        <p className="mt-4 font-bold  text-white dark:text-white "> {doctors.appointmentFee}  </p>
                                     </div>
                                     <hr />
 
@@ -133,5 +159,7 @@ const AboutPage = () => {
         
     );
 };
+
+
 
 export default AboutPage;

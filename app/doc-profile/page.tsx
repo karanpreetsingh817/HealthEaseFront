@@ -1,8 +1,49 @@
+'use client'
 import Image from "next/image";
 import Link from "next/link";
+import {useState,useEffect} from 'react'
+import {useRouter} from "next/navigation"
+import Cookie from "js-cookie";
+import axios from "axios"
 
 
 const AboutPage = () => {
+
+  let Token
+  const [user, setUser]=useState({});
+  const router=useRouter();
+  const getInfo=async()=>{
+       Token=Cookie.get("Jwt")
+      try{
+          const res = await axios.get("http://localhost:8080/v1/patient/doc",{
+              headers: {
+                  "authentication": `Bearer ${Token}`,
+                  "Content-Type": "application/json"
+                }
+          
+              
+          } );
+          // if(!(res.status===200)){
+          //     const error=new Error(res.error);
+          //     throw error
+
+          // }
+          setUser(res.data.result);
+          console.log(user)
+
+      }
+      catch(err)
+      {
+          router.push("/")
+      }
+  }
+
+useEffect(() => {
+  getInfo();
+
+},[])
+
+
   return (
   
       <section className="py-16 md:py-20 lg:py-28">
