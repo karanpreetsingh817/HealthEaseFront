@@ -1,10 +1,56 @@
-import ForgetpassPage from './updatepass';
+'use client'
+import {useState} from "react";
+import axios from "axios";
+import Cookie from "js-cookie";
+import {useRouter} from "next/navigation"
+
 
 
 
 
 const Page = () => {
-  return(
+  const router=useRouter()
+  const [newPass,setNewPass]=useState('');
+  const [currentPass,setcurrentPass]=useState('');
+  const [newConfirmPass,setNewConfirmPass]=useState('');
+
+  const handleSubmit=async(e)=>{
+    try {
+      e.preventDefault();
+      const res = await axios.patch("http://localhost:8080/v1/doctor/updatePassword", { currentPassword:currentPass,password:newPass, confirmPassword:newConfirmPass 
+      
+    },
+    {headers: {
+      "authorization": `Bearer ${Cookie.get("Jwt")}`,
+      "Content-Type": "application/json"
+    }
+  });
+      const user=res.data.result;
+      const token=Cookie.remove("Jwt");
+      
+      router.push("/")
+     
+
+     
+     
+    }
+
+    catch (err) {
+      alert(err.response.data.message);
+
+      // send custom Error according to Status code or something like that
+      // if(err.response.status===400 ){
+      //   alert("invalid Credentials")
+      // }
+    }
+    
+  
+
+
+  }
+
+
+    return(
 
     <section className="relative z-10 overflow-hidden pt-36 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28">
     <div className="container">
@@ -17,20 +63,23 @@ const Page = () => {
            
            
             <form>
-              <div className="mb-8">
+            <div className="mb-8">
                 <label
-                  htmlFor="cpassword"
+                  htmlFor="npassword"
                   className="mb-3 block text-sm font-medium text-dark dark:text-white"
                 >
-                  Current Password
+                   Current Password
                 </label>
                 <input
+                 value={currentPass}
+                 onChange={(el)=>{setcurrentPass(el.target.value)}}
                   type="password"
-                  name="cpassword"
-                  placeholder="Enter Current Password"
+                  name="npassword"
+                  placeholder="Enter New Password"
                   className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                 />
               </div>
+              
               <div className="mb-8">
                 <label
                   htmlFor="npassword"
@@ -39,6 +88,8 @@ const Page = () => {
                    New Password
                 </label>
                 <input
+                 value={newPass}
+                 onChange={(el)=>{setNewPass(el.target.value)}}
                   type="password"
                   name="npassword"
                   placeholder="Enter New Password"
@@ -53,6 +104,8 @@ const Page = () => {
                   Confirm Password
                 </label>
                 <input
+                 value={newConfirmPass}
+                 onChange={(el)=>{setNewConfirmPass(el.target.value)}}
                   type="password"
                   name="ncpassword"
                   placeholder="Enter New Confirm Password"
@@ -62,7 +115,9 @@ const Page = () => {
              
          
               <div className="mb-6">
-                <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
+                <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                onClick={handleSubmit}
+                >
                  Change Password
                 </button>
               </div>

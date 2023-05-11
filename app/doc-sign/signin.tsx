@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios"
 import { useRouter } from "next/navigation";
 
+
 const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,7 +16,6 @@ const Signin = () => {
       const res = await axios.post("http://localhost:8080/v1/doctor/logIn", { email, password });
       router.push('/after-login');
       console.log(res.data)
-
     }
 
     catch (err) {
@@ -26,9 +26,9 @@ const Signin = () => {
     <>
       <section className="relative z-10 overflow-hidden pt-36 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28">
         <div className="container">
-          <div className="-mx-4 flex flex-wrap">
+          <div className="-mx-4 flex flex-wrap ">
             <div className="w-full px-4">
-              <div className="mx-auto max-w-[500px] rounded-md bg-primary bg-opacity-5 py-10 px-6 dark:bg-dark sm:p-[60px]">
+              <div className="mx-auto max-w-[500px] rounded-md  bg-opacity-80  py-10 px-6  sm:p-[60px] bg-white backdrop-blur-md">
                 <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl border-b-2 border-green ">
                   Sign in to your account
                 </h3>
@@ -49,7 +49,7 @@ const Signin = () => {
                       name="email"
                       placeholder="Enter your Email"
                       onChange={(event) => { setEmail(event.target.value) }}
-                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
                   </div>
                   <div className="mb-8">
@@ -65,7 +65,7 @@ const Signin = () => {
                       type="password"
                       name="password"
                       placeholder="Enter your Password"
-                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
                   </div>
                   <div className="mb-8 flex flex-col justify-between sm:flex-row sm:items-center">
@@ -105,14 +105,14 @@ const Signin = () => {
                     <div>
                       <a
                         href="/forgetpass"
-                        className="text-sm font-medium text-white hover:underline hover:text-green"
+                        className="text-sm font-medium text-dark hover:underline hover:text-green"
                       >
                         Forgot Password?
                       </a>
                     </div>
                   </div>
                   <div className="mb-6">
-                    <button onClick={SubmitForm} className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
+                    <button onClick={SubmitForm} className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp">
                       Sign in
                     </button>
                   </div>

@@ -1,13 +1,51 @@
-import Review from "@/components/Testimonials";
-import Header from "@/components/Header";
-const Page=()=>{
-    return(<section >
- 
+'use client'
+import Review from "@/components/ReviewCard";
+import {useEffect, useState} from "react"
+import {useRouter} from "next/navigation";
+import axios from "axios"
+import Cookie from "js-cookie"
 
+const Page=()=>{
+    // const router=useRouter();
+
+    const [review,setReview]=useState();
+
+    const callAboutpage=async()=>{
+       
+        try{
+            
+            const res = await axios.get("http://localhost:8080/v1/:doctorId/reviews",{
+                headers: {
+                    "authorization": `Bearer ${Cookie.get("Jwt")}`,
+                    "Content-Type": "application/json"
+                  },
+            
+                
+            } );
+               if(res.data.result){
+                setReview(res.data.result);
+               }
+         
+        
+        }
+        catch(err)
+
+        {
+            alert(err.response.data.message);
+            // router.push("/")
+        }
+    }
+
+useEffect(() => {
+    callAboutpage();
     
-        <Review title={"Doctor Ramesh Singh"}/>
-        <Review/>
-        <Review/>
+   
+ 
+}, [])
+
+    return(<section >
+
+        <Review title={"Doctor Ramesh Singh"} reviews={review}     />
        
         </section>
     )
