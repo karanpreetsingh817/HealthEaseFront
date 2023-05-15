@@ -1,53 +1,60 @@
 'use client'
 import Review from "@/components/ReviewCard";
-import {useEffect, useState} from "react"
-import {useRouter} from "next/navigation";
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation";
 import axios from "axios"
 import Cookie from "js-cookie"
 
-const Page=()=>{
-    // const router=useRouter();
+const Page = () => {
+    const router = useRouter();
 
-    const [review,setReview]=useState();
+    const [review, setReview] = useState([]);
 
-    const callAboutpage=async()=>{
-       
-        try{
-            
-            const res = await axios.get("http://localhost:8080/v1/:doctorId/reviews",{
+    const callAboutpage = async () => {
+
+        try {
+
+            const res = await axios.get(`http://localhost:8080/v1/doctor/${Cookie.get("doctorId")}/reviews`, {
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
-                  },
-            
-                
-            } );
-               if(res.data.result){
-                setReview(res.data.result);
-               }
-         
-        
-        }
-        catch(err)
+                },
 
-        {
-            alert(err.response.data.message);
-            // router.push("/")
+
+            });
+           
+                setReview(res.data.result);
+            
+
+
+        }
+        catch (err) {
+            console.log(err)
+            
         }
     }
 
-useEffect(() => {
-    callAboutpage();
-    
-   
- 
-}, [])
+    useEffect(() => {
+        callAboutpage();
+        console.log(review)
 
-    return(<section >
 
-        <Review title={"Doctor Ramesh Singh"} reviews={review}     />
-       
-        </section>
+
+    }, [])
+
+    return (<section >
+        { review.length!==0 &&(
+
+            <Review title={"All Reviews Of Doctor"} Reviews={review} />
+        )
+        }
+        { review.length===0 &&(
+           
+           <div className="h-1/2 w-full z-10">Thereis no review</div>
+        )
+        }
+
+    </section>
     )
 }
 export default Page

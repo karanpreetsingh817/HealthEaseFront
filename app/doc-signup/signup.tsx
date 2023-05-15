@@ -54,12 +54,14 @@ const SignupPage = () => {
 
   const SubmitForm = async (ev) => {
     ev.preventDefault();
+    console.log(name,email,age, experience, specialization, description,appointmentFee, qualification,password,confirmPassword,)
    
     // setUploading(true)
     try {
      
       const result = await axios.post("http://localhost:8080/v1/doctor/signup",{name,email,age, experience, specialization, description,appointmentFee, qualification,password,confirmPassword,image });
       console.log(result.data.status);
+      router.push("/doc-profile");
     }
     catch (err) {
       console.log(err.response.data.message);
@@ -167,7 +169,7 @@ const SignupPage = () => {
                       <input
                         value={experience}
                         onChange={(event) => { setExperience(event.target.value) }}
-                        type="number"
+                        type="text"
                         name="experience"
                         min={0}
                         required

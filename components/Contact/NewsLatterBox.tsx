@@ -8,10 +8,9 @@ const NewsLatterBox = () => {
         Subscribe to receive future updates
       </h3>
       <p className="mb-11 border-b border-body-color border-opacity-25 pb-11 text-base font-medium leading-relaxed text-body-color dark:border-white dark:border-opacity-25">
-        Lorem ipsum dolor sited Sed ullam corper consectur adipiscing Mae ornare
-        massa quis lectus.
+        Stay informed about our hospital's latest medical advancements, community outreach programs, and events by subscribing to our newsletter
       </p>
-      
+
       <div className="absolute top-0 left-0 z-[-1]">
         <svg
           width="370"

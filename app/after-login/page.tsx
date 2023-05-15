@@ -2,6 +2,7 @@
 import blogData from "@/components/Blog/blogData";
 import DoctorCard from "@/components/Blog/SingleBlog";
 import Image from "next/image";
+import Link from "next/link";
 import {useEffect,useState} from "react"
 import axios from "axios";
 import {useRouter} from "next/navigation";
@@ -26,17 +27,13 @@ const AfterLogIn = () => {
                 
             } );
                 console.log(res.data.result)
-            // if(!(res.status===200)){
-            //     const error=new Error(res.error);
-            //     throw error
-
-            // }
+             
         }
         catch(err)
 
         {
             alert(err.response.data.message);
-            // router.push("/")
+            
         }
     }
 
@@ -105,6 +102,14 @@ useEffect(() => {
                             </div>
                         ))}
                     </div>
+
+                    <div className="wow fadeInUp relative mx-auto mb-12 max-w-full text-center lg:m-0 mt-16  flex  justify-end ">
+                <Link
+                  href="/show-alldoctor"
+                  className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-[500] ">
+                  Show All Doctors
+                </Link>
+              </div>
 
                 </div>
             </section>

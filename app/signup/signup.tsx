@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from 'react';
 import axios from "axios"
 import { useRouter } from "next/navigation";
+  import Cookie from "js-cookie"
 
 
 
@@ -60,6 +61,8 @@ const SignupPage = () => {
 
       const result = await axios.post("http://localhost:8080/v1/patient/signup", { name: fullName, email, age, address, bloodGroup, mobile, password, confirmPassword, image });
       console.log(result.data.status);
+      Cookie.set("userName",result.data.result.name);
+      router.push("/after-login")
     }
     catch (err) {
       console.log(err.response.data.message);

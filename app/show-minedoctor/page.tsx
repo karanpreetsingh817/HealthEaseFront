@@ -13,7 +13,6 @@ const AllDoctor = () => {
     const callAboutpage=async()=>{
        
         try{
-          if(!Cookie.get("Jwt")) return router.push("/signin")
             
             const res = await axios.get("http://localhost:8080/v1/patient/alldoctor",{
                 headers: {
@@ -45,7 +44,7 @@ useEffect(() => {
         <section id="blog" className="bg-white/5 bg-opacity-90 py-16 md:py-20 lg:py-28">
         <div className="container">
           <SectionTitle
-            title="Here List Of All  Doctors"
+            title="Here List Of All Your Doctors"
             paragraph=""
             center
           />

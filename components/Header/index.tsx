@@ -14,15 +14,19 @@ const Header = () => {
 
 const router=useRouter()
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState({});
+  const [username,setUserName]=useState('');
+  const [role,setRole]=useState('')
+  
 
   
   useEffect(() => {
     const Token=Cookie.get("Jwt");
+   setUserName(Cookie.get("username"));
+ 
 
     if(Token) {
       setIsLoggedIn(true);
-      setUser(Cookie.get("user"));
+      setRole(Cookie.get("role"));
     }
   },[isLoggedIn,Date.now()]);
 
@@ -160,18 +164,18 @@ const router=useRouter()
                   isLoggedIn ? (
 
                     <>
-
-<Link
-                        href="/signin"
+                    <button
+                    onClick={()=>{router.push(`/${role}`)}}
                         className="ease-in-up hidden rounded-md bg-dark py-3 px-8 text-base font-bold text-primary transition duration-300 hover:bg-opacity-90 hover:shadow-signUp  md:block md:px-9 lg:px-6 xl:px-9 mr-4"
                       >
-                       {}
-                      </Link>
+                        {username}
+                      </button>
+
 
                       <button
                       onClick={()=>{
-                        console.log('i am called clearCookie()')
                         Cookie.remove('Jwt');
+                        Cookie.remove("username");
                         setIsLoggedIn(false);
                         router.push("/");
                       }}

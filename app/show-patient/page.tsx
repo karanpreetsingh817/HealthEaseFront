@@ -1,6 +1,6 @@
 'use client'
 import SectionTitle from "@/components/Common/SectionTitle";
-import SingleBlog from "@/components/DoctorCard/SingleBlog"
+import SingleBlog from "@/components/PatientCard/SingleBlog"
 import {useState, useEffect } from 'react';
 import {useRouter} from "next/navigation"
 import axios from "axios";
@@ -9,19 +9,18 @@ import Cookie from "js-cookie"
 const AllDoctor = () => {
 
     const router=useRouter();
-    const [doctors,setDoctors]=useState([]);
+    const [patients,setPatients]=useState([]);
     const callAboutpage=async()=>{
        
         try{
-          if(!Cookie.get("Jwt")) return router.push("/signin")
             
-            const res = await axios.get("http://localhost:8080/v1/patient/alldoctor",{
+            const res = await axios.get("http://localhost:8080/v1/patient",{
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
                   },                
             } );
-            setDoctors(res.data.result)
+            setPatients(res.data.result)
             console.log(res.data.result)
         }
 
@@ -41,19 +40,19 @@ useEffect(() => {
     return (
         <>
         {
-       doctors ? (
+       patients ? (
         <section id="blog" className="bg-white/5 bg-opacity-90 py-16 md:py-20 lg:py-28">
         <div className="container">
           <SectionTitle
-            title="Here List Of All  Doctors"
+            title="Here List Of All Patients "
             paragraph=""
             center
           />
   
           <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 md:gap-x-6 lg:gap-x-8 xl:grid-cols-3">
-            {doctors.map((doctor) => (
-              <div key={doctor._id} className="w-full">
-                <SingleBlog doctor={doctor} />
+            {patients.map((patient) => (
+              <div key={patient._id} className="w-full">
+                <SingleBlog patient={patient} />
               </div>
             ))}
           </div>

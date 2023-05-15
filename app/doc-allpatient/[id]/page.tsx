@@ -15,7 +15,7 @@ const AboutPage = () => {
     address:null,
     phoneNumber:null,
     dateOfCreation:null
- 
+
   });
   const router=useRouter();
   const getInfo=async()=>{
@@ -212,7 +212,7 @@ useEffect(() => {
                 
                 <div className="mt-8 ">
                   <Link
-                  href="/show-reports"
+                  href="/docupdate"
                   className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center">
                   Show Reports
                 </Link>
@@ -239,9 +239,9 @@ useEffect(() => {
                   Todays Appointment
                 </Link>
                 <Link
-                  href="/all-appointments"
+                  href="/apphoistory"
                   className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center mx-4">
-                  All Appointment
+                  Appointment History
                 </Link>
                 <Link
                   href="/show-minedoctor"

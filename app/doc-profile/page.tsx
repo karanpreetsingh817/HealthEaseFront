@@ -10,14 +10,24 @@ import axios from "axios"
 const AboutPage = () => {
 
   let Token
-  const [user, setUser]=useState({});
+  const [user, setUser]=useState({
+    name:null,
+    email:null,
+    specialization:null,
+    experience:null,
+    description:null,
+    phoneNumber:null,
+    appointmentFee:null,
+    profileImg:null,
+    dateOfCreation:null
+  });
   const router=useRouter();
   const getInfo=async()=>{
        Token=Cookie.get("Jwt")
       try{
-          const res = await axios.get("http://localhost:8080/v1/patient/doc",{
+          const res = await axios.get("http://localhost:8080/v1/doctor/doc",{
               headers: {
-                  "authentication": `Bearer ${Token}`,
+                  "authorization": `Bearer ${Token}`,
                   "Content-Type": "application/json"
                 }
           
@@ -59,23 +69,23 @@ useEffect(() => {
 
               </div>
               <div className="mt-12  rounded-md bg-opacity-5 p-6 dark:bg-opacity-5 lg:mt-0 flex justify-center font-sans font-bold text-dark">
-                <h1 className="text-white">Dr. Ramesh Parkash</h1>
+                <h1 className="text-white">{user.name}</h1>
               </div>
 
 
 
               <div className="wow fadeInUp relative mx-auto mb-12 max-w-[500px] text-center lg:m-0  ">
                 <Link
-                  href="/signup"
-                  className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-white transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full ">
-                  Update Profile Image
+                  href="/create-slots"
+                  className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full ">
+                  Create Slots
                 </Link>
               </div>
               
 
               <div className="flex items-start my-8 flex-col ml-8">
                 <h2 className="font-bold  w-full text-green ">Description</h2>
-               <p className="text-white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos nam harum perspiciatis, neque aliquid assumenda! Impedit maxime adipisci voluptatum, maiores sunt, odit tempore omnis accusantium officia et distinctio. Corrupti consequatur laboriosam at veritatis ut sint, amet nobis quos cupiditate, officia omnis ipsam temporibus minima sapiente quis mollitia debitis iure non! Pariatur, odio dolor libero corrupti consectetur nemo ut cumque eaque.</p>
+               <p className="text-white">{user.description}</p>
                  
                 </div> 
 
@@ -93,51 +103,51 @@ useEffect(() => {
 
                   <div className="grid grid-cols-3 gap-6 my-4">
                     <p className="mt-4 font-bold  text-white  ">Full Name  </p>
-                    <p className="mt-4 font-bold  text-white  ">Ramesh Verma </p>
+                    <p className="mt-4 font-bold  text-white  ">{user.name} </p>
                   </div>
 
                   <hr />
 
                   <div className="grid grid-cols-3 gap-5 my-4">
                     <p className="mt-4 font-bold  text-white dark:text-white ">Email </p>
-                    <p className="mt-4 col-span-2 font-bold  text-white dark:text-white "> rameshverma7877@gmail.com </p>
+                    <p className="mt-4 col-span-2 font-bold  text-white dark:text-white ">{user.email}</p>
                   </div>
                   <hr />
 
                   <div className="grid grid-cols-3 gap-5 my-4">
                     <p className="mt-4 font-bold  text-white dark:text-white ">Specialization</p>
-                    <p className="mt-4 font-bold  text-white dark:text-white "> Brain Expert </p>
+                    <p className="mt-4 font-bold  text-white dark:text-white "> {user.specialization} </p>
                   </div>
                   <hr />
 
                   <div className="grid grid-cols-3 gap-5 my-4">
                     <p className="mt-4 font-bold  text-white dark:text-white ">Experience</p>
-                    <p className="mt-4 font-bold  text-white dark:text-white "> 3 Years  </p>
+                    <p className="mt-4 font-bold  text-white dark:text-white "> {user.experience} </p>
                   </div>
                   <hr />
 
                   
-                  <div className="grid grid-cols-3 gap-5 my-4">
+                  {/* <div className="grid grid-cols-3 gap-5 my-4">
                     <p className="mt-4 font-bold  text-white dark:text-white ">Mobile Number</p>
-                    <p className="mt-4 font-bold  text-white dark:text-white "> 9914342566 </p>
+                    <p className="mt-4 font-bold  text-white dark:text-white "> {user.phoneNumber} </p>
                   </div>
-                  <hr />
+                  <hr /> */}
 
                   <div className="grid grid-cols-3 gap-5 my-4">
                     <p className="mt-4 font-bold  text-white dark:text-white ">Date Of Joining</p>
-                    <p className="mt-4 font-bold  text-whhite dark:text-white "> 30-Dec-2022 </p>
+                    <p className="mt-4 font-bold  text-whhite dark:text-white "> {user.dateOfCreation}</p>
                   </div>
                   <hr />
 
                   <div className="grid grid-cols-3 gap-5 my-4">
                     <p className="mt-4 font-bold  text-white dark:text-white ">Appointment Fee</p>
-                    <p className="mt-4 font-bold  text-white dark:text-white "> RS. 200  </p>
+                    <p className="mt-4 font-bold  text-white dark:text-white "> {user.appointmentFee} </p>
                   </div>
                   <hr />
                 
                 <div className="mt-8">
                   <Link
-                  href="/docupdate"
+                  href="/doc-updateprofile"
                   className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center">
                   Update Profile
                 </Link>
@@ -162,9 +172,9 @@ useEffect(() => {
                   All My Patients
                 </Link>
                 <Link
-                  href="/todayapp"
+                  href="/all-appointments"
                   className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center ">
-                  Get Todays Appointment
+                  All Appointments
                 </Link>
                 <Link
                   href="/apphoistory"

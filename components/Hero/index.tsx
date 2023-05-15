@@ -1,6 +1,8 @@
-import Link from "next/link";
 
 const Hero = () => {
+
+
+
   return (
     <>
       <section
@@ -15,12 +17,15 @@ const Hero = () => {
                 data-wow-delay=".2s"
               >
                 <h1 className="mb-5 text-3xl font-bold leading-tight text-white  sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
-                Making <span className="bg-green text-dark ">HealthEase</span> accessible and affordable for everyone.
+                  Making <span className="bg-green text-dark ">HealthEase</span> accessible and affordable for everyone.
 
                 </h1>
                 <p className="mb-12 text-base font-medium !leading-relaxed text-white dark:text-white dark:opacity-90 sm:text-lg md:text-xl">
-                Startup is free Next.js template for startups and SaaS business websites comes with all the essential pages, components, and sections you need to launch a complete business website, built-with Next 13.x and Tailwind CSS.
+
+                  Exceptional Medical Care, Unmatched Expertise, and Compassionate Service: Your Trusted Partner for Comprehensive Healthcare Solutions and Personalized Treatment
                 </p>
+
+
               </div>
             </div>
           </div>

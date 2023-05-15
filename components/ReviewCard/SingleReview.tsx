@@ -6,7 +6,7 @@ const starIcon = (
   </svg>
 );
 
-const SingleTestimonial = ({ Review }) => {
+const SingleReview = ({ Review }) => {
   const { rating, patient, profileImg, review } = Review;
 
   let ratingIcons = [];
@@ -46,4 +46,4 @@ const SingleTestimonial = ({ Review }) => {
   );
 };
 
-export default SingleTestimonial;
+export default SingleReview;
