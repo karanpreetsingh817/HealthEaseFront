@@ -10,7 +10,7 @@ const SingleBlog = ({ patient }) => {
         data-wow-delay=".1s"
       >
         <Link 
-         href={`/show-alldoctor/${_id}`}  
+         href={`/doc-allpatient/${patient._id}`}  
         className="relative block h-[220px] w-full">
           <span className="absolute top-6 right-6 z-20 inline-flex items-center justify-center rounded-full bg-primary py-2 px-4 text-sm font-semibold capitalize text-white">
             Patient
@@ -20,7 +20,7 @@ const SingleBlog = ({ patient }) => {
         <div className="p-6 sm:p-8 md:py-8 md:px-6 lg:p-8 xl:py-8 xl:px-5 2xl:p-8">
           <h3>
             <Link
-              href={`/show-alldoctor/${_id}`}  
+              href={`/doc-allpatient/${_id}`}  
               className="mb-4 block text-xl font-bold text-dark  hover:text-primary dark:text-dark dark:hover:text-primary sm:text-2xl"
             >
               {name}

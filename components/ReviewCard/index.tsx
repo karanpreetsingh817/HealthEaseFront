@@ -1,6 +1,6 @@
 import SectionTitle from "../Common/SectionTitle";
 import SingleReview from "./SingleReview";
-const RevieCard = ({title , reviews}) => {
+const RevieCard = ({title , Reviews}) => {
   return (
    
     <section className="relative z-10 bg-primary/[.03] py-16 md:py-20 lg:py-28">
@@ -13,8 +13,8 @@ const RevieCard = ({title , reviews}) => {
         />
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
-          {reviews.map((Review) => (
-            <SingleReview key={Review._id} Review={Review} />
+          {Reviews.map((review) => (
+            <SingleReview key={review._id} Review={review} />
           ))}
         </div>
       </div>

@@ -9,16 +9,19 @@ const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
   const SubmitForm = async (e) => {
     try {
       e.preventDefault();
       const res = await axios.post("http://localhost:8080/v1/patient/logIn", { email, password },{withCredentials:true});
-      const user=res.data.result;
-      Cookie.set("user",JSON.stringify(user));
-      const u=Cookie.get("user")
+      const user=res.data.user;
+      Cookie.set("username",user.name);
+    
       router.push('/after-login');
+
+     
 
       confirm("You Are Login Successfully")
      

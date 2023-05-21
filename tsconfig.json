@@ -23,6 +23,6 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "app/404.jsx", "app/not-found.tsx", "app/show-alldoctor/[id]", "app/show-alldoctor/[id]/page.js"],
+  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "app/404.jsx", "app/not-found.tsx", "app/show-alldoctor/[id]", "app/show-alldoctor/[id]/page.js", "app/upcoming-appointments/page.tsx", "app/doc-allpatient/[id]/page.tsx"],
   "exclude": ["node_modules"]
 }

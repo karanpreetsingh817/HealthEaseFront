@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import "node_modules/react-modal-video/css/modal-video.css";
 import "../styles/index.css";
+import "../styles/Home.css"
 import { Roboto_Mono } from "@next/font/google";
 import SplashScreen from "../components/SplashScreen"
 import { usePathname } from "next/navigation";

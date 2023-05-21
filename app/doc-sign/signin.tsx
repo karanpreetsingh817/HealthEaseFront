@@ -4,22 +4,23 @@ import axios from "axios"
 import { useRouter } from "next/navigation";
 
 
+
 const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+  
 
   const SubmitForm = async (e) => {
     try {
       e.preventDefault();
-      console.log(email,password)
-      const res = await axios.post("http://localhost:8080/v1/doctor/logIn", { email, password });
-      router.push('/after-login');
-      console.log(res.data)
+      const res = await axios.post("http://localhost:8080/v1/doctor/logIn", { email, password },{withCredentials:true});
+      router.push('/doc-afterlogin');
+     
     }
 
     catch (err) {
-      console.log("Error: ",err.response.data.message)
+      console.log("Error: ",err.response)
     }
   }
   return (
