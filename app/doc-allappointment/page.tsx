@@ -1,8 +1,8 @@
 'use client'
 import { useState, useEffect } from "react"
+import {useRouter} from "next/navigation"
 import axios from "axios"
 import Cookie from "js-cookie"
-import {useRouter} from "next/navigation"
 
 
 
@@ -13,7 +13,7 @@ const Page = () => {
     useEffect(() => {
         const fetchData = async () => {
             // const p1=Cookie.get("model")
-            const res = await axios.get(`http://localhost:8080/v1/appointment/allAppointmentOfMin`, {
+            const res = await axios.get(`http://localhost:8080/v1/appointment/allAppointmentOfMine`, {
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
@@ -21,9 +21,11 @@ const Page = () => {
                 withCredentials: true
             });
             setData(res.data.result);
+
         };
         fetchData();
-
+        
+      
 
     }, []);
 
@@ -32,11 +34,45 @@ const Page = () => {
     const doneAppointment = data.filter((appointment) => appointment.status === 'done');
     const cancledAppointment = data.filter((appointment) => appointment.status === 'cancled');
 
+
+    const handleDone=async(id)=>{
+        window.location.reload();
+        try {
+       
+        const res = await axios.patch("http://localhost:8080/v1/appointment/makeAppointmentDone", {  id
+        
+      },
+      {headers: {
+        "authorization": `Bearer ${Cookie.get("Jwt")}`,
+        "Content-Type": "application/json"
+      }
+    });
+        const user=res.data.result;
+        console.log(user)
+
+
+      }
+  
+      catch (err) {
+        alert(err.response.data.message);
+  
+        // send custom Error according to Status code or something like that
+        // if(err.response.status===400 ){
+        //   alert("invalid Credentials")
+        // }
+      }
+      
+    
+  
+  
+    }
+
+    
     const handleCancle=async(id)=>{
         window.location.reload();
         try {
        
-            const res = await axios.patch("http://localhost:8080/v1/appointment/cancleAppointmentP", {  id
+            const res = await axios.patch("http://localhost:8080/v1/appointment/cancleAppointment", {  id
             
           },
           {headers: {
@@ -71,7 +107,7 @@ const Page = () => {
                 <div>
                     <table className="w-full bg-primary bg-opacity-20 pb-16  py-4 ">
                         <thead>
-                            <tr className="bg-white bg-opacity-20 ">
+                            <tr className="bg-white bg-opacity-20 ]">
                                 <th className="px-16 py-8">Doctor Name</th>
                                 <th className="px-16 py-8">Patient Name</th>
                                 <th className="px-16 py-8">Date</th>
@@ -84,7 +120,7 @@ const Page = () => {
 
                         <tbody>
                             <tr>
-                                <td className="col-span-6 text-primary pl-8  text-xl font-bold pt-4"> Upcoming Appointments</td>
+                                <td className="col-span-6 text-primary pl-8  text-xl font-bold pt-4 "> Upcoming Appointments</td>
                             </tr>
                             {upcomingAappointment.map((appointment) => (
                                 <tr key={appointment._id} >
@@ -93,7 +129,7 @@ const Page = () => {
                                     <td className="px-16 py-8">{appointment.timing}</td>
                                     <td className="px-16 py-8">{`${appointment.startHour} : ${appointment.startMinute === 0 ? '00' : appointment.startMinute}`}</td>
                                     <td className="px-16 py-8">{appointment.patientId.phoneNumber}</td>
-                                    <td className="px-16 py-8 text-yellow">
+                                    <td className="px-16 py-8 text-yellow"><button className="bg-green text-dark p-2 m-2" onClick={()=>{handleDone(appointment._id)}}>Done</button>
                                     <button className="bg-yellow text-dark p-2" onClick={()=>{handleCancle(appointment._id)}}>Cancle</button>
                                     </td>
                                 </tr>

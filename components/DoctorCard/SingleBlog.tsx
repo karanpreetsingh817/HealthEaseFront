@@ -1,8 +1,10 @@
+'use client'
+import Cookie from "js-cookie"
 import Image from "next/image";
 import Link from "next/link";
 
-const 
-SingleBlog = ({ doctor }) => {
+const SingleBlog = ({ doctor }) => {
+  const role=Cookie.get("role")
   const { description,profileImg,name,qualification,specialization,age,experience,_id } = doctor;
   return (
     <>
@@ -16,12 +18,12 @@ SingleBlog = ({ doctor }) => {
           <span className="absolute top-6 right-6 z-20 inline-flex items-center justify-center rounded-full bg-dark py-2 px-4 text-sm font-semibold capitalize text-white">
             {qualification}
           </span>
-          <Image src={"https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/udHvbKwV-IMG-Dubai-UAE-1.jpg"} alt="image"  width={500} height={300} layout="responsive" />
+          <Image className="mt-12" src={`https://res.cloudinary.com/dgtv2w9av/image/upload/v1684475795/tpvigvnidpwwxc48edvm.jpg`} alt="image" style={{ width: '100%', height: '100%', objectFit: 'contain' }} fill/>
         </Link>
         <div className="p-6 sm:p-8 md:py-8 md:px-6 lg:p-8 xl:py-8 xl:px-5 2xl:p-8">
           <h3>
             <Link
-              href={`/show-alldoctor/${_id}`}  
+             href={`${role === 'doc-profile' ? '/admin-totaldoctor/' + _id : '/show-alldoctor/' + _id}`}
               className="mb-4 pt-12 block text-xl font-bold text-dark  hover:text-primary dark:text-dark dark:hover:text-primary sm:text-2xl"
             >
               {experience}

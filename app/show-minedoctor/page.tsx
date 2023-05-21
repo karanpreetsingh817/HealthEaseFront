@@ -14,7 +14,7 @@ const AllDoctor = () => {
        
         try{
             
-            const res = await axios.get("http://localhost:8080/v1/patient/alldoctor",{
+            const res = await axios.get("http://localhost:8080/v1/appointment/mineDoctor",{
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"

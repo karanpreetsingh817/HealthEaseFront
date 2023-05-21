@@ -1,38 +1,59 @@
 "use client"
 import Image from "next/image";
-import ReviewCard from "@/components/ReviewCard/index"
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookie from "js-cookie"
-import { usePathname ,useRouter} from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Doctor = () => {
-    const router=useRouter()
+    const router=useRouter();
     const x = usePathname()
     const [doctor, setDoctor] = useState({});
 
     const [id, setId] = useState("")
-  const [review ,setReview]=useState([])
+
     useEffect(() => {
         const fetchData = async () => {
 
             let y = x.split("/")
             setId(y[2])
-            const { data } = await axios.get(`http://localhost:8080/v1/patient/doctor/${id}`, {
+            const { data } = await axios.get(`http://localhost:8080/v1/doctor/${y[2]}`, {
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
                 }
             });
+            console.log(data.result);
             setDoctor(data.result);
-            Cookie.set("doctorId",id)
-            setReview(data.review)
-            console.log(data.review)
+            Cookie.set("doctorId", id)
+
+
         }
         fetchData();
-    }, [id]);
+    }, []);
 
-   
+    const handleDelete = async () => {
+        try {
+
+            const res = await axios.delete(`http://localhost:8080/v1/doctor/${id}`, {
+                headers: {
+                    "authorization": `Bearer ${Cookie.get("Jwt")}`,
+                    "Content-Type": "application/json"
+                },
+
+
+            });
+            alert("deleted")
+            router.push("/admin-totaldoctor")
+
+
+        }
+        catch (err) {
+            // alert(err.response.data.message);
+
+        }
+    }
+
     return (
 
 
@@ -124,44 +145,21 @@ const Doctor = () => {
 
 
 
-                                <button className=" w-full justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mt-4" onClick={()=>{router.push("/book-appointment")}}>
-                                    Make Appointment
+                                <button className=" w-full justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mt-4" onClick={handleDelete}>
+                                    Delete Doctor
                                 </button>
                             </div>
                         </div>
                     </div>
-                    
-                
+
+
 
 
 
 
                 </div>
-<div>
-{ review &&(
 
-    <ReviewCard title={"What Our Patient Think About Doctor"} Reviews={review} />
-)
-}
-{ !review &&(
-   
-   <div className="h-1/2 w-full z-10">Thereis no review</div>
-)
-}</div>
-                
-                
-                <div className="flex justify-end mr-28  pb-8">
 
-                    <button className="w-1/6 justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mr-8"
-                    onClick={()=>{router.push("/doc-addreview")}}>
-                        Add Review
-                    </button>
-                    <button className="w-1/6 justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mr-8"
-                    onClick={()=>{router.push("doc-allreview")}}>
-                        All Reviews
-                    </button>
-
-                </div>
 
 
 

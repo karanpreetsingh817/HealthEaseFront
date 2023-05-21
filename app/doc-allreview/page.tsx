@@ -24,6 +24,7 @@ const Page = () => {
             });
            
                 setReview(res.data.result);
+                console.log(review)
             
 
 
@@ -36,7 +37,6 @@ const Page = () => {
 
     useEffect(() => {
         callAboutpage();
-        console.log(review)
 
 
 

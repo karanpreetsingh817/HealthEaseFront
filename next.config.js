@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['www.timeoutdubai.com'],
+    domains: ['www.timeoutdubai.com','res.cloudinary.com'],
+
   },
   experimental: {
     appDir: true,

@@ -1,8 +1,9 @@
+'use client'
 import Image from "next/image";
 import Link from "next/link";
 
-const SingleBlog = ({ patient }) => {
-  const { name,bloodGroup,age,_id,address ,phoneNumber } = patient;
+const SingleBlog = ({ doctor }) => {
+  const { description,profileImg,name,qualification,specialization,age,experience,_id } = doctor;
   return (
     <>
       <div
@@ -10,24 +11,24 @@ const SingleBlog = ({ patient }) => {
         data-wow-delay=".1s"
       >
         <Link 
-         href={`/doc-allpatient/${patient._id}`}  
-        className="relative block h-[220px] w-full">
-          <span className="absolute top-6 right-6 z-20 inline-flex items-center justify-center rounded-full bg-primary py-2 px-4 text-sm font-semibold capitalize text-white">
-            Patient
+        href={`/admin-totaldoctor/${_id}` }  
+        className="relative block h-[220px] w-full ">
+          <span className="absolute top-6 right-6 z-20 inline-flex items-center justify-center rounded-full bg-dark py-2 px-4 text-sm font-semibold capitalize text-white">
+            {qualification}
           </span>
-          <Image src={"https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/udHvbKwV-IMG-Dubai-UAE-1.jpg"} alt="image" fill />
+          <Image className="mt-12" src={`https://res.cloudinary.com/dgtv2w9av/image/upload/v1684475795/tpvigvnidpwwxc48edvm.jpg`} alt="image" style={{ width: '100%', height: '100%', objectFit: 'contain' }} fill/>
         </Link>
         <div className="p-6 sm:p-8 md:py-8 md:px-6 lg:p-8 xl:py-8 xl:px-5 2xl:p-8">
           <h3>
             <Link
-              href={`/doc-allpatient/${_id}`}  
-              className="mb-4 block text-xl font-bold text-dark  hover:text-primary dark:text-dark dark:hover:text-primary sm:text-2xl"
+              href={`/admin-totaldoctor/${_id}` }  
+              className="mb-4 pt-12 block text-xl font-bold text-dark  hover:text-primary dark:text-dark dark:hover:text-primary sm:text-2xl"
             >
-              {name}
+              {experience}
             </Link>
           </h3>
-          <p className="mb-6 border-b border-body-color border-opacity-10 pb-6 text-base  text-dark dark:border-white dark:border-opacity-10">
-            {address}
+          <p className="mb-6 border-b border-body-color border-opacity-10 pb-6 text-base  text-body-color dark:border-white dark:border-opacity-10">
+            {description}
           </p>
           <div className="flex items-center">
             <div className="mr-5 flex items-center border-r border-body-color border-opacity-10 pr-5 dark:border-white dark:border-opacity-10 xl:mr-3 xl:pr-3 2xl:mr-5 2xl:pr-5">
@@ -38,9 +39,9 @@ const SingleBlog = ({ patient }) => {
               </div>
               <div className="w-full">
                 <h4 className="mb-1 text-sm font-medium text-dark dark:text-dark">
-                   {phoneNumber}
+                  By {name}
                 </h4>
-                <p className="text-xs text-body-color">{bloodGroup}</p>
+                <p className="text-xs text-body-color">{specialization}</p>
               </div>
             </div>
             <div className="inline-block">

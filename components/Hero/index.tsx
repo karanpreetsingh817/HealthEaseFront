@@ -1,6 +1,14 @@
-
+'use client'
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Cookie from "js-cookie"
 const Hero = () => {
 
+  const [isLogin, setIsLogin] = useState(false);
+  useEffect(() => {
+    const Jwt = Cookie.get("Jwt");
+    if (Jwt) setIsLogin(true)
+  }, [])
 
 
   return (
@@ -24,6 +32,22 @@ const Hero = () => {
 
                   Exceptional Medical Care, Unmatched Expertise, and Compassionate Service: Your Trusted Partner for Comprehensive Healthcare Solutions and Personalized Treatment
                 </p>
+                {!isLogin && (<div className="flex  justify-center"
+                >
+                  <p className=" text-2xl font-semibold inline-block  ">Are You A Doctor
+
+                    <Link
+                      href={"/doc-sign"}
+                      className=" text-dark px-4 ml-4 py-2 bg-[#0096FF]  hover:bg-opacity-60 rounded-md text-4xl">
+                      LogIn Here
+                    </Link>
+
+
+                  </p>
+
+                </div>
+                )
+                }
 
 
               </div>

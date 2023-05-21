@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import Review from "@/components/Testimonials"
+import ReviewCard from "@/components/ReviewCard/index"
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookie from "js-cookie"
@@ -12,16 +12,12 @@ const Doctor = () => {
     const [doctor, setDoctor] = useState({});
 
     const [id, setId] = useState("")
+  const [review ,setReview]=useState([])
     useEffect(() => {
-
-
         const fetchData = async () => {
 
             let y = x.split("/")
             setId(y[2])
-            console.log(id)
-
-
             const { data } = await axios.get(`http://localhost:8080/v1/patient/doctor/${id}`, {
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
@@ -30,11 +26,11 @@ const Doctor = () => {
             });
             setDoctor(data.result);
             Cookie.set("doctorId",id)
-
-
+            setReview(data.review)
+            console.log(data.review)
         }
         fetchData();
-    }, [id, doctor]);
+    }, [id]);
 
     const handleAllR = () => {
         router.push("/doc-allreview")
@@ -140,19 +136,33 @@ const Doctor = () => {
                             </div>
                         </div>
                     </div>
+                    
+                
 
 
 
 
                 </div>
-                <Review />
+<div>
+{ review &&(
+
+    <ReviewCard title={"What Our Patient Think About Doctor"} Reviews={review} />
+)
+}
+{ !review &&(
+   
+   <div className="h-1/2 w-full z-10">Thereis no review</div>
+)
+}</div>
+                
+                
                 <div className="flex justify-end  pb-8">
 
                     <button className="w-1/6 justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mr-8"
                     onClick={()=>{router.push("/doc-addreview")}}>
                         Add Review
                     </button>
-                    <button onClick={handleAllR} className=" w-1/6 justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block">
+                    <button onClick={()=>{router.push("/doc-allreview")}} className=" w-1/6 justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block">
                         All Review
                     </button>
 

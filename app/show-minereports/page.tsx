@@ -13,9 +13,8 @@ const AllDoctor = () => {
     const callAboutpage=async()=>{
        
         try{
-          const patientId=Cookie.get("patientId")
             
-            const res = await axios.get(`http://localhost:8080/v1/report/${patientId}`,{
+            const res = await axios.get(`http://localhost:8080/v1/report/yes`,{
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
@@ -23,7 +22,7 @@ const AllDoctor = () => {
                   withCredentials:true            
             } );
             setReports(res.data.result)
-            console.log(res.data.result)
+           
         }
 
         catch(err)

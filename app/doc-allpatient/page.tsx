@@ -14,14 +14,14 @@ const AllDoctor = () => {
        
         try{
             
-            const res = await axios.get("http://localhost:8080/v1/patient",{
+            const res = await axios.get("http://localhost:8080/v1/appointment/minePatient",{
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
                   },                
             } );
             setPatients(res.data.result)
-            console.log(res.data.result)
+            console.log(patients)
         }
 
         catch(err)
@@ -55,6 +55,7 @@ useEffect(() => {
                 <SingleBlog patient={patient} />
               </div>
             ))}
+         
           </div>
         </div>
       </section>

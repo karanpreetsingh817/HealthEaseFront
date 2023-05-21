@@ -172,7 +172,7 @@ useEffect(() => {
                   All My Patients
                 </Link>
                 <Link
-                  href="/all-appointments"
+                  href="/doc-allappointment"
                   className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center ">
                   All Appointments
                 </Link>

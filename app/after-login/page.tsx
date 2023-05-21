@@ -3,46 +3,71 @@ import blogData from "@/components/Blog/blogData";
 import DoctorCard from "@/components/Blog/SingleBlog";
 import Image from "next/image";
 import Link from "next/link";
-import {useEffect,useState} from "react"
+import { useEffect, useState } from "react"
 import axios from "axios";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
 
 
 const AfterLogIn = () => {
-    const router=useRouter();
+    const router = useRouter();
 
-    const [user,setUser]=useState();
+    const [search, setSearch] = useState("");
 
-    const callAboutpage=async()=>{
-       
-        try{
-            
-            const res = await axios.get("http://localhost:8080/v1/patient/availbleDoctors",{
+    const callAboutpage = async () => {
+
+        try {
+
+            const res = await axios.get("http://localhost:8080/v1/patient/availbleDoctors", {
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
-                  },
-            
-                
-            } );
-                console.log(res.data.result)
-             
-        }
-        catch(err)
+                },
 
-        {
-            alert(err.response.data.message);
-            
+
+            });
+            console.log(res.data.result)
+
+        }
+        catch (err) {
+            // alert(err.response.data.message);
+
         }
     }
 
-useEffect(() => {
-    callAboutpage();
-    
-   
- 
-}, [])
+    const handleSearch = async (el) => {
+        el.preventDefault();
+        try {
+            const res = await axios.get("http://localhost:8080/v1/patient/findByName", {
+                headers: {
+                    "authorization": `Bearer ${Cookie.get("Jwt")}`,
+                    "Content-Type": "application/json"
+                },
+                params:{
+                    name:search
+                },
+                withCredentials:true
+            });
+
+            const doctor=res.data.result;
+            console.log(res.data.result)
+            router.push(`/show-alldoctor/${doctor._id}`)
+        
+
+        }
+        catch (err) {
+            console.log(err.response)
+            // router.push('/')
+        }
+
+    }
+
+    useEffect(() => {
+        callAboutpage();
+
+
+
+    }, [])
 
 
 
@@ -53,11 +78,14 @@ useEffect(() => {
 
                     <form className="flex items-center justify-center w-full mb-10  ">
                         <input
+                            value={search}
+                            onChange={(el) => { setSearch(el.target.value) }}
                             type="text"
                             placeholder="Search Doctor Here.........."
                             className="palceholder-body-color mr-5 w-full rounded-md border border-transparent py-3 px-5 text-base font-medium dark:text-body-color outline-none focus:border-primary bg-white backdrop-blur-md bg-opacity-90 dark:bg-fs text-black dark:bg-opacity-10"
                         />
-                        <button className="flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-md bg-primary text-white">
+                        <button className="flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-md bg-primary text-white"
+                            onClick={handleSearch}>
                             <svg
                                 width="20"
                                 height="18"
@@ -92,7 +120,7 @@ useEffect(() => {
                     </div>
 
                     <div className="-mx-4 flex flex-wrap justify-center">
-                       
+
                         {blogData.map((blog) => (
                             <div
                                 key={blog.id}
@@ -104,12 +132,12 @@ useEffect(() => {
                     </div>
 
                     <div className="wow fadeInUp relative mx-auto mb-12 max-w-full text-center lg:m-0 mt-16  flex  justify-end ">
-                <Link
-                  href="/show-alldoctor"
-                  className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-[500] ">
-                  Show All Doctors
-                </Link>
-              </div>
+                        <Link
+                            href="/show-alldoctor"
+                            className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-[500] ">
+                            Show All Doctors
+                        </Link>
+                    </div>
 
                 </div>
             </section>

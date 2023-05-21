@@ -59,6 +59,28 @@ useEffect(() => {
   getInfo();
 
 },[])
+const handleDelete=async()=>{
+  try {
+
+    const res = await axios.delete(`http://localhost:8080/v1/doctor/deleteOne/${id}`, {
+        headers: {
+            "authorization": `Bearer ${Cookie.get("Jwt")}`,
+            "Content-Type": "application/json"
+        },
+
+
+    });
+    alert("deleted")
+    router.push("/admin-totalpatient")
+
+
+}
+catch (err) {
+    // alert(err.response.data.message);
+
+}
+
+}
 
   
   return (
@@ -215,17 +237,14 @@ useEffect(() => {
 
                  
                 
-                <div className="mt-8 flex justify-between">
-                  <Link
-                  href="/show-reports"
-                  className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center ">
-                  Show Reports
-                </Link>
-                <Link
-                  href="/add-report"
-                  className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center">
-                  Add Report
-                </Link>
+                <div className="mt-8 flex justify-canter">
+                  <button
+                  onClick={handleDelete}
+                  
+                  className="ease-in-up w-full rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center ">
+                  Delete Patient
+                </button>
+               
                
                 </div>
 

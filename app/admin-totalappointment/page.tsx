@@ -13,7 +13,7 @@ const Page = () => {
     useEffect(() => {
         const fetchData = async () => {
             // const p1=Cookie.get("model")
-            const res = await axios.get(`http://localhost:8080/v1/appointment/allAppointmentOfMin`, {
+            const res = await axios.get(`http://localhost:8080/v1/appointment`, {
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
@@ -21,6 +21,7 @@ const Page = () => {
                 withCredentials: true
             });
             setData(res.data.result);
+            console.log(res.data.result)
         };
         fetchData();
 
@@ -93,9 +94,7 @@ const Page = () => {
                                     <td className="px-16 py-8">{appointment.timing}</td>
                                     <td className="px-16 py-8">{`${appointment.startHour} : ${appointment.startMinute === 0 ? '00' : appointment.startMinute}`}</td>
                                     <td className="px-16 py-8">{appointment.patientId.phoneNumber}</td>
-                                    <td className="px-16 py-8 text-yellow">
-                                    <button className="bg-yellow text-dark p-2" onClick={()=>{handleCancle(appointment._id)}}>Cancle</button>
-                                    </td>
+                                    <td className="px-16 py-8 text-primary">{appointment.status}</td>
                                 </tr>
                             ))}
                              {upcomingAappointment.length === 0 && (

@@ -100,9 +100,9 @@ const Calendar = () => {
                         const slotId = time._id;
                         handlebutton1(slotId)
                         setDate((prev) => ({ ...prev, justTime: time }))
-                      }}>
+                      }}>{`${time.startHour} : ${time.startMinute === 0 ? '00' : time.startMinute}`}
                        
-                      </button>} {`${time.startHour} : ${time.startMinute === 0 ? '00' : time.startMinute}`}
+                      </button>} 
 
                     </div>
                   ))}

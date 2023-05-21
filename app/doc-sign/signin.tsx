@@ -2,7 +2,7 @@
 import { useState } from "react";
 import axios from "axios"
 import { useRouter } from "next/navigation";
-import { Cookie } from "js-cookie";
+
 
 
 const Signin = () => {
@@ -15,7 +15,7 @@ const Signin = () => {
     try {
       e.preventDefault();
       const res = await axios.post("http://localhost:8080/v1/doctor/logIn", { email, password },{withCredentials:true});
-      router.push('/');
+      router.push('/doc-afterlogin');
      
     }
 

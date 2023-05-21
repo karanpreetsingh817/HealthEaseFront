@@ -3,22 +3,26 @@ import ReactCalendar from "react-calendar";
 import { useState, useEffect } from "react"
 import axios from "axios";
 import Cookie from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const Calendar = () => {
+    const router=useRouter();
     const [day, setDay] = useState("")
     const [month, setMonth] = useState("")
     const [year, setYear] = useState("")
     const [startHour, setStartHour] = useState("")
     const [startMinute, setStartMinute] = useState("")
     const [interval, setInterval] = useState("30")
-    const [endHour, setEndHour] = useState("")
+    const [endHour, setEndHour] = useState("");
+    const [isCreated, setIsCreated] = useState(false)
     // const [endMinute, setEndMinute] = useState("")
 
 
     const handleDate = async (date) => {
+        setIsCreated(false)
         try {
             date.preventDefault;
-
+            let timing;
             if (date) {
                 let day = date.getDate();
                 let month = date.getMonth();
@@ -26,8 +30,20 @@ const Calendar = () => {
                 setDay(day);
                 setMonth(month);
                 setYear(year);
-               
+                timing = `${day}/${month}/${year}`
+            }
+            const res = await axios.get(`http://localhost:8080/v1/appointment/isCreated`, {
+                headers: {
+                    "authorization": `Bearer ${Cookie.get("Jwt")}`,
+                    "Content-Type": "application/json"
+                },
+                params: {
+                    timing: timing
+                }
+            });
 
+            if (res.data.result) {
+                setIsCreated(true)
             }
         }
         catch (err) {
@@ -36,22 +52,20 @@ const Calendar = () => {
     }
 
 
-    const handleSubmit=async(el)=>{
-        try{
-        el.preventDefault()
-         const res = await axios.post(`http://localhost:8080/v1/appointment/createSlots`,{startHour,endHour,day, month, year,startMinute,interval} ,{
-                  headers: {
+    const handleSubmit = async (el) => {
+        try {
+            el.preventDefault()
+            const res = await axios.post(`http://localhost:8080/v1/appointment/createSlots`, { startHour, endHour, day, month, year, startMinute, interval }, {
+                headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
-                  }
-                });
-
-                if(res.data){
-                    confirm("Slots created Sucessfully")
                 }
-
+            });
+            if (res.data) {
+                confirm("Slots created Sucessfully")
+            }
         }
-        catch(err){
+        catch (err) {
             console.log(err)
         }
     }
@@ -76,11 +90,11 @@ const Calendar = () => {
 
                     <div>
                         <div>
-                            {day && (
+                            {!isCreated && day && (
                                 <div className="flex justify-center  mt-16  bg-dark bg-opacity-60 shadow-white ">
 
                                     <form>
-                                      
+
 
                                         <div className="flex flex-"></div>
                                         <div className="mb-8">
@@ -91,8 +105,8 @@ const Calendar = () => {
                                                 Start Hour
                                             </label>
                                             <input
-                                            value={startHour}
-                                            onChange={(el) => { setStartHour(el.target.value) }}
+                                                value={startHour}
+                                                onChange={(el) => { setStartHour(el.target.value) }}
                                                 type="number"
                                                 name="startHour"
                                                 placeholder="Enter Starting Hour"
@@ -183,15 +197,20 @@ const Calendar = () => {
 
                                         <div className="mb-6">
                                             <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
-                                            onClick={handleSubmit}>
+                                                onClick={handleSubmit}>
                                                 Create Slots
                                             </button>
                                         </div>
                                     </form>
                                 </div>
 
-                            )
-
+                            )}
+                            {isCreated && (
+                                    <div className="flex justify-center">
+                                        <h3 className="text-primary font-bold text-3xl">Slots Already Created</h3>
+                                        <button onClick={()=>{router.push("/")}}>Back</button>
+                                    </div>
+                                )
                             }
 
 
