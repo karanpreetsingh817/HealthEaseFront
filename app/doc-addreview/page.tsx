@@ -29,7 +29,7 @@ const Contact = () => {
 
     useEffect(() => {
       gettingExstingReview();
-    }, [])
+    })
 
 
 

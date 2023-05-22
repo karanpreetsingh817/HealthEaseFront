@@ -11,7 +11,7 @@ import SplashScreen from "../components/SplashScreen"
 import { usePathname } from "next/navigation";
 import {useEffect, useState} from "react";
 
-const montserrat = Roboto_Mono({ subsets: ["latin"], weight:'100'});
+// const montserrat = Roboto_Mono({ subsets: ["latin"], weight:'100'});
 
 export default function RootLayout({
   children,
@@ -37,7 +37,7 @@ export default function RootLayout({
   //   if(isLoading) return
   // },[isLoading])
   return (
-    <html className={montserrat.className} suppressHydrationWarning lang="en">
+    <html suppressHydrationWarning lang="en">
       {/*
         <head /> will contain the components returned by the nearest parent
         head.js. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head

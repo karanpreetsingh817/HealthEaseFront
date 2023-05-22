@@ -22,7 +22,9 @@ const   Forgetpass = () => {
     }
   });
       const user=res.data.result;
-      const token=Cookie.remove("Jwt");
+      console.log(res.data)
+      alert("Plz login Again with new Password")
+      Cookie.remove("Jwt");
       
       router.push("/")
      
@@ -45,6 +47,8 @@ const   Forgetpass = () => {
 
   }
 
+  
+
   return (
     <>
     
@@ -53,8 +57,8 @@ const   Forgetpass = () => {
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="mx-auto max-w-[500px] rounded-md bg-primary bg-opacity-5 py-10 px-6 dark:bg-dark sm:p-[60px]">
-                <h3 className=" pb-4 mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl border-b border-green">
+              <div className="mx-auto max-w-[500px] rounded-md  py-10 px-6 dark:bg-dark sm:p-[60px]  bg-white bg-opacity-70">
+                <h3 className=" pb-4 mb-3 text-center text-2xl font-bold text-dark dark:text-white sm:text-3xl border-b border-green">
                   Update Your Password
                 </h3>
                
@@ -73,7 +77,7 @@ const   Forgetpass = () => {
                       type="password"
                       name="oldpass"
                       placeholder="Enter Your Current Password"
-                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
                   </div>
 
@@ -90,7 +94,7 @@ const   Forgetpass = () => {
                       type="password"
                       name="newpass"
                       placeholder="Enter Your New Password"
-                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
                   </div>
 
@@ -107,13 +111,13 @@ const   Forgetpass = () => {
                       type="password"
                       name="confirmpass"
                       placeholder="Enter  Confirm Password"
-                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
+                      className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                     />
                   </div>
                  
               
                   <div className="mb-6">
-                    <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
+                    <button className="flex w-full items-center justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp"
                     onClick={handleSubmit}>
                      Update Password
                     </button>

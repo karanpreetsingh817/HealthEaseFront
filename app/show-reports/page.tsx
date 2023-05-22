@@ -37,7 +37,7 @@ const AllDoctor = () => {
 
 useEffect(() => {
     callAboutpage();
-}, [])
+})
 
     return (
         <>

@@ -46,7 +46,7 @@ const AboutPage = () => {
   useEffect(() => {
     getInfo();
 
-  }, [])
+  })
 
   const deleteProfile=async()=>{
 
@@ -236,6 +236,11 @@ const AboutPage = () => {
                     href="/show-minereports"
                     className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center">
                     Show Reports
+                  </Link>
+                  <Link
+                    href="/updatepass"
+                    className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center">
+                   Change Password
                   </Link>
 
                 </div>

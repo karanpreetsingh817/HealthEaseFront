@@ -6,7 +6,7 @@ import Cookie from "js-cookie"
 import { usePathname, useRouter } from "next/navigation";
 
 const Doctor = () => {
-    const router=useRouter();
+    const router = useRouter();
     const x = usePathname()
     const [doctor, setDoctor] = useState({});
 
@@ -30,7 +30,7 @@ const Doctor = () => {
 
         }
         fetchData();
-    }, []);
+    });
 
     const handleDelete = async () => {
         try {
@@ -52,6 +52,11 @@ const Doctor = () => {
             // alert(err.response.data.message);
 
         }
+    }
+
+
+    const handleUpdate =  () => {
+      router.push("/admin-docupdate")
     }
 
     return (
@@ -145,9 +150,20 @@ const Doctor = () => {
 
 
 
-                                <button className=" w-full justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mt-4" onClick={handleDelete}>
-                                    Delete Doctor
-                                </button>
+                                <div className="flex justify-around  my-4 ">
+                                
+                                <button className=" w-full justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mt-4 mr-4" onClick={handleUpdate}>
+                                       Update Doctor
+                                    </button>
+
+
+                                    <button className=" w-full justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mt-4" onClick={handleDelete}>
+                                        Delete Doctor
+                                    </button>
+
+                                </div>
+                                
+
                             </div>
                         </div>
                     </div>

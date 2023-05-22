@@ -40,7 +40,11 @@ const Page = () => {
 
 
 
-    }, [])
+    })
+
+    const handleBack=()=>{
+        router.back();
+    }
 
     return (<section >
         { review.length!==0 &&(
@@ -54,6 +58,7 @@ const Page = () => {
         )
         }
 
+<button className="p-4 ml-40 mb-8 bg-green text-dark px-12 rounded-md hover:bg-opacity-50 mt-16  " onClick={handleBack}> Back</button>
     </section>
     )
 }

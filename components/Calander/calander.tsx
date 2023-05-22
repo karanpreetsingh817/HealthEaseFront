@@ -2,11 +2,12 @@
 import ReactCalendar from "react-calendar";
 import { DateType } from './datetype';
 import { useState, useEffect } from "react"
-import { format } from "date-fns";
+import {useRouter} from "next/navigation"
 import axios from "axios"
 import Cookie from "js-cookie"
 
 const Calendar = () => {
+  const router=useRouter();
 
   const [date, setDate] = useState<DateType>({
     justDate: null,
@@ -40,7 +41,9 @@ const Calendar = () => {
       }
     }
     catch (err) {
-      alert(err)
+      if(err.response.status===404){
+        alert("doctor is not present at this date")
+      }
     }
   }
 
@@ -112,9 +115,12 @@ const Calendar = () => {
 
           </div>
         </div>
+        <button className="p-4 ml-80 mb-8 bg-green text-dark px-12 rounded-md hover:bg-opacity-50 mt-16  " onClick={()=>{router.back()}}> Back</button>
+
 
 
       </div>
+     
     </section>
   </>
 }

@@ -13,8 +13,6 @@ const IndexPage = () => {
   const [totalPatient, setTotalpatient] = useState('');
   const [totalCollection, setTotalCollection] = useState('');
   const [todayCollection, setTodayCollection] = useState('');
-  const [upComingPatients, setUpComingPatients] = useState([]);
-  const [todayAppointment, setTodayAppointment] = useState([]);
   const [search,setSearch]=useState("")
 
 
@@ -34,23 +32,15 @@ const IndexPage = () => {
         setTotalpatient(result.totalPatient);
         setTotalCollection(result.totalCollection);
         setTodayCollection(result.todayCollection);
-        setTodayAppointment(result.todayAppointments);
-        setUpComingPatients(result.todayPatients);
-
-
         console.log(res.data.result)
-
-
       }
       catch (err) {
         console.log(err.response)
         // router.push('/')
       }
     }
-
     fetchData();
-  }, [])
-
+  }, [Cookie.get("Jwt")])
 
   const handleSearch = async (el) => {
     el.preventDefault();
@@ -65,26 +55,19 @@ const IndexPage = () => {
             },
             withCredentials:true
         });
-
         const patient=res.data.result[0];
         console.log(res.data.result)
         router.push(`/doc-allpatient/${patient._id}`)
-    
-
     }
     catch (err) {
         console.log(err.response)
         // router.push('/')
     }
-
-}
-
-
+  }
 
   const upcomingAappointment = appointments.filter((appointment) => appointment.status === 'upcoming');
   const doneAppointment = appointments.filter((appointment) => appointment.status === 'done');
   const cancledAppointment = appointments.filter((appointment) => appointment.status === 'cancled');
-
 
   return (
     <section className="pt-[100px] pb-[120px]">

@@ -27,7 +27,7 @@ const AboutPage = () => {
       try{
           const res = await axios.get("http://localhost:8080/v1/doctor/doc",{
               headers: {
-                  "authorization": `Bearer ${Token}`,
+                  "authorization": `Bearer ${Cookie.get("Jwt")}`,
                   "Content-Type": "application/json"
                 }
           
@@ -39,19 +39,20 @@ const AboutPage = () => {
 
           // }
           setUser(res.data.result);
+          console.log(res.data.result)
           console.log(user)
 
       }
       catch(err)
       {
-          router.push("/")
+        console.log(err.response)
       }
   }
 
 useEffect(() => {
   getInfo();
 
-},[])
+})
 
 
   return (

@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios"
 import { useRouter } from "next/navigation";
+import Cookie  from "js-cookie";
 
 
 
@@ -11,11 +12,31 @@ const Signin = () => {
   const router = useRouter();
   
 
+  useEffect(()=>{
+    if(Cookie.get("Jwt")){
+      
+     if(Cookie.get("role")==='doc-profile'){
+      router.push("/doc-afterlogin")
+     }
+
+     if(Cookie.get("role")==='admin'){
+      router.push("/admin-afterlogin")
+     }
+
+    }
+  })
   const SubmitForm = async (e) => {
     try {
       e.preventDefault();
       const res = await axios.post("http://localhost:8080/v1/doctor/logIn", { email, password },{withCredentials:true});
-      router.push('/doc-afterlogin');
+
+     if(Cookie.get("role")==='doc-profile'){
+      router.push("/doc-afterlogin")
+     }
+
+     if(Cookie.get("role")==='admin'){
+      router.push("/admin-afterlogin")
+     }
      
     }
 

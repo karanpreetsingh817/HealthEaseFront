@@ -8,7 +8,7 @@ const Hero = () => {
   useEffect(() => {
     const Jwt = Cookie.get("Jwt");
     if (Jwt) setIsLogin(true)
-  }, [])
+  }, [isLogin])
 
 
   return (

@@ -58,7 +58,11 @@ const AboutPage = () => {
 useEffect(() => {
   getInfo();
 
-},[])
+});
+
+const handleBack=()=>{
+  router.back();
+}
 
   
   return (
@@ -243,6 +247,7 @@ useEffect(() => {
           </div>
  
         </div>
+        <button className="p-4 ml-20 bg-green text-dark px-12 rounded-md hover:bg-opacity-50 mt-16  " onClick={handleBack}> Back</button>
       </section >
 
   );

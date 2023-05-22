@@ -14,7 +14,8 @@ const AboutPage = () => {
         address:null,
         age:null,
         phoneNumber:null,
-        dateOfCreation:null
+        dateOfCreation:null,
+        _id:null
 
     });
     const [name, setName] = useState("");
@@ -43,7 +44,7 @@ const AboutPage = () => {
     useEffect(() => {
         getInfo();
 
-    }, [])
+    })
 
     const handleSubmit = async (el) => {
         try {
@@ -184,7 +185,7 @@ const AboutPage = () => {
                                             type="text"
                                             name="text"
                                             placeholder={user.name}
-                                            className="  font-bold rounded-md border border-transparent py-3 px-6 text-base text-dark placeholder-dark shadow-one outline-none focus:border-none border-inherit focus-visible:shadow-none bg-transparent w-64 col-2"
+                                            className="  font-bold rounded-md border border-transparent py-3 px-6 text-base text-dark placeholder-green shadow-one outline-none focus:border-none border-inherit focus-visible:shadow-none bg-transparent w-64 col-2"
                                         />
 
                                     </div>
@@ -200,7 +201,7 @@ const AboutPage = () => {
                                             type="email"
                                             name="email"
                                             placeholder={user.email}
-                                            className="  font-bold rounded-md border border-transparent py-3 px-6 text-base text-dark placeholder-dark shadow-one outline-none focus:border-none border-inherit focus-visible:shadow-none bg-transparent w-64 col-2"
+                                            className="  font-bold rounded-md border border-transparent py-3 px-6 text-base text-dark placeholder-green shadow-one outline-none focus:border-none border-inherit focus-visible:shadow-none bg-transparent w-64 col-2"
                                         />
                                     </div>
                                     <hr />
@@ -240,13 +241,19 @@ const AboutPage = () => {
 
 
 
-                                    <div className="grid grid-cols-1 gap-5 my-4 ">
+                                    <div className="grid grid-cols-3 gap-5 my-4">
+                                    <button
+                                            onClick={()=>{router.back()}}
+                                            className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center">
+                                            Back
+                                        </button>
                                        
                                         <button
                                             onClick={handleSubmit}
                                             className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center">
                                             Done
                                         </button>
+                                      
 
 
                                     </div>

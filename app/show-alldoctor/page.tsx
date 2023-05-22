@@ -36,7 +36,7 @@ const AllDoctor = () => {
 
 useEffect(() => {
     callAboutpage();
-}, [])
+})
 
     return (
         <>
@@ -58,6 +58,7 @@ useEffect(() => {
             ))}
           </div>
         </div>
+      
       </section>
             
         ): (
