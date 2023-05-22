@@ -10,25 +10,30 @@ import axios from "axios"
 const AboutPage = () => {
 
     let Token = Cookie.get("Jwt")
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState({
+        name:null,
+        description:null,
+        email:null,
+        age:null,
+        qualification:null,
+        specialization:null,
+        dateOfCreation:null,
+        experience:null,
+        appointmentFee:null
+    });
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const router = useRouter();
-
     const getInfo = async () => {
-
         try {
             const res = await axios.get("http://localhost:8080/v1/doctor/123", {
                 headers: {
                     "authorization": `Bearer ${Token}`,
                     "Content-Type": "application/json"
                 }
-
-
             });
             setUser(res.data.result);
             console.log(res.data.result)
-
         }
         catch (err) {
             console.log(err.response.message)
@@ -38,7 +43,7 @@ const AboutPage = () => {
     useEffect(() => {
         getInfo();
 
-    }, [])
+    })
 
     const handleSubmit = async (el) => {
         try {

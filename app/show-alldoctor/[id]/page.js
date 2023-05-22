@@ -4,15 +4,15 @@ import ReviewCard from "@/components/ReviewCard/index"
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookie from "js-cookie"
-import { usePathname ,useRouter} from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Doctor = () => {
-    const router=useRouter()
+    const router = useRouter()
     const x = usePathname()
     const [doctor, setDoctor] = useState({});
 
     const [id, setId] = useState("")
-  const [review ,setReview]=useState([])
+    const [review, setReview] = useState([])
     useEffect(() => {
         const fetchData = async () => {
 
@@ -25,14 +25,14 @@ const Doctor = () => {
                 }
             });
             setDoctor(data.result);
-            Cookie.set("doctorId",id)
+            Cookie.set("doctorId", id)
             setReview(data.review)
             console.log(data.review)
         }
         fetchData();
     }, [id]);
 
-   
+
     return (
 
 
@@ -124,42 +124,54 @@ const Doctor = () => {
 
 
 
-                                <button className=" w-full justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mt-4" onClick={()=>{router.push("/book-appointment")}}>
+                                <button className=" w-full justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mt-4" onClick={() => { router.push("/book-appointment") }}>
                                     Make Appointment
                                 </button>
                             </div>
                         </div>
                     </div>
-                    
-                
+
+
 
 
 
 
                 </div>
-<div>
-{ review &&(
+                <div>
+                    {review && (
 
-    <ReviewCard title={"What Our Patient Think About Doctor"} Reviews={review} />
-)
-}
-{ !review &&(
-   
-   <div className="h-1/2 w-full z-10">Thereis no review</div>
-)
-}</div>
-                
-                
-                <div className="flex justify-end mr-28  pb-8">
+                        <ReviewCard title={"What Our Patient Think About Doctor"} Reviews={review} />
+                    )
+                    }
+                    {!review && (
 
-                    <button className="w-1/6 justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mr-8"
+                        <div className="h-1/2 w-full z-10">Thereis no review</div>
+                    )
+                    }</div>
+
+
+                <div className="flex justify-end   pb-8">
+                <div className="w-1/2"> 
+                <button className="w justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mr-8"
+                onClick={()=>{router.back()}}>
+                   Back
+                </button>
+                </div>
+                    
+                    <div className="w-1/2">
+                    <button className="w justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mr-8"
                     onClick={()=>{router.push("/doc-addreview")}}>
                         Add Review
                     </button>
-                    <button className="w-1/6 justify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mr-8"
+                    <button className="wjustify-center rounded-md bg-primary py-4 px-9 text-base font-medium text-dark transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp inline-block mr-8"
                     onClick={()=>{router.push("doc-allreview")}}>
                         All Reviews
                     </button>
+                    </div>
+                    
+                    
+                
+
 
                 </div>
 

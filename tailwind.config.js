@@ -18,7 +18,7 @@ module.exports = {
       grey:"#D3D3D0",
       black: "#DBDFFD ",
       dark: " #FFFFFF",
-      primary: "#4CAF50",
+      primary: "#32CD32",
       yellow: "#FBB040",
       green:'#32CD32',
       fs:"#000000",

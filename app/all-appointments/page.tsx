@@ -25,7 +25,7 @@ const Page = () => {
         fetchData();
 
 
-    }, []);
+    });
 
     // Categorize the data based on status 'done', 'cancled', 'upcoming'
     const upcomingAappointment = data.filter((appointment) => appointment.status === 'upcoming');

@@ -3,12 +3,14 @@ import { useEffect, useState } from "react"
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+
 import Cookie from "js-cookie";
 const AboutPage = () => {
-  let Token
+  const x = usePathname();
+  let Token;
+  const [id, setId] = useState("")
   const [user, setUser] = useState({
-    _id:null,
     name: null,
     email: null,
     age: null,
@@ -20,13 +22,21 @@ const AboutPage = () => {
   });
   const router = useRouter();
   const getInfo = async () => {
+
+    let y = x.split("/")
+    setId(y[2])
+    console.log(y[2])
     Token = Cookie.get("Jwt")
     try {
-      const res = await axios.get("http://localhost:8080/v1/patient/doc", {
+      const res = await axios.get(`http://localhost:8080/v1/doctor/showOnePatient`, {
         headers: {
           "authorization": `Bearer ${Token}`,
           "Content-Type": "application/json"
-        }
+        },
+        params: {
+          patientId: y[2]
+        },
+        withCredentials: true
 
 
       });
@@ -36,6 +46,7 @@ const AboutPage = () => {
 
       // }
       setUser(res.data.result);
+      Cookie.set("patientId", res.data.result._id);
 
     }
     catch (err) {
@@ -47,29 +58,31 @@ const AboutPage = () => {
     getInfo();
 
   })
-
-  const deleteProfile=async()=>{
-
+  const handleDelete = async () => {
     try {
 
-        const res = await axios.delete(`http://localhost:8080/v1/patient/${user._id}`, {
-            headers: {
-                "authorization": `Bearer ${Cookie.get("Jwt")}`,
-                "Content-Type": "application/json"
-            },
+      const res = await axios.delete(`http://localhost:8080/v1/doctor/deleteOne/${id}`, {
+        headers: {
+          "authorization": `Bearer ${Cookie.get("Jwt")}`,
+          "Content-Type": "application/json"
+        },
 
 
-        });
-        console.log(res.data.result)
-        Cookie.remove("Jwt");
-        
+      });
+      router.push("/admin-totalpatient")
+
 
     }
     catch (err) {
-        // alert(err.response.data.message);
+      //  if(err.response.status===404)
+      //  {
+
+      //  }
 
     }
-}
+
+  }
+
 
   return (
 
@@ -91,13 +104,7 @@ const AboutPage = () => {
 
 
 
-            <div className="wow fadeInUp relative mx-auto mb-12 max-w-[500px] text-center lg:m-0  ">
-              <Link
-                href="/update-profile"
-                className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full ">
-                Update Your Profile
-              </Link>
-            </div>
+
 
 
             <div className="flex items-start my-8 flex-col ml-8">
@@ -179,7 +186,7 @@ const AboutPage = () => {
 
               <div className="mb-9 ml-8">
                 <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl ">
-                  Your Profile
+                  Patient's Profile
                 </h3>
                 <hr />
 
@@ -231,17 +238,20 @@ const AboutPage = () => {
 
 
 
-                <div className="mt-8 ">
-                  <Link
-                    href="/show-minereports"
-                    className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center">
-                    Show Reports
-                  </Link>
-                  <Link
-                    href="/updatepass"
-                    className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center">
-                   Change Password
-                  </Link>
+                <div className="mt-8 flex justify-center">
+                  <button
+                    onClick={() => { router.push(`admin-updatepatient`) }}
+
+                    className="mr-4 ease-in-up w-full rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center ">
+                    Update Patient
+                  </button>
+                  <button
+                    onClick={handleDelete}
+
+                    className="ease-in-up w-full rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center ">
+                    Delete Patient
+                  </button>
+
 
                 </div>
 
@@ -257,34 +267,6 @@ const AboutPage = () => {
 
 
         </div>
-        <div className=" my-4 flex justify-center ">
-          <Link
-            href="/show-minedoctor"
-            className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center mx-4">
-            My Doctors
-          </Link>
-
-
-          <Link
-            href="/all-appointments"
-            className="ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center mx-4">
-            All Appointment
-          </Link>
-
-          <button
-           onClick={deleteProfile}
-            className=" ease-in-up rounded-md py-3 px-4 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center mx-4">
-            Delete My Profile
-          </button>
-
-        </div>
-
-
-
-
-
-
-
 
       </div>
     </section >

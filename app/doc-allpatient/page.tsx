@@ -33,11 +33,16 @@ const AllDoctor = () => {
     }
 
 
-useEffect(() => {
+  useEffect(() => {
     callAboutpage();
-}, [])
+  })
 
-    return (
+  const handleBack=()=>{
+    router.back();
+  }
+
+
+  return (
         <>
         {
        patients ? (
@@ -58,6 +63,7 @@ useEffect(() => {
          
           </div>
         </div>
+        <button className="p-4 ml-40 bg-green text-dark px-12 rounded-md hover:bg-opacity-50 mt-16  " onClick={handleBack}> Back</button>
       </section>
             
         ): (

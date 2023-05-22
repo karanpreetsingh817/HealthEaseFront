@@ -1,16 +1,18 @@
 'use client'
 import { useState, useEffect } from 'react';
-import { useRouter } from "next/navigation";
 import axios from "axios";
 import Cookie from "js-cookie";
-import Link from "next/link"
+import Link from "next/link";
+import {useRouter} from "next/navigation"
 
 
 
 const IndexPage = () => {
-  const router = useRouter();
-  const [totalPatient, setTotalpatient] = useState('');
-  const [search,setSearch]=useState("")
+  const router=useRouter();
+  const [totalPatient, setTotalpatient] = useState([]);
+  const [totalDoctor, setTotalDoctor] = useState([]);
+  const [totalAppointment, setTotalAppointment] = useState([]);
+
 
 
   useEffect(() => {
@@ -25,46 +27,20 @@ const IndexPage = () => {
           withCredentials: true
         });
         const result = res.data.result;
-        console.log(res.data.result)
-
+        setTotalpatient(result.patients)
+        setTotalDoctor(result.doctors)
+        setTotalAppointment(result.appointments)
 
       }
       catch (err) {
         console.log(err.response)
-        // router.push('/')
+        alert("There is a problem !!! Plz try Login Again after someTime")
+        router.push('/')
       }
     }
-
     fetchData();
-  }, [])
+  })
 
-
-  const handleSearch = async (el) => {
-    el.preventDefault();
-    try {
-        const res = await axios.get("http://localhost:8080/v1/doctor/getPatientByName", {
-            headers: {
-                "authorization": `Bearer ${Cookie.get("Jwt")}`,
-                "Content-Type": "application/json"
-            },
-            params:{
-                name:search
-            },
-            withCredentials:true
-        });
-
-        const patient=res.data.result[0];
-        console.log(res.data.result)
-        router.push(`/doc-allpatient/${patient._id}`)
-    
-
-    }
-    catch (err) {
-        console.log(err.response)
-        // router.push('/')
-    }
-
-}
   return (
     <section className="pt-[100px] pb-[120px]">
       <div className="container">
@@ -73,12 +49,12 @@ const IndexPage = () => {
           <div className="flex justify-between w-11/12 mb-4 h-36">
           <Link  href="/admin-totalpatient"  className="w-1/2 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-70 hover:text-dark" >
               <h3 className="text-lg font-semibold pl-4">Total Patients</h3>
-              <p className=" ">{totalPatient}</p>
+              <p  className="text-gray-800 ml-4">{totalPatient.length}</p>
             </Link>
 
             <Link  href="/admin-totaldoctor"  className="w-1/2 p-4 bg-gray-200 rounded-lg bg-[#ba7ba1] bg-opacity-20 mx-2 pt-12 hover:bg-opacity-70  hover:text-dark" >
               <h3 className="text-lg font-semibold pl-4">Total Doctors</h3>
-              <p className="text-gray-800">{}</p>
+              <p className="text-gray-800 ml-4">{totalDoctor.length}</p>
             </Link>
 
 
@@ -94,7 +70,7 @@ const IndexPage = () => {
 
           <Link  href="/admin-totalappointment"  className="w-1/2 p-4 bg-gray-200 rounded-lg bg-[#a9afd1] bg-opacity-20 mx-2 pt-12 hover:bg-opacity-100  hover:text-dark" >
               <h3 className="text-lg font-semibold pl-4">Total Appointments</h3>
-              <p >{}</p>
+              <p  className="text-gray-800 ml-4">{totalAppointment.length}</p>
             </Link>
 
           <Link  href="/doc-signup"  className="w-1/2 p-4 bg-gray-200 rounded-lg bg-[#ff8811] bg-opacity-20 mx-2 pt-12 hover:bg-opacity-70  hover:text-dark" >

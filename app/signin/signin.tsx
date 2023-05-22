@@ -15,7 +15,7 @@ const Signin = () => {
   const SubmitForm = async (e) => {
     try {
       e.preventDefault();
-      const res = await axios.post("http://localhost:8080/v1/patient/logIn", { email, password },{withCredentials:true});
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}patient/logIn`, { email, password },{withCredentials:true});
       const user=res.data.user;
       Cookie.set("username",user.name);
     

@@ -27,7 +27,7 @@ const Page = () => {
         
       
 
-    }, []);
+    });
 
     // Categorize the data based on status 'done', 'cancled', 'upcoming'
     const upcomingAappointment = data.filter((appointment) => appointment.status === 'upcoming');
@@ -97,6 +97,10 @@ const Page = () => {
           }
           
         
+    }
+
+    const handleBack=()=>{
+        router.back();
     }
 
     return (
@@ -194,7 +198,9 @@ const Page = () => {
                         </tbody>
                     </table>
                 </div>
+               
             </div>
+            <button className="p-4 ml-32 bg-green text-dark px-12 rounded-md hover:bg-opacity-50 " onClick={handleBack}> Back</button>
         </section>
     );
 

@@ -1,6 +1,6 @@
 'use client'
 import blogData from "@/components/Blog/blogData";
-import DoctorCard from "@/components/Blog/SingleBlog";
+import DoctorCard from "@/components/DoctorCard/SingleBlog";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react"
@@ -13,12 +13,13 @@ const AfterLogIn = () => {
     const router = useRouter();
 
     const [search, setSearch] = useState("");
+    const [doctors, setDoctors]=useState([])
 
     const callAboutpage = async () => {
 
         try {
 
-            const res = await axios.get("http://localhost:8080/v1/patient/availbleDoctors", {
+            const res = await axios.get("http://localhost:8080/v1/patient/topDoctor", {
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
@@ -27,6 +28,7 @@ const AfterLogIn = () => {
 
             });
             console.log(res.data.result)
+            setDoctors(res.data.result)
 
         }
         catch (err) {
@@ -67,7 +69,7 @@ const AfterLogIn = () => {
 
 
 
-    }, [])
+    })
 
 
 
@@ -121,12 +123,12 @@ const AfterLogIn = () => {
 
                     <div className="-mx-4 flex flex-wrap justify-center">
 
-                        {blogData.map((blog) => (
+                        {doctors.map((doctor) => (
                             <div
-                                key={blog.id}
+                                key={doctor._id}
                                 className="w-full px-4  mt-12 md:w-2/3 lg:w-1/2 xl:w-1/3"
                             >
-                                <DoctorCard blog={blog} />
+                                <DoctorCard doctor={doctor} />
                             </div>
                         ))}
                     </div>
@@ -134,7 +136,7 @@ const AfterLogIn = () => {
                     <div className="wow fadeInUp relative mx-auto mb-12 max-w-full text-center lg:m-0 mt-16  flex  justify-end ">
                         <Link
                             href="/show-alldoctor"
-                            className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-[500] ">
+                            className="ease-in-up rounded-md py-3 px-8 mt-12 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-[500] ">
                             Show All Doctors
                         </Link>
                     </div>

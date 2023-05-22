@@ -23,7 +23,7 @@ const Calendar = () => {
         try {
             date.preventDefault;
             let timing;
-            if (date) {
+           
                 let day = date.getDate();
                 let month = date.getMonth();
                 let year = date.getFullYear();
@@ -31,7 +31,7 @@ const Calendar = () => {
                 setMonth(month);
                 setYear(year);
                 timing = `${day}/${month}/${year}`
-            }
+            
             const res = await axios.get(`http://localhost:8080/v1/appointment/isCreated`, {
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
@@ -96,7 +96,7 @@ const Calendar = () => {
                                     <form>
 
 
-                                        <div className="flex flex-"></div>
+                                        <div className="flex "></div>
                                         <div className="mb-8">
                                             <label
                                                 htmlFor="startHour"
@@ -206,9 +206,11 @@ const Calendar = () => {
 
                             )}
                             {isCreated && (
-                                    <div className="flex justify-center">
-                                        <h3 className="text-primary font-bold text-3xl">Slots Already Created</h3>
-                                        <button onClick={()=>{router.push("/")}}>Back</button>
+                                    <div className="flex  mt-48 justify-center">
+                                       <div className="flex justify-center">
+                                       <h3 className="text-primary font-bold text-3xl w-full">Slots Already Created  <button className="py-2 px-4 bg-green text-dark" onClick={()=>{     window.location.reload();}}>Back</button></h3>
+                                       
+                                        </div>
                                     </div>
                                 )
                             }
