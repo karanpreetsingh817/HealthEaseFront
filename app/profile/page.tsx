@@ -5,6 +5,9 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 const AboutPage = () => {
   let Token
   const [user, setUser] = useState({
@@ -15,14 +18,17 @@ const AboutPage = () => {
     bloodGroup: null,
     address: null,
     phoneNumber: null,
-    dateOfCreation: null
+    dateOfCreation: null,
+    profileImg: {
+      url:""
+    }
 
   });
   const router = useRouter();
   const getInfo = async () => {
     Token = Cookie.get("Jwt")
     try {
-      const res = await axios.get("http://localhost:8080/v1/patient/doc", {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}patient/doc`, {
         headers: {
           "authorization": `Bearer ${Token}`,
           "Content-Type": "application/json"
@@ -30,29 +36,36 @@ const AboutPage = () => {
 
 
       });
-      // if(!(res.status===200)){
-      //     const error=new Error(res.error);
-      //     throw error
-
-      // }
+     
       setUser(res.data.result);
+      console.log(res.data.result)
 
     }
     catch (err) {
-      console.log(err.response.message)
+      toast.error('🦄 Failed While Fetching Doctor Profile', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      router.back()
     }
   }
 
   useEffect(() => {
     getInfo();
 
-  })
+  },[])
 
   const deleteProfile=async()=>{
 
     try {
 
-        const res = await axios.delete(`http://localhost:8080/v1/patient/${user._id}`, {
+        const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}patient/${user._id}`, {
             headers: {
                 "authorization": `Bearer ${Cookie.get("Jwt")}`,
                 "Content-Type": "application/json"
@@ -60,18 +73,38 @@ const AboutPage = () => {
 
 
         });
-        console.log(res.data.result)
+        toast.success('🦄 Your Profile Is Deleted', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         Cookie.remove("Jwt");
+        router.push("/")
         
 
     }
     catch (err) {
-        // alert(err.response.data.message);
-
+      toast.success('🦄 Failed While Deleting Profile', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
 }
 
   return (
+    <>
+    
 
     <section className="py-16 md:py-20 lg:py-28 ml-16 mr-16">
 
@@ -82,7 +115,7 @@ const AboutPage = () => {
 
             <div className="wow fadeInUp relative mx-auto mb-12  max-w-[500px] text-center lg:m-0 flex justify-center">
 
-              <Image src="/images/about/DF.png" alt="Doctor-profile-IMG" width={150} height={150} className="rounded-full mb-8 items-top mt-4" />
+              <Image src={user.profileImg.url} alt="Doctor-profile-IMG" width={150} height={150} className="rounded-full mb-8 items-top mt-4" />
 
             </div>
             <div className="mt-12  text-dark rounded-md bg-opacity-5 p-6 dark:bg-opacity-5 lg:mt-0 flex justify-center font-sans font-bold">
@@ -231,10 +264,10 @@ const AboutPage = () => {
 
 
 
-                <div className="mt-8 ">
+                <div className="mt-8 flex justify-around ">
                   <Link
                     href="/show-minereports"
-                    className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9  text-center">
+                    className="ease-in-up rounded-md bg-primary py-3 px-8 text-base font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 text-center">
                     Show Reports
                   </Link>
                   <Link
@@ -288,6 +321,8 @@ const AboutPage = () => {
 
       </div>
     </section >
+    <ToastContainer/>
+    </>
 
   );
 };

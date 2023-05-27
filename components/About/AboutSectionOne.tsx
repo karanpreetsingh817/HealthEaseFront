@@ -26,12 +26,7 @@ const AboutSectionOne = () => {
               <SectionTitle
                 title="Revolutionizing Healthcare: The Rise of Digital Hospitals"
                 paragraph="A digital hospital is a healthcare facility that has fully embraced technology and digitalization in its operations. Digital hospitals use technology to streamline processes, improve efficiency, and enhance patient care.
-
-                One of the key features of a digital hospital is the use of electronic health records (EHRs) to store and manage patient data. EHRs allow healthcare providers to access patient information quickly and easily, which can help to improve the accuracy and efficiency of diagnosis and treatment. Digital hospitals also use other types of digital tools and devices, such as telemedicine and remote patient monitoring, to improve access to care for patients and increase the efficiency of healthcare delivery.
-                
-                
-                
-                "
+                One of the key features of a digital hospital is the use of electronic health records (EHRs) to store and manage patient data. EHRs allow healthcare providers to access patient information quickly and easily, which can help to improve the accuracy and efficiency of diagnosis and treatment. Digital hospitals also use other types of digital tools and devices, such as telemedicine and remote patient monitoring, to improve access to care for patients and increase the efficiency of healthcare delivery."
                 mb="44px"
               />
 
@@ -57,14 +52,14 @@ const AboutSectionOne = () => {
 
             <div className="w-full px-4 lg:w-1/2">
               <div
-                className="wow fadeInUp relative mx-auto aspect-[25/24] max-w-[500px] lg:mr-0"
+                className="wow fadeInUp relative mx-auto max-w-[500px] lg:mr-0   w-full  aspect-w-4 aspect-h-3"
                 data-wow-delay=".2s"
               >
                 <Image
-                  src="/images/about/ab3.jpg"
+                  src={`https://res.cloudinary.com/dgtv2w9av/image/upload/c_crop,h_5800,w_3500/v1685100005/empty-doctors-office-having-remore-doctor-talking-during-online-videocall-conference-computer-screen-hospital-room-equipped-with-medical-professional-tools-medicine-services_calelf.jpg`}
                   alt="about-image"
-                 fill
-                  className="mx-auto max-w-full lg:mr-0"
+                  width={5000}  height={3000} style={{ objectFit: "contain" }}
+
                 />
               </div>
             </div>

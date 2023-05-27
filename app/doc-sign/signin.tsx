@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios"
 import { useRouter } from "next/navigation";
 import Cookie  from "js-cookie";
-
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Signin = () => {
@@ -24,12 +25,21 @@ const Signin = () => {
      }
 
     }
-  })
+  },[])
   const SubmitForm = async (e) => {
     try {
       e.preventDefault();
-      const res = await axios.post("http://localhost:8080/v1/doctor/logIn", { email, password },{withCredentials:true});
-
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}doctor/logIn`, { email, password },{withCredentials:true});
+      toast.success('🦄 Login Sucessfully', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
      if(Cookie.get("role")==='doc-profile'){
       router.push("/doc-afterlogin")
      }
@@ -41,7 +51,16 @@ const Signin = () => {
     }
 
     catch (err) {
-      console.log("Error: ",err.response)
+      toast.error('🦄 Plz Enter Correct Credential', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   }
   return (
@@ -126,7 +145,7 @@ const Signin = () => {
                     </div>
                     <div>
                       <a
-                        href="/forgetpass"
+                        href="/doc-forgetpass"
                         className="text-sm font-medium text-dark hover:underline hover:text-green"
                       >
                         Forgot Password?
@@ -202,6 +221,7 @@ const Signin = () => {
           </svg>
         </div>
       </section>
+      <ToastContainer/>
     </>
   );
 };

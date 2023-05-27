@@ -5,37 +5,44 @@ import {useState, useEffect } from 'react';
 import {useRouter} from "next/navigation"
 import axios from "axios";
 import Cookie from "js-cookie"
-
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const AllDoctor = () => {
-
     const router=useRouter();
     const [patients,setPatients]=useState([]);
     const callAboutpage=async()=>{
        
         try{
             
-            const res = await axios.get("http://localhost:8080/v1/patient",{
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}patient`,{
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
                   },                
             } );
             setPatients(res.data.result)
-            console.log(res.data.result)
         }
 
         catch(err)
 
-        {
-            alert(err.response.data.message);
-            // router.push("/")
+        {toast.error('🦄 Failed to get Your doctors', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        router.back()
         }
     }
 
 
 useEffect(() => {
     callAboutpage();
-})
+},[])
 
     return (
         <>
@@ -63,6 +70,7 @@ useEffect(() => {
             <h2>no patient data</h2>
         )
         }
+        <ToastContainer/>
         </>
     )
 }

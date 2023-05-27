@@ -5,7 +5,8 @@ import {useState, useEffect } from 'react';
 import {useRouter} from "next/navigation"
 import axios from "axios";
 import Cookie from "js-cookie"
-
+import {ToastContainer, toast} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 const AllDoctor = () => {
 
     const router=useRouter();
@@ -15,28 +16,33 @@ const AllDoctor = () => {
         try{
           if(!Cookie.get("Jwt")) return router.push("/signin")
             
-            const res = await axios.get("http://localhost:8080/v1/patient/alldoctor",{
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}patient/alldoctor`,{
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
                   },                
             } );
             setDoctors(res.data.result)
-            console.log(res.data.result)
         }
-
         catch(err)
 
-        {
-            alert(err.response.data.message);
-            // router.push("/")
+        { toast.error('🦄 Error While Fetching Doctors Data', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         }
     }
 
 
 useEffect(() => {
     callAboutpage();
-})
+},[])
 
     return (
         <>
@@ -65,6 +71,7 @@ useEffect(() => {
             <h2>no patient data</h2>
         )
         }
+        <ToastContainer/>
         </>
     )
 }

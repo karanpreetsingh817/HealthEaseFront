@@ -8,8 +8,6 @@ const Page = () => {
     <SigninPage/>
  
   )
-  
-
 }
 
 export default Page;

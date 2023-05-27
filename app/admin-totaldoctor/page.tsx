@@ -5,38 +5,42 @@ import {useState, useEffect } from 'react';
 import {useRouter} from "next/navigation"
 import axios from "axios";
 import Cookie from "js-cookie"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AllDoctor = () => {
-
     const router=useRouter();
     const [doctors,setDoctors]=useState([]);
-    const callAboutpage=async()=>{
-       
+    const callAboutpage=async()=>{ 
         try{
           if(!Cookie.get("Jwt")) return router.push("/signin")
-            
-            const res = await axios.get("http://localhost:8080/v1/doctor",{
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}doctor`,{
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
                   },                
             } );
             setDoctors(res.data.result)
-            console.log(res.data.result)
         }
-
-        catch(err)
-
-        {
-            alert(err.response.data.message);
-            // router.push("/")
+        catch(err){
+          toast.error('🦄 There Is Error While Fetching Data Of Doctors', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+        router.back();
         }
     }
 
 
 useEffect(() => {
     callAboutpage();
-})
+},[])
 
     return (
         <>
@@ -64,6 +68,8 @@ useEffect(() => {
             <h2>No doctor Yet</h2>
         )
         }
+
+        <ToastContainer/>
         </>
     )
 }

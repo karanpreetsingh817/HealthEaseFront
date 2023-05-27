@@ -11,7 +11,7 @@ const AboutSectionTwo = () => {
               data-wow-delay=".15s"
             >
               <Image
-                src="/images/about/ab2.jpg"
+                src="https://res.cloudinary.com/dgtv2w9av/image/upload/v1685100016/clinical-reception-with-waiting-room-facility-lobby-registration-counter-used-patients-with-medical-appointments-empty-reception-desk-health-center-checkup-visits_g0fm6r.jpg"
                 alt="about image"
                 fill
               />

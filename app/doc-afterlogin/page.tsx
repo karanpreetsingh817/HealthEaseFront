@@ -3,16 +3,17 @@ import { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Cookie from "js-cookie";
-import Link from "next/link"
-
+import Link from "next/link";
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const IndexPage = () => {
   const router = useRouter();
   const [appointments, setAppointments] = useState([]);
   const [totalPatient, setTotalpatient] = useState('');
-  const [totalCollection, setTotalCollection] = useState('');
-  const [todayCollection, setTodayCollection] = useState('');
+  const [totalCollection, setTotalCollection] = useState(0);
+  const [price, setPrice]=useState(0)
   const [search,setSearch]=useState("")
 
 
@@ -20,7 +21,7 @@ const IndexPage = () => {
     const fetchData = async () => {
 
       try {
-        const res = await axios.get("http://localhost:8080/v1/doctor/afterLogin", {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}doctor/afterLogin`, {
           headers: {
             "authorization": `Bearer ${Cookie.get("Jwt")}`,
             "Content-Type": "application/json"
@@ -31,12 +32,21 @@ const IndexPage = () => {
         setAppointments(result.appointments);
         setTotalpatient(result.totalPatient);
         setTotalCollection(result.totalCollection);
-        setTodayCollection(result.todayCollection);
-        console.log(res.data.result)
+        setPrice(result.price)
+ 
+
       }
       catch (err) {
-        console.log(err.response)
-        // router.push('/')
+        toast.error('🦄 Plz Login First', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
     }
     fetchData();
@@ -45,7 +55,7 @@ const IndexPage = () => {
   const handleSearch = async (el) => {
     el.preventDefault();
     try {
-        const res = await axios.get("http://localhost:8080/v1/doctor/getPatientByName", {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}doctor/getPatientByName`, {
             headers: {
                 "authorization": `Bearer ${Cookie.get("Jwt")}`,
                 "Content-Type": "application/json"
@@ -56,12 +66,20 @@ const IndexPage = () => {
             withCredentials:true
         });
         const patient=res.data.result[0];
-        console.log(res.data.result)
         router.push(`/doc-allpatient/${patient._id}`)
     }
     catch (err) {
-        console.log(err.response)
-        // router.push('/')
+      toast.success('🦄 Error While Fetching Data Of Patient', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      
     }
   }
 
@@ -69,7 +87,9 @@ const IndexPage = () => {
   const doneAppointment = appointments.filter((appointment) => appointment.status === 'done');
   const cancledAppointment = appointments.filter((appointment) => appointment.status === 'cancled');
 
+
   return (
+    <> 
     <section className="pt-[100px] pb-[120px]">
       <div className="container">
         <form className="flex items-center justify-center w-full mb-10  ">
@@ -100,45 +120,36 @@ const IndexPage = () => {
 
         <div className="flex flex-col items-center ">
           <div className="flex justify-between w-11/12 mb-4 h-36">
-          <Link  href="/doc-allpatient"  className="w-1/4 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-40" >
+          <Link  href="/doc-allpatient"  className="w-1/3 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-40" >
               <h3 className="text-lg font-semibold">Total Number of Patients</h3>
               <p className=" ">{totalPatient}</p>
             </Link>
-            <Link  href="/doc-allappointment"  className="w-1/4 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-40" >
+            <Link  href="/doc-allappointment"  className="w-1/3 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-40" >
               <h3 className="text-lg font-semibold">Total Appointments</h3>
               <p >{appointments.length}</p>
             </Link>
-            <Link  href="/"  className="w-1/4 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-40" >
+            <Link  href="#"  className="w-1/3 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-40" >
               <h3 className="text-lg font-semibold">Total Collection</h3>
-              <p className="text-gray-800">$ {totalCollection}</p>
+              <p className="text-gray-800">$ {price*upcomingAappointment.length + price*doneAppointment.length}</p>
             </Link>
-            <Link  href="/"  className="w-1/4 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-40" >
-              <h3 className="text-lg font-semibold">Today's Collection</h3>
-              <p className="text-gray-800">$ {todayCollection}</p>
-            </Link>
+
 
           </div>
 
 
 
           <div className="flex justify-between w-11/12 mb-4 h-36">
-            <Link  href="/doc-allappointments"  className="w-1/4 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-40" >
-            
-            <h3 className="text-lg font-semibold">Total Appointments</h3>
-            <p className="text-gray-800">700</p>
-         
-          </Link>
             
            
-          <Link  href="/doc-allappointment"  className="w-1/4 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-40" >
+          <Link  href="/doc-allappointment"  className="w-1/3 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-40" >
               <h3 className="text-lg font-semibold">Attend Appointments</h3>
               <p className="text-gray-800">{doneAppointment.length}</p>
             </Link>
-            <Link  href="/"  className="w-1/4 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-40" >
+            <Link  href="/"  className="w-1/3 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-40" >
               <h3 className="text-lg font-semibold">UpComing Appointments</h3>
               <p className="text-gray-800">{upcomingAappointment.length}</p>
             </Link>
-            <Link  href="/doc-allappointment"  className="w-1/4 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-40" >
+            <Link  href="/doc-allappointment"  className="w-1/3 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-40" >
               <h3 className="text-lg font-semibold">Cancled Appointments</h3>
               <p className="text-gray-800">{cancledAppointment.length}</p>
             </Link>
@@ -164,6 +175,8 @@ const IndexPage = () => {
       </div>
 
     </section>
+    <ToastContainer/>
+    </>
   );
 };
 
