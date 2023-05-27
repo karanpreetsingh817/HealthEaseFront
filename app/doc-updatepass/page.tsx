@@ -3,10 +3,8 @@ import {useState} from "react";
 import axios from "axios";
 import Cookie from "js-cookie";
 import {useRouter} from "next/navigation"
-
-
-
-
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Page = () => {
   const router=useRouter()
@@ -17,7 +15,7 @@ const Page = () => {
   const handleSubmit=async(e)=>{
     try {
       e.preventDefault();
-      const res = await axios.patch("http://localhost:8080/v1/doctor/updatePassword", { currentPassword:currentPass,password:newPass, confirmPassword:newConfirmPass 
+      const res = await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}doctor/updatePassword`, { currentPassword:currentPass,password:newPass, confirmPassword:newConfirmPass 
       
     },
     {headers: {
@@ -25,33 +23,39 @@ const Page = () => {
       "Content-Type": "application/json"
     }
   });
-      const user=res.data.result;
-      const token=Cookie.remove("Jwt");
-      
-      router.push("/")
-     
-
-     
-     
+      Cookie.remove("Jwt");
+      Cookie.remove("patientId");
+      Cookie.remove("role");
+      toast.success('🦄 Password Update Successfully', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      router.push("/sigin")
     }
 
     catch (err) {
-      alert(err.response.data.message);
-
-      // send custom Error according to Status code or something like that
-      // if(err.response.status===400 ){
-      //   alert("invalid Credentials")
-      // }
+      toast.error('🦄 Failed To Update Password', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
-    
-  
-
-
   }
 
+  return(
 
-    return(
-
+    <>
     <section className="relative z-10 overflow-hidden pt-36 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28">
     <div className="container">
       <div className="-mx-4 flex flex-wrap">
@@ -185,6 +189,8 @@ const Page = () => {
       </svg>
     </div>
   </section>
+  <ToastContainer/>
+  </>
 
   )
   

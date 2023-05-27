@@ -51,7 +51,7 @@ const AboutSectionThree = () => {
                 data-wow-delay=".2s"
               >
                 <Image
-                  src="/images/about/ab1.jpg"
+                  src="https://res.cloudinary.com/dgtv2w9av/image/upload/v1685100052/nobody-office-with-medical-equipment-instruments-checkup-visit-with-patient-healthcare-empty-cabinet-with-tools-consult-people-with-illness-professional-space_wsrqul.jpg"
                   alt="about-image"
                   fill
                   className="mx-auto max-w-full lg:mr-0"

@@ -7,32 +7,43 @@ import { useEffect, useState } from "react"
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Cookie from "js-cookie";
-
+import { ToastContainer,toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const AfterLogIn = () => {
     const router = useRouter();
-
     const [search, setSearch] = useState("");
     const [doctors, setDoctors]=useState([])
-
+    const images=[
+        `https://res.cloudinary.com/dgtv2w9av/image/upload/v1685096198/park-lujiazui-financial-center-shanghai-china_x4mxie.jpg`,
+        `https://res.cloudinary.com/dgtv2w9av/image/upload/v1685096170/building_xftky2.jpg`,
+        `https://res.cloudinary.com/dgtv2w9av/image/upload/v1685096148/blur-hospital_ipgx46.jpg`,
+        `https://res.cloudinary.com/dgtv2w9av/image/upload/v1685096183/senior-woman-with-walking-frame-hospital-waiting-room-rehabilitation-treatment_tq7p8l.jpg`
+    ]
     const callAboutpage = async () => {
-
         try {
-
-            const res = await axios.get("http://localhost:8080/v1/patient/topDoctor", {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}patient/topDoctor`, {
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
                 },
-
-
             });
-            console.log(res.data.result)
             setDoctors(res.data.result)
-
         }
         catch (err) {
-            // alert(err.response.data.message);
+            toast.error('🦄 There Is Error While Fetching data from Backend', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            router.back();
 
         }
     }
@@ -40,7 +51,7 @@ const AfterLogIn = () => {
     const handleSearch = async (el) => {
         el.preventDefault();
         try {
-            const res = await axios.get("http://localhost:8080/v1/patient/findByName", {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}patient/findByName`, {
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
@@ -54,23 +65,25 @@ const AfterLogIn = () => {
             const doctor=res.data.result;
             console.log(res.data.result)
             router.push(`/show-alldoctor/${doctor._id}`)
-        
-
         }
         catch (err) {
-            console.log(err.response)
-            // router.push('/')
+            toast.error('🦄 There Is Error While Fetching Data Of Doctor', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            router.back();
         }
-
     }
 
     useEffect(() => {
         callAboutpage();
-
-
-
-    })
-
+    },[])
 
 
     return (
@@ -103,15 +116,24 @@ const AfterLogIn = () => {
                         </button>
                     </form>
 
-                    <div className="mb-10 w-full overflow-hidden rounded">
-                        <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
+                    <div className="mb-10 w-full overflow-hidden rounded h-3/4">
+
+                       <Carousel showThumbs={false} autoPlay infiniteLoop interval={4000} stopOnHover={false} swipeable transitionTime={2000}>
+                       { images.map((im)=>(
+                        <div key={im}>
+                            <img src={im} alt="Photo" />
+                        </div>
+
+                        ))}
+                        </Carousel> 
+                        {/* <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
                             <Image
-                                src="/images/blog/blog-details-02.jpg"
+                                src="https://res.cloudinary.com/dgtv2w9av/image/upload/v1685093547/pexels-tom-fisk-1692693_ftxyi9.jpg"
                                 alt="image"
                                 fill
                                 className="object-cover object-center"
                             />
-                        </div>
+                        </div> */}
                     </div>
 
                     <div>
@@ -143,6 +165,7 @@ const AfterLogIn = () => {
 
                 </div>
             </section>
+            <ToastContainer/>
         </>
     );
 };

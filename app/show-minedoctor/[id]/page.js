@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookie from "js-cookie"
 import { usePathname ,useRouter} from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Doctor = () => {
     const router=useRouter()
@@ -15,6 +17,9 @@ const Doctor = () => {
   const [review ,setReview]=useState([])
     useEffect(() => {
         const fetchData = async () => {
+            try{
+
+            
 
             let y = x.split("/")
             setId(y[2])
@@ -29,18 +34,25 @@ const Doctor = () => {
             setReview(data.review)
             console.log(data.review)
         }
+        catch(err){
+            toast.error('🦄 Cant Fetch Details Of Doctor At This Moment', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              });
+              router.back();
+        }
+        }
         fetchData();
     }, [id]);
 
-    const handleAllR = () => {
-        router.push("/doc-allreview")
-    }
-
-    const handleAddReview = () => {
-        router.push("/doc-addreview")
-    }
     return (
-
+<>
 
         <section className="py-16 md:py-20 lg:py-28">
 
@@ -177,6 +189,8 @@ const Doctor = () => {
 
             </div>
         </section >
+        <ToastContainer/>
+        </>
 
     );
 };

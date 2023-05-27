@@ -5,6 +5,8 @@ import {useState, useEffect } from 'react';
 import {useRouter} from "next/navigation"
 import axios from "axios";
 import Cookie from "js-cookie"
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const AllDoctor = () => {
 
@@ -14,28 +16,34 @@ const AllDoctor = () => {
        
         try{
             
-            const res = await axios.get("http://localhost:8080/v1/appointment/minePatient",{
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}appointment/minePatient`,{
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"
                   },                
             } );
             setPatients(res.data.result)
-            console.log(patients)
+            console.log(res.data.result)
         }
-
         catch(err)
-
         {
-            alert(err.response.data.message);
-            // router.push("/")
+          toast.error('🦄 There Is Error While Fetching Patients Data from Server', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         }
     }
 
 
   useEffect(() => {
     callAboutpage();
-  })
+  },[])
 
   const handleBack=()=>{
     router.back();
@@ -55,11 +63,14 @@ const AllDoctor = () => {
           />
   
           <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 md:gap-x-6 lg:gap-x-8 xl:grid-cols-3">
-            {patients.map((patient) => (
+            {patients.map((patient) => {
+             if(patient!==null) return (
               <div key={patient._id} className="w-full">
                 <SingleBlog patient={patient} />
               </div>
-            ))}
+            )
+          }
+)}
          
           </div>
         </div>
@@ -70,6 +81,7 @@ const AllDoctor = () => {
             <h2>no patient data</h2>
         )
         }
+        <ToastContainer/>
         </>
     )
 }

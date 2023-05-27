@@ -3,6 +3,8 @@ import {useState} from "react";
 import axios from "axios";
 import Cookie from "js-cookie";
 import {useRouter} from "next/navigation"
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const   Forgetpass = () => {
   const router=useRouter()
@@ -13,7 +15,7 @@ const   Forgetpass = () => {
   const handleSubmit=async(e)=>{
     try {
       e.preventDefault();
-      const res = await axios.patch("http://localhost:8080/v1/patient/updatePassword", { currentPassword:currentPass,password:newPass, confirmPassword:newConfirmPass 
+      const res = await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}patient/updatePassword`, { currentPassword:currentPass,password:newPass, confirmPassword:newConfirmPass 
       
     },
     {headers: {
@@ -21,25 +23,37 @@ const   Forgetpass = () => {
       "Content-Type": "application/json"
     }
   });
-      const user=res.data.result;
-      console.log(res.data)
-      alert("Plz login Again with new Password")
+      toast.success('🦄  Plz Login With new password', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       Cookie.remove("Jwt");
+      Cookie.remove("role")
+      Cookie.remove("patientId");
+      Cookie.remove("doctorId")
       
-      router.push("/")
-     
-
-     
+      router.push("/signin")
      
     }
 
     catch (err) {
-      alert(err.response.data.message);
-
-      // send custom Error according to Status code or something like that
-      // if(err.response.status===400 ){
-      //   alert("invalid Credentials")
-      // }
+      toast.error('🦄 Failed To Upodate Password', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      router.back()
     }
     
   
@@ -186,6 +200,7 @@ const   Forgetpass = () => {
           </svg>
         </div>
       </section>
+      <ToastContainer/>
     </>
   );
 };

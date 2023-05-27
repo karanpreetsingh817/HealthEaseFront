@@ -1,8 +1,9 @@
+'use client'
 import Image from "next/image";
 import Link from "next/link";
-
+import {useState} from "react"
 const SingleBlog = ({ report }) => {
-  const { name, _id, description, consultedBy , medicine} = report;
+  const { name, _id, description, consultedBy , medicine,image} = report;
   return (
     <>
       <div
@@ -15,7 +16,7 @@ const SingleBlog = ({ report }) => {
           <span className="absolute top-6 right-6 z-20 inline-flex items-center justify-center rounded-full bg-dark py-2 px-4 text-sm font-semibold capitalize text-white">
             Report
           </span>
-          <Image src={"https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/udHvbKwV-IMG-Dubai-UAE-1.jpg"} alt="image" fill />
+          <Image src={image.url} alt="image" fill />
         </Link>
         <div className="p-6 sm:p-8 md:py-8 md:px-6 lg:p-8 xl:py-8 xl:px-5 2xl:p-8">
           <h3>

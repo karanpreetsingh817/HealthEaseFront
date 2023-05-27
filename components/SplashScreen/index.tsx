@@ -1,48 +1,29 @@
 'use client'
-import React ,{ useEffect, useState} from "react";
-
+import React, { useEffect, useState } from "react";
+import { useSpring, animated } from "react-spring";
 import Image from "next/image";
-import anime from "animejs"
-import img from "logo-l.png"
+import img from "logo-l.png";
 
-export default function SplashScreen({finishLoading}){
+export default function SplashScreen({ finishLoading }) {
+  const [isMounted, setIsMounted] = useState(false);
 
-    const [isMounted,setIsMounted]=useState(false);
+  const springProps = useSpring({
+    from: { scale: 1 },
+    to: { scale: 2 },
+    config: { duration: 500 },
+    onRest: () => finishLoading()
+  });
 
-    const animate=()=>{
-        const loader= anime.timeline({
-            complete: ()=> finishLoading(),
-        })
+  useEffect(() => {
+    const timeout = setTimeout(() => setIsMounted(true), 10);
+    return () => clearTimeout(timeout);
+  }, []);
 
-        loader.add({
-            target:"#logo",
-            delay:0,
-            scale:1,
-            duration:500,
-            easing:"easeInOutExpo"
-
-        })
-        .add({
-            target:"#logo",
-            delay:0,
-            scale:2,
-            duration:500,
-            easing:"easeInOutExpo"
-
-        })
-    }
-
-    useEffect(()=>{
-        const timeout=setTimeout(()=>setIsMounted(true),10)
-        animate()
-        return ()=>clearTimeout(timeout)
-    })
-
-    return <div
-    className="flex  items-center justify-center h-screen"
-   
-    >
-        <Image id="logo" src={img} alt="" height={60} width={60} />
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <animated.div id="logo" style={springProps}>
+        <Image src={img} alt="" height={60} width={60} />
+      </animated.div>
     </div>
+  );
 }
-

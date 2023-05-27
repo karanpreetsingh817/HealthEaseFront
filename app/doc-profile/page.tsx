@@ -5,11 +5,13 @@ import {useState,useEffect} from 'react'
 import {useRouter} from "next/navigation"
 import Cookie from "js-cookie";
 import axios from "axios"
-
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const AboutPage = () => {
-
+  const router=useRouter();
   let Token
+  const [photo,setPhoto]=useState("")
   const [user, setUser]=useState({
     name:null,
     email:null,
@@ -21,41 +23,41 @@ const AboutPage = () => {
     profileImg:null,
     dateOfCreation:null
   });
-  const router=useRouter();
   const getInfo=async()=>{
        Token=Cookie.get("Jwt")
       try{
-          const res = await axios.get("http://localhost:8080/v1/doctor/doc",{
+          const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}doctor/doc`,{
               headers: {
                   "authorization": `Bearer ${Cookie.get("Jwt")}`,
                   "Content-Type": "application/json"
                 }
-          
-              
           } );
-          // if(!(res.status===200)){
-          //     const error=new Error(res.error);
-          //     throw error
-
-          // }
           setUser(res.data.result);
-          console.log(res.data.result)
-          console.log(user)
-
+          setPhoto(res.data.result.profileImg.url)
       }
       catch(err)
       {
-        console.log(err.response)
+        toast.error('🦄 There Is Error While recieving Doctor Detail', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        router.back();
       }
   }
 
 useEffect(() => {
   getInfo();
 
-})
-
+},[])
 
   return (
+    <>
   
       <section className="py-16 md:py-20 lg:py-28">
 
@@ -66,7 +68,7 @@ useEffect(() => {
 
               <div className="wow fadeInUp relative mx-auto mb-12  max-w-[500px] text-center lg:m-0 flex justify-center">
 
-                <Image src="/images/doctor/Docpro.jpg" alt="Doctor-profile-IMG" width={150} height={150} className="rounded-full mb-8 items-top mt-4" />
+                <Image src={photo} alt="Doctor-profile-IMG" width={150} height={150} className="rounded-full mb-8 items-top mt-4" />
 
               </div>
               <div className="mt-12  rounded-md bg-opacity-5 p-6 dark:bg-opacity-5 lg:mt-0 flex justify-center font-sans font-bold text-dark">
@@ -142,7 +144,7 @@ useEffect(() => {
 
                   <div className="grid grid-cols-3 gap-5 my-4">
                     <p className="mt-4 font-bold  text-white dark:text-white ">Appointment Fee</p>
-                    <p className="mt-4 font-bold  text-white dark:text-white "> {user.appointmentFee} </p>
+                    <p className="mt-4 font-bold  text-white dark:text-white ">$ {user.appointmentFee} </p>
                   </div>
                   <hr />
                 
@@ -153,17 +155,9 @@ useEffect(() => {
                   Update Profile
                 </Link>
                 </div>
-
-
                 </div>
-
-              
-
               </div>
             </div>
-          
-
-            
 
           </div>
           <div className="grid grid-cols-3 gap-6 my-4">
@@ -178,21 +172,15 @@ useEffect(() => {
                   All Appointments
                 </Link>
                 <Link
-                  href="/apphoistory"
+                  href="/doc-updatepass"
                   className="ease-in-up rounded-md py-3 px-8 text-base bg-primary font-bold text-dark transition duration-300 hover:bg-opacity-90 hover:shadow-signUp md:block md:px-9 lg:px-6 xl:px-9 w-full text-center">
-                  Appointment History
+                 Chnage Password
                 </Link>
                   </div>
-
-          
-
-
-
-
-
-
         </div>
       </section >
+      <ToastContainer/>
+      </>
  
   );
 };
