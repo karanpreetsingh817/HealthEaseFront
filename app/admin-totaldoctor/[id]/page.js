@@ -103,7 +103,7 @@ const Doctor = () => {
 
                             <div className="wow fadeInUp relative mx-auto mb-12  max-w-[500px] text-center lg:m-0 flex justify-center">
 
-                                <Image src={Imgw} alt="Doctor-profile-IMG" width={250} height={350} className="rounded-full mb-8 items-top mt-4" />
+                                <Image src={Imgw} alt="Doctor-profile-IMG" width={250} height={350} className="rounded-full mb-8 items-top mt-4 hover:scale-110  transition duration-300 ease-in-out" />
 
                             </div>
                             <div className="mt-12  rounded-md bg-opacity-5 p-6 dark:bg-opacity-5 lg:mt-0 flex justify-center font-sans font-bold">

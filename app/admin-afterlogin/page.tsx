@@ -49,8 +49,8 @@ const IndexPage = () => {
       <section className="pt-[100px] pb-[120px]">
         <div className="container">
           <div className="flex flex-col items-center ">
-            <div className="flex justify-between w-11/12 mb-4 h-36">
-              <Link href="/admin-totalpatient" className="w-1/2 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-70 hover:text-dark" >
+            <div className="flex justify-between w-11/12 mb-4 h-36 ">
+              <Link href="/admin-totalpatient" className="w-1/2 p-4 bg-gray-200 rounded-lg bg-primary bg-opacity-20 mx-2 pt-12 hover:bg-opacity-70 hover:text-dark " >
                 <h3 className="text-lg font-semibold pl-4">Total Patients</h3>
                 <p className="text-gray-800 ml-4">{totalPatient.length}</p>
               </Link>

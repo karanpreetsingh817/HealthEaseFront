@@ -434,8 +434,10 @@ const SignupPage = () => {
             )}
 
           {isOtpGen &&
-            (
+            (<>
+            <div className="text-green text-3xl text-center font-bold ">Please Enter Otp And Varify Your Email</div>
               <OtpCard name={name} email={email} age={age} experience={experience} specialization={specialization} description={description} appointmentFee={appointmentFee} qualification={qualification} password={password} confirmPassword={confirmPassword} image={image} />
+              </>
             )
 
 

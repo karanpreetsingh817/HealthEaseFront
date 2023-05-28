@@ -8,17 +8,17 @@ const SingleBlog = ({ patient }) => {
   return (
     <>
       <div
-        className="wow fadeInUp relative overflow-hidden rounded-md   bg-white bg-opacity-80 shadow-one h-150"
+        className="wow fadeInUp relative overflow-hidden rounded-md   bg-[#F9F6EE] bg-opacity-80 shadow-lg h-150 text-white "
         data-wow-delay=".1s"
       >
         <Link
           href={`/admin-totalpatient/${patient._id}`}
           className="relative block h-[220px] w-full">
-          <span className="absolute top-6 right-6 z-20 inline-flex items-center justify-center rounded-full bg-primary py-2 px-4 text-sm font-semibold capitalize text-white">
+          <span className="absolute top-6 right-6 z-20 inline-flex items-center justify-center rounded-full bg-primary py-2 px-4 text-sm font-semibold capitalize text-dark hover:text-green  hover:bg-dark">
             Patient
           </span>
           <div className="relative w-full h-0 aspect-w-4 aspect-h-3">
-            <Image src={profileImg.url} alt="image" width={5000} height={3000} style={{ objectFit: "contain" }} />
+            <Image src={profileImg.url} alt="image" width={5000} height={3000} style={{ objectFit: "contain" }} className="hover:scale-110  transition duration-300 ease-in-out" />
           </div>
 
         </Link>
@@ -26,12 +26,12 @@ const SingleBlog = ({ patient }) => {
           <h3>
             <Link
               href={`/admin-totalpatient/${_id}`}
-              className="mb-4 block text-xl font-bold text-dark  hover:text-primary dark:text-dark dark:hover:text-primary sm:text-2xl"
+              className="mb-4 block text-xl font-bold  hover:text-primary dark:text-dark dark:hover:text-primary sm:text-2xl"
             >
               {name}
             </Link>
           </h3>
-          <p className="mb-6 border-b border-body-color border-opacity-10 pb-6 text-base  text-dark dark:border-white dark:border-opacity-10">
+          <p className="mb-6 border-b border-body-color border-opacity-10 pb-6 text-base  dark:border-white dark:border-opacity-10">
             {address}
           </p>
           <div className="flex items-center">
@@ -42,17 +42,17 @@ const SingleBlog = ({ patient }) => {
                 </div>
               </div>
               <div className="w-full">
-                <h4 className="mb-1 text-sm font-medium text-dark dark:text-dark">
+                <h4 className="mb-1 text-sm font-medium  dark:text-dark">
                   {phoneNumber}
                 </h4>
-                <p className="text-xs text-body-color">{bloodGroup}</p>
+                <p className="text-xs ">{bloodGroup}</p>
               </div>
             </div>
             <div className="inline-block">
-              <h4 className="mb-1 text-sm font-medium text-dark dark:text-dark">
+              <h4 className="mb-1 text-sm font-medium ">
                 Age
               </h4>
-              <p className="text-xs text-body-color">{age}</p>
+              <p className="text-xs">{age}</p>
             </div>
           </div>
         </div>

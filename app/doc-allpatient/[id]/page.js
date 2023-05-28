@@ -68,17 +68,17 @@ const AboutPage = () => {
 
         <section className="py-16 md:py-20 lg:py-28 ml-16 mr-16">
 
-          <div className="container  bg-white  bg-opacity-80 backdrop-blur-md  pb-8  ">
+          <div className="container  bg-[#F9F6EE] shadow-lg h-150 text-white  bg-opacity-80 backdrop-blur-md  pb-8  ">
 
             <div className="-mx-4 flex flex-wrap  ">
               <div className="w-full px-4 lg:w-1/3">
 
                 <div className="wow fadeInUp relative mx-auto mb-12  max-w-[500px] text-center lg:m-0 flex justify-center">
 
-                  <Image src={photo} alt="Doctor-profile-IMG" width={100} height={100} className="rounded-full mb-8 items-top mt-4" />
+                  <Image src={photo} alt="Doctor-profile-IMG" width={100} height={100} className="rounded-full mb-8 items-top mt-4 hover:scale-110  transition duration-300 ease-in-out" />
 
                 </div>
-                <div className="mt-12  text-dark rounded-md bg-opacity-5 p-6 dark:bg-opacity-5 lg:mt-0 flex justify-center font-sans font-bold">
+                <div className="mt-12   rounded-md bg-opacity-5 p-6 dark:bg-opacity-5 lg:mt-0 flex justify-center font-sans font-bold">
                   <h1>{user.name}</h1>
                 </div>
 
@@ -87,7 +87,7 @@ const AboutPage = () => {
                   <a
                     href="/"
                     aria-label="social-link"
-                    className="mr-6 text-[#CED3F6] hover:text-primary mb-4"
+                    className="mr-6  hover:text-primary mb-4"
                   >
 
                     <svg
@@ -106,7 +106,7 @@ const AboutPage = () => {
                   <a
                     href="/"
                     aria-label="social-link"
-                    className="mr-6 text-[#CED3F6] hover:text-primary mb-4"
+                    className="mr-6  hover:text-primary mb-4"
                   >
                     <svg
                       width="19"
@@ -122,7 +122,7 @@ const AboutPage = () => {
                   <a
                     href="/"
                     aria-label="social-link"
-                    className="mr-6 text-[#CED3F6] hover:text-primary mb-4"
+                    className="mr-6  hover:text-primary mb-4"
                   >
                     <svg
                       width="18"
@@ -137,7 +137,7 @@ const AboutPage = () => {
                   <a
                     href="/"
                     aria-label="social-link"
-                    className="mr-6 text-[#CED3F6] hover:text-primary mb-4"
+                    className="mr-6  hover:text-primary mb-4"
                   >
                     <svg
                       width="17"
@@ -157,52 +157,52 @@ const AboutPage = () => {
                 <div className="wow fadeInUp max-w-[470px]" data-wow-delay=".2s">
 
                   <div className="mb-9 ml-8">
-                    <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl ">
+                    <h3 className="mb-4 text-xl font-bold dark:text-white sm:text-2xl lg:text-xl xl:text-2xl ">
                       Patient's Profile
                     </h3>
                     <hr />
 
                     <div className="grid grid-cols-3 gap-6 my-4">
-                      <p className="mt-4 font-bold  text-black dark:text-white ">Full Name  </p>
-                      <p className="mt-4 font-bold  text-black dark:text-white ">{user.name}</p>
+                      <p className="mt-4 font-bold   dark:text-white ">Full Name  </p>
+                      <p className="mt-4 font-bold   dark:text-white ">{user.name}</p>
                     </div>
 
                     <hr />
 
                     <div className="grid grid-cols-3 gap-5 my-4">
-                      <p className="mt-4 font-bold  text-black dark:text-white ">Email </p>
-                      <p className="mt-4 col-span-2 font-bold  text-black dark:text-white "> {user.email} </p>
+                      <p className="mt-4 font-bold   dark:text-white ">Email </p>
+                      <p className="mt-4 col-span-2 font-bold   dark:text-white "> {user.email} </p>
                     </div>
                     <hr />
                     <div className="grid grid-cols-3 gap-5 my-4">
-                      <p className="mt-4 font-bold  text-black dark:text-white ">Age</p>
-                      <p className="mt-4 font-bold  text-black dark:text-white "> {user.age}  </p>
+                      <p className="mt-4 font-bold   dark:text-white ">Age</p>
+                      <p className="mt-4 font-bold   dark:text-white "> {user.age}  </p>
                     </div>
                     <hr />
 
                     <div className="grid grid-cols-3 gap-5 my-4">
-                      <p className="mt-4 font-bold  text-black dark:text-white ">Blood Group</p>
-                      <p className="mt-4 font-bold  text-black dark:text-white "> {user.bloodGroup} </p>
-                    </div>
-                    <hr />
-
-
-                    <div className="grid grid-cols-3 gap-5 my-4">
-                      <p className="mt-4 font-bold  text-black dark:text-white ">Address</p>
-                      <p className="mt-4 font-bold  text-black dark:text-white "> {user.address} </p>
+                      <p className="mt-4 font-bold   dark:text-white ">Blood Group</p>
+                      <p className="mt-4 font-bold   dark:text-white "> {user.bloodGroup} </p>
                     </div>
                     <hr />
 
 
                     <div className="grid grid-cols-3 gap-5 my-4">
-                      <p className="mt-4 font-bold  text-black dark:text-white ">Mobile Number</p>
-                      <p className="mt-4 font-bold  text-black dark:text-white "> {user.phoneNumber} </p>
+                      <p className="mt-4 font-bold   dark:text-white ">Address</p>
+                      <p className="mt-4 font-bold   dark:text-white "> {user.address} </p>
+                    </div>
+                    <hr />
+
+
+                    <div className="grid grid-cols-3 gap-5 my-4">
+                      <p className="mt-4 font-bold   dark:text-white ">Mobile Number</p>
+                      <p className="mt-4 font-bold   dark:text-white "> {user.phoneNumber} </p>
                     </div>
                     <hr />
 
                     <div className="grid grid-cols-3 gap-5 my-4">
-                      <p className="mt-4 font-bold  text-black dark:text-white ">Date Of Joining</p>
-                      <p className="mt-4 font-bold  text-black dark:text-white "> {user.dateOfCreation} </p>
+                      <p className="mt-4 font-bold   dark:text-white ">Date Of Joining</p>
+                      <p className="mt-4 font-bold   dark:text-white "> {user.dateOfCreation} </p>
                     </div>
                     <hr />
 

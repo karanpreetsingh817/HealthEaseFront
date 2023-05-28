@@ -387,8 +387,10 @@ const SignupPage = () => {
           }
 
           {isOtpGen &&
-            (
+            (<>
+            <div className="text-green text-3xl font-bold text-center">Please Enter Otp And Verify Your Email</div>
               <OtpCard fullName={fullName} age={age} address={address} bloodGroup={bloodGroup} mobile={mobile } email={email} password={password} confirmPassword={confirmPassword} image={image} />
+              </>
             )
 
         

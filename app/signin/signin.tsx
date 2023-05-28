@@ -29,7 +29,7 @@ const Signin = () => {
     }
 
     catch (err) {
-      
+       console.log(err.response)
       toast.error(`🦄 Invalid Credential`, {
         position: "top-center",
         autoClose: 5000,
