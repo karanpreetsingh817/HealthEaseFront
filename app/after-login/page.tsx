@@ -1,7 +1,5 @@
 'use client'
-import blogData from "@/components/Blog/blogData";
 import DoctorCard from "@/components/DoctorCard/SingleBlog";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react"
 import axios from "axios";
@@ -44,10 +42,8 @@ const AfterLogIn = () => {
                 theme: "colored",
             });
             router.back();
-
         }
     }
-
     const handleSearch = async (el) => {
         el.preventDefault();
         try {
@@ -61,7 +57,6 @@ const AfterLogIn = () => {
                 },
                 withCredentials:true
             });
-
             const doctor=res.data.result;
             console.log(res.data.result)
             router.push(`/show-alldoctor/${doctor._id}`)
@@ -80,17 +75,13 @@ const AfterLogIn = () => {
             router.back();
         }
     }
-
     useEffect(() => {
         callAboutpage();
     },[])
-
-
     return (
         <>
             <section className="pt-[150px] pb-[120px]">
                 <div className="container">
-
                     <form className="flex items-center justify-center w-full mb-10  ">
                         <input
                             value={search}
@@ -115,9 +106,7 @@ const AfterLogIn = () => {
                             </svg>
                         </button>
                     </form>
-
                     <div className="mb-10 w-full overflow-hidden rounded h-3/4">
-
                        <Carousel showThumbs={false} autoPlay infiniteLoop interval={4000} stopOnHover={false} swipeable transitionTime={2000}>
                        { images.map((im)=>(
                         <div key={im}>
@@ -126,23 +115,13 @@ const AfterLogIn = () => {
 
                         ))}
                         </Carousel> 
-                        {/* <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
-                            <Image
-                                src="https://res.cloudinary.com/dgtv2w9av/image/upload/v1685093547/pexels-tom-fisk-1692693_ftxyi9.jpg"
-                                alt="image"
-                                fill
-                                className="object-cover object-center"
-                            />
-                        </div> */}
                     </div>
-
                     <div>
                         <p className="mb-10 text-base font-medium leading-relaxed text-fs sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
                             "<strong className="text-primary dark:text-green"> Our Healthcare</strong> providers specialize in a wide range of medical fields, offering comprehensive care to meet the unique needs of our patients.
                             We understand that seeking<strong className="text-primary dark:text-green"> medical care </strong> can be a stressful experience, which is why our doctors are not only skilled in their craft but also <strong className="text-primary dark:text-green"> compassionate and empathetic </strong> towards our patients. They take the time to listen to their concerns, answer any questions they may have, and work collaboratively with them to provide the best possible care".
                         </p>
                     </div>
-
                     <div className="-mx-4 flex flex-wrap justify-center">
 
                         {doctors.map((doctor) => (
@@ -154,7 +133,6 @@ const AfterLogIn = () => {
                             </div>
                         ))}
                     </div>
-
                     <div className="wow fadeInUp relative mx-auto mb-12 max-w-full text-center lg:m-0 mt-16  flex  justify-end ">
                         <Link
                             href="/show-alldoctor"
@@ -162,7 +140,6 @@ const AfterLogIn = () => {
                             Show All Doctors
                         </Link>
                     </div>
-
                 </div>
             </section>
             <ToastContainer/>

@@ -43,17 +43,14 @@ const Page = () => {
 
     let openTickets=[];
     let closeTickets=[];
-
-  if(data.length!==0){
-    openTickets = data.filter(
-        (ticket) => ticket.status === "open"
-    );
-    closeTickets = data.filter(
-        (ticket) => ticket.status === "close"
-    );
-  }
-  
-
+    if(data.length!==0){
+        openTickets = data.filter(
+            (ticket) => ticket.status === "open"
+        );
+        closeTickets = data.filter(
+            (ticket) => ticket.status === "close"
+        );
+    }
     return (
         <>
             <section className="relative z-10 overflow-hidden pt-16 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28  ">
@@ -71,8 +68,6 @@ const Page = () => {
                                     <th className="px-16 py-8">status</th>
                                 </tr>
                             </thead>
-
-
                             <tbody>
                                 <tr>
                                     <td className="col-span-6 text-primary pl-8  text-xl font-bold pt-4"> Open Tickets</td>
@@ -94,6 +89,7 @@ const Page = () => {
                                 )}
                             </tbody>
                         </table>
+
 
                         <table className="w-full bg-yellow bg-opacity-20 pb-16  py-4 " >
                             <tbody>
@@ -117,11 +113,9 @@ const Page = () => {
                                 )}
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </section>
-
             <ToastContainer />
         </>
     );

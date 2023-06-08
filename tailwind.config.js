@@ -18,9 +18,9 @@ module.exports = {
       grey:"#D3D3D0",
       black: "#DBDFFD ",
       dark: " #FFFFFF",
-      primary: "#32CD32",
+      primary: "#32cd32",
       yellow: "#FBB040",
-      green:'#32CD32',
+      green:'#32cd32',
       fs:"#000000",
       tcolor:"#000000",
       "body-color": "#FFFFFF",
@@ -51,6 +51,9 @@ module.exports = {
         one: "0px 2px 3px rgba(7, 7, 77, 0.05)",
         sticky: "inset 0 -1px 0 0 rgba(0, 0, 0, 0.1)",
       },
+      fontFamily: {
+        sans: ['var(--font-inter)'],
+      }
     },
   },
   plugins: [],

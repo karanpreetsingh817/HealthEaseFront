@@ -48,8 +48,6 @@ const Doctor = () => {
         }
         fetchData();
     },[]);
-
-
     const handleSubmit = async () => {
         try {
             const { data } = await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}doctor/updateDoctor`, {
@@ -92,12 +90,9 @@ const Doctor = () => {
             });
         }
     }
-
-    return (<>
-
-
+    return (
+    <>
         <section className="py-16 md:py-20 lg:py-28">
-
             <div className="container  bg-blur-lg   ">
                 <div className="-mx-4 flex flex-wrap rounded-md">
                     <div className="w-full px-4 lg:w-1/3">
@@ -123,7 +118,6 @@ const Doctor = () => {
                     </div>
                     <div className="w-full px-4 lg:w-2/3 mt-12 mb-10 rounded-md  p-6 lg:mt-0 ">
                         <div className="wow fadeInUp max-w-[470px]" data-wow-delay=".2s">
-
                             <div className="mb-9 ml-8">
                                 <h3 className="mb-4 text-xl font-bold text-white dark:text-white sm:text-2xl lg:text-xl xl:text-2xl ">
                                     Doctor's Profile
@@ -138,7 +132,7 @@ const Doctor = () => {
                                         name="name"
                                         placeholder={doctor.name}
                                         className="  font-bold rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-primary shadow-one outline-none focus:border-none border-inherit focus-visible:shadow-none bg-transparent w-64 col-2"
-                                    />
+                                        />
                                 </div>
                                 <hr />
                                 <div className="grid grid-cols-3 gap-5 my-4">

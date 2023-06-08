@@ -85,6 +85,7 @@ const Page = () => {
                     theme: "colored",
                 });
             }
+            window.location.reload();
 
         }
 

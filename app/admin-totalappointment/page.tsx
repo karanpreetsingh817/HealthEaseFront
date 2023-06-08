@@ -39,31 +39,26 @@ const Page = () => {
         };
         fetchData();
     },[]);
-
     let upcomingAappointment=[];
     let doneAppointment=[];
     let cancledAppointment=[];
     // Categorize the data based on status 'done', 'cancled', 'upcoming'
-  if(data.length!==0){
-    upcomingAappointment = data.filter(
-        (appointment) => appointment.status === "upcoming"
-    );
-    doneAppointment = data.filter(
-        (appointment) => appointment.status === "done"
-    );
-    cancledAppointment = data.filter(
-        (appointment) => appointment.status === "cancled"
-    );
-
-  }
-
-
+    if(data.length!==0){
+        upcomingAappointment = data.filter(
+            (appointment) => appointment.status === "upcoming"
+        );
+        doneAppointment = data.filter(
+            (appointment) => appointment.status === "done"
+        );
+        cancledAppointment = data.filter(
+            (appointment) => appointment.status === "cancled"
+        );
+    }
     return (
         <>
             <section className="relative z-10 overflow-hidden pt-16 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28  ">
                 <h1 className="text-green font-bold text-4xl flex justify-center mb-8">Here List Of Appointments Of Yours</h1>
                 <div className="py-8 flex flex-row justify-center">
-
                     <div>
                         <table className="w-full bg-primary bg-opacity-20 pb-16  py-4 ">
                             <thead>
@@ -77,7 +72,6 @@ const Page = () => {
                                 </tr>
                             </thead>
                             {/* <h1 >Upcoming Appointments</h1> */}
-
                             <tbody>
                                 <tr>
                                     <td className="col-span-6 text-primary pl-8  text-xl font-bold pt-4"> Upcoming Appointments</td>
@@ -100,6 +94,7 @@ const Page = () => {
                                 )}
                             </tbody>
                         </table>
+
 
                         {/* <h1>Already Done Appointments</h1> */}
                         <table className="w-full bg-yellow bg-opacity-20 pb-16  py-4 " >
@@ -126,9 +121,9 @@ const Page = () => {
                             </tbody>
                         </table>
 
+
                         {/* <h1>Cancled Appointment</h1> */}
                         <table className="w-full bg-white bg-opacity-20 pb-16  py-4 ">
-
                             <tbody>
                                 <tr>
                                     <td className="col-span-6 text-primary pl-8  text-xl font-bold pt-4"> Cancled Appointment</td>
@@ -146,7 +141,6 @@ const Page = () => {
                                 {cancledAppointment.length >= 0 && cancledAppointment.length === 0 && (
                                     <tr >
                                         <td className="px-16 py-8 col-span-6 text-center">There Is No Yet Cancled Appointments</td>
-
                                     </tr>
                                 )}
                             </tbody>
@@ -154,7 +148,6 @@ const Page = () => {
                     </div>
                 </div>
             </section>
-
             <ToastContainer />
         </>
     );

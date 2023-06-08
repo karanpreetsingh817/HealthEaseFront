@@ -11,7 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const AllDoctor = () => {
   const router = useRouter();
   const [patients, setPatients] = useState([]);
-
   const callAboutpage = async () => {
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}patient`, {
@@ -61,7 +60,8 @@ const AllDoctor = () => {
               </div>
             </div>
           </section>
-        ) : (
+        )  : 
+        (
           <h2>no patient data</h2>
         )
       }

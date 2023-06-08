@@ -9,7 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const ContactPage = () => {
   const [userName,setUserName]=useState("");
   const [issue,setIssue]=useState("")
-
   const handleSubmit=async(el)=>{
     el.preventDefault();
     let route="patient"
@@ -39,7 +38,6 @@ const ContactPage = () => {
     })
     setUserName("");
     setIssue("")
-
     }
     catch(err){
       toast.error('🦄 Your Ticket Is Not Genrated At The moment Please Try Again Later', {
@@ -51,10 +49,8 @@ const ContactPage = () => {
         draggable: true,
         progress: undefined,
         theme: "colored",
-       
     })
   }
-
   }
   return (
     <>
@@ -62,15 +58,13 @@ const ContactPage = () => {
         pageName="Contact Us"
         description="Thank you for your interest in our hospital. We welcome your questions, comments, and feedback. Our team is here to assist you in any way we can, and we are committed to providing you with the best possible experience. You can reach us by phone, email, or by using the contact form below. We will respond to your inquiry as soon as possible. We look forward to hearing from you."
       />
-
 <section id="contact" className="overflow-hidden py-16 md:py-20 lg:py-28">
         <div className="container">
           <div className="-mx-4 flex justify-center">
             <div className="w-full px-4 lg:w-7/12 xl:w-full">
               <div
                 className="wow fadeInUp mb-12 rounded-md bg-white bg-opacity-80 bg-blur-sm py-11 px-8 dark:bg-dark sm:p-[55px] lg:mb-5 lg:px-8 xl:p-[55px]"
-                data-wow-delay=".15s
-              "
+                data-wow-delay=".15s"
               >
                 <h2 className="mb-3 text-2xl font-bold text-black dark:text-white sm:text-3xl lg:text-2xl xl:text-3xl">
                   Need Help? Open a Ticket
@@ -97,7 +91,6 @@ const ContactPage = () => {
                         />
                       </div>
                     </div>
-
                     <div className="w-full px-4">
                       <div className="mb-8">
                         <label
@@ -126,11 +119,7 @@ const ContactPage = () => {
                 </form>
               </div>
             </div>
-
           </div>
-          
-
-
         </div>
       </section>
       <ToastContainer/>

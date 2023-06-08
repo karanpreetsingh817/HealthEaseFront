@@ -25,7 +25,6 @@ const Doctor = () => {
     const [bloodGroup, setBloodGroup] = useState("")
     const [address, setAddress] = useState('');
     const [phoneNumber, setPhoneNumber] = useState("")
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -59,15 +58,10 @@ const Doctor = () => {
                     theme: "colored",
                 });
                 router.back();
-
             }
         }
         fetchData();
     },[]);
-
-
-
-
     const handleSubmit = async () => {
         try {
             const { data } = await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}doctor/updatePatient`, {
@@ -96,7 +90,6 @@ const Doctor = () => {
             });
             router.push(`/admin-totalpatient/${Cookie.get("patientId")}`)
         }
-
         catch (err) {
             toast.error('🦄 There Is Problem While Updating Patient Data', {
                 position: "top-center",
@@ -227,10 +220,7 @@ const Doctor = () => {
             </section >
             <ToastContainer />
         </>
-
     );
 };
-
-
 
 export default Doctor;

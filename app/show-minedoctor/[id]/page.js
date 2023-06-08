@@ -23,7 +23,7 @@ const Doctor = () => {
 
             let y = x.split("/")
             setId(y[2])
-            const { data } = await axios.get(`http://localhost:8080/v1/patient/doctor/${id}`, {
+            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}patient/doctor/${id}`, {
                 headers: {
                     "authorization": `Bearer ${Cookie.get("Jwt")}`,
                     "Content-Type": "application/json"

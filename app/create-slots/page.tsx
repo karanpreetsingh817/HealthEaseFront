@@ -18,7 +18,6 @@ const Calendar = () => {
     const [endHour, setEndHour] = useState("");
     const [isCreated, setIsCreated] = useState(false);
     // const [endMinute, setEndMinute] = useState("")
-
     const handleDate = async (date) => {
         setIsCreated(false);
         try {
@@ -31,7 +30,6 @@ const Calendar = () => {
             setMonth(month);
             setYear(year);
             timing = `${day}/${month}/${year}`;
-
             const res = await axios.get(
                 `${process.env.NEXT_PUBLIC_API_URL}appointment/isCreated`,
                 {
@@ -44,7 +42,6 @@ const Calendar = () => {
                     },
                 }
             );
-
             if (res.data.result) {
                 setIsCreated(true);
                 toast.warning(`🦄 Slots For ${timing} Date Is Already Created`, {
@@ -71,7 +68,6 @@ const Calendar = () => {
             });
         }
     };
-
     const handleSubmit = async (el) => {
         try {
             el.preventDefault();
@@ -125,8 +121,7 @@ const Calendar = () => {
                         <div className="w-full px-4 lg:w-6/12 xl:w-6/12">
                             <div
                                 className="wow fadeInUp mb-12 rounded-md  sm:p-[55px] lg:mb-5 lg:px-8 xl:p-[55px]"
-                                data-wow-delay=".15s
-              "
+                                data-wow-delay=".15s"
                             >
                                 <ReactCalendar
                                     minDate={new Date()}
@@ -136,7 +131,6 @@ const Calendar = () => {
                                 />
                             </div>
                         </div>
-
                         <div>
                             <div>
                                 {!isCreated && day && (
@@ -183,7 +177,6 @@ const Calendar = () => {
                                                     className="w-full rounded-md border border-transparent py-3 px-6 text-base text-white placeholder-white shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#242B51] dark:shadow-signUp"
                                                 />
                                             </div>
-
                                             <div className="mb-8">
                                                 <label
                                                     htmlFor="endHour"
@@ -237,7 +230,6 @@ const Calendar = () => {
                                         </form>
                                     </div>
                                 )}
-
                                 {
                                 isCreated && (
                                     <div className="mt-48  flex justify-center">
@@ -256,7 +248,6 @@ const Calendar = () => {
                                         </div>
                                     </div>
                                 )}
-
                             </div>
                         </div>
                     </div>

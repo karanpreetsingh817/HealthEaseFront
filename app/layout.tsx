@@ -6,13 +6,19 @@ import ScrollToTop from "@/components/ScrollToTop";
 import "node_modules/react-modal-video/css/modal-video.css";
 import "../styles/index.css";
 import "../styles/Home.css"
-import { Roboto_Mono } from "@next/font/google";
+import { Montserrat } from '@next/font/google';
 import SplashScreen from "../components/SplashScreen"
 import { usePathname } from "next/navigation";
 import {useEffect, useState} from "react";
 
 // const montserrat = Roboto_Mono({ subsets: ["latin"], weight:'100'});
-
+const inter = Montserrat({
+    weight: ['400', '700'],
+    style: ['normal', 'italic'],
+    subsets: ['latin'],
+    display: 'swap',
+    variable: '--font-inter'
+});
 export default function RootLayout({
   children,
 }: {
@@ -37,7 +43,7 @@ export default function RootLayout({
   //   if(isLoading) return
   // },[isLoading])
   return (
-    <html suppressHydrationWarning lang="en">
+    <html lang="en"className={`${inter.variable}`}>
       {/*
         <head /> will contain the components returned by the nearest parent
         head.js. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head

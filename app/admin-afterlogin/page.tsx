@@ -12,7 +12,6 @@ const IndexPage = () => {
   const [totalPatient, setTotalpatient] = useState([]);
   const [totalDoctor, setTotalDoctor] = useState([]);
   const [totalAppointment, setTotalAppointment] = useState([]);
-
   const fetchData = async () => {
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}doctor/afterLogin`, {

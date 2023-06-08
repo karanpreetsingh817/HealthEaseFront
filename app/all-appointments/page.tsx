@@ -22,10 +22,8 @@ const Page = () => {
                     withCredentials: true,
                 }
             );
-
             setData(res.data.result);
             console.log(res.data.result)
-
         }
         catch (err) {
             toast.error('🦄 There Is Error While Fetching Appointments', {
@@ -40,35 +38,29 @@ const Page = () => {
                 style: {
                     zIndex: 100,
                 }
-
             });
             router.back();
         }
     };
     useEffect(() => {
-
         fetchData();
     }, []);
-
-
     let upcomingAappointment=[];
     let doneAppointment=[];
     let cancledAppointment=[];
     // Categorize the data based on status 'done', 'cancled', 'upcoming'
-  if(data.length!==0){
-    upcomingAappointment = data.filter(
-        (appointment) => appointment.status === "upcoming"
-    );
-    doneAppointment = data.filter(
-        (appointment) => appointment.status === "done"
-    );
-    cancledAppointment = data.filter(
-        (appointment) => appointment.status === "cancled"
-    );
-
-  }
+    if(data.length!==0){
+        upcomingAappointment = data.filter(
+            (appointment) => appointment.status === "upcoming"
+        );
+        doneAppointment = data.filter(
+            (appointment) => appointment.status === "done"
+        );
+        cancledAppointment = data.filter(
+            (appointment) => appointment.status === "cancled"
+        );
+    }
     const handleCancle = async (id) => {
-
         try {
             const res = await axios.patch(
                 `${process.env.NEXT_PUBLIC_API_URL}appointment/cancleAppointmentP`,
@@ -102,7 +94,6 @@ const Page = () => {
                 progress: undefined,
                 theme: "colored",
             })
-
         }
     };
 
@@ -111,7 +102,6 @@ const Page = () => {
             <section className="relative z-10 overflow-hidden pt-16 pb-16 md:pb-20 lg:pt-[180px] lg:pb-28  ">
                 <h1 className="text-green font-bold text-4xl flex justify-center mb-8">Here List Of Appointments Of Yours</h1>
                 <div className="py-8 flex flex-row justify-center">
-
                     <div>
                         <table className="w-full bg-primary bg-opacity-20 pb-16  py-4 ">
                             <thead>
@@ -124,7 +114,6 @@ const Page = () => {
                                     <th className="px-16 py-8">Status</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                                 <tr>
                                     <td className="col-span-6 text-primary pl-8  text-xl font-bold pt-4 "> Upcoming Appointments</td>
@@ -143,17 +132,16 @@ const Page = () => {
                                         </td>
                                     </tr>)
                                     )
-                            
                                 }
                                 )}
                                 {upcomingAappointment.length === 0 && (
                                     <tr className="text-center" >
                                         <td className="px-16 py-8 col-span-6 ">There Is No Upcoming Appointments</td>
-
                                     </tr>
                                 )}
                             </tbody>
                         </table>
+
 
                         <table className="w-full bg-yellow bg-opacity-20 pb-16  py-4 " >
                             <tbody>
@@ -182,8 +170,9 @@ const Page = () => {
                             </tbody>
                         </table>
 
-                        <table className="w-full bg-white bg-opacity-20 pb-16  py-4 ">
 
+
+                        <table className="w-full bg-white bg-opacity-20 pb-16  py-4 ">
                             <tbody>
                                 <tr>
                                     <td className="col-span-6 text-primary pl-8  text-xl font-bold pt-4"> Cancled Appointment</td>
@@ -202,20 +191,15 @@ const Page = () => {
                                             </tr>
                                         )
                                        )})
-                            
-                            }
-
-
+                                }
                                 {cancledAppointment.length === 0 && (
                                     <tr >
                                         <td className="px-16 py-8 col-span-6 ">There Is No Yet Cancled Appointments</td>
-
                                     </tr>
                                 )}
                             </tbody>
                         </table>
                     </div>
-
                 </div>
                 <button className="p-4 ml-32 bg-green text-dark px-12 rounded-md hover:bg-opacity-50 " onClick={()=>{router.back()}}> Back</button>
             </section>
@@ -232,9 +216,6 @@ const Page = () => {
                 theme="light"
             />
         </>
-
-
     );
 };
-
 export default Page;
