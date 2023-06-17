@@ -18,7 +18,7 @@ const SingleBlog = ({ patient }) => {
             Patient
           </span>
           <div className="relative w-full h-0 aspect-w-4 aspect-h-3">
-            <Image src={profileImg.url} alt="image" width={5000} height={3000} style={{ objectFit: "contain" }} className="hover:scale-110  transition duration-300 ease-in-out" />
+            <Image src={profileImg?.url} alt="image" width={5000} height={3000} style={{ objectFit: "contain" }} className="hover:scale-110  transition duration-300 ease-in-out" />
           </div>
 
         </Link>
